@@ -20,7 +20,7 @@ export default function Slider() {
                 <h1 className='slider-text w-1/4 absolute top-[60%] left-[20%]'>Наслаждайся моментом</h1>
             </>
         )
-    }, [slides])
+    }, [])
 
     useEffect(() => {
         const interval = setInterval(() => {
