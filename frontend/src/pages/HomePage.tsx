@@ -3,7 +3,7 @@ import Slider from "../components/Slider";
 
 export default function Home() {
     return (
-        <div className='w-[100vw] h-[100vh]'>
+        <div className='min-h-screen'>
             <Header></Header>
             <Slider/>
         </div>
