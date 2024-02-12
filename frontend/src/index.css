@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .header-wrapper {
+        @apply h-16 flex justify-between items-center p-[13px];
+    }
+
+    .header-icons {
+        @apply flex justify-between items-center w-[91px];
+    }
+
+    .container {
+       @apply w-[1510px] mx-auto;
+    }
+}
+
+@layer utilities {
+    .slider-text {
+        @apply text-[72px];
+    }
+}
