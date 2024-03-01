@@ -10,10 +10,6 @@
     .header-icons {
         @apply flex justify-between items-center w-[91px];
     }
-
-    .container {
-       @apply w-[1510px] mx-auto;
-    }
 }
 
 @layer utilities {
