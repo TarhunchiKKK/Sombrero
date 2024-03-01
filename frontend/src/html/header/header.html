@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="../../output.css">
+    </head>
+    <body>
+        <header style="background:linear-gradient(90deg, #8d90e3,#9ec0ea,#8d90e3)" id="header" class="bg-main-gradient-light relative">
+            <div class="container mx-auto">
+                <div id="header-wrapper">
+
+                    <!-- Logo -->
+                    <a class="flex items-center hover:cursor-pointer">
+                        <div class="block w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 mr-2">
+                            <img src="/frontend/src/assets/sombrero.svg" alt="Sombrero">
+                        </div>
+                        <span class="md:text-2xl lg:text-3xl inline-block">Sombrero</span>
+                    </a>
+
+                    <!-- Navigation -->
+                    <nav>
+                        <ul class="hidden lg:flex justify-between items-center">
+                            <li class="text-link hover:cursor-pointer mr-8 last:mr-0">Каталог</li>
+                            <li class="text-link hover:cursor-pointer mr-8 last:mr-0">Доставка</li>
+                            <li class="text-link hover:cursor-pointer mr-8 last:mr-0">О нас</li>
+                            <li class="text-link hover:cursor-pointer mr-8 last:mr-0">Помощь</li>
+                        </ul>
+                    </nav>
+
+                    <!-- Icons -->
+                    <div class="flex justify-between items-center">
+                        <div class="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 mr-2 sm:mr-4 lg:mr-6">
+                            <img src="../../assets/light-theme.svg" alt="Theme">
+                        </div>
+                        <div class="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 mr-2 sm:mr-4">
+                            <img src="../../assets/account.svg" alt="Account">
+                        </div>
+                        <div class="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 sm:block lg:hidden" id="menu">
+                            <img src="../../assets/menu.svg" alt="Menu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <script src="header.js"></script>
+    </body>
+</html>

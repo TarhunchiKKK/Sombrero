@@ -3,21 +3,13 @@
 @tailwind utilities;
 
 @layer components {
-    .header-wrapper {
-        @apply h-16 flex justify-between items-center p-[13px];
-    }
-
-    .header-icons {
-        @apply flex justify-between items-center w-[91px];
-    }
-
-    .container {
-       @apply w-[1510px] mx-auto;
+    #header-wrapper {
+        @apply flex justify-between items-center py-3;
     }
 }
 
 @layer utilities {
-    .slider-text {
-        @apply text-[72px];
+    .text-link {
+        @apply hover:text-[#8D90E3] active:text-[#9EC0EA];
     }
 }
