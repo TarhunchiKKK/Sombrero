@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.bg-none {
+    background: none;
+}
+
+.bg-light-gradient {
+    background: linear-gradient(90deg, #8d90e3,#9ec0ea,#8d90e3);
+}
+
+.bg-dark-gradient {
+    background: linear-gradient(90deg, #8aa0c7,#5e6a9d,#30284e);
+}
+
 @layer components {
     #header-wrapper {
         @apply flex justify-between items-center py-3;

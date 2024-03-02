@@ -7,8 +7,17 @@ import menuDark from '../assets/header/menu-dark.svg'
 import logo from '../assets/header/logo.svg'
 import { useState } from 'react'
 
-export default function Header() {
+import toggleTheme from '../utils/toggleTheme.ts'
+
+interface HeaderProps {
+    isTransparent: boolean
+}
+
+export default function Header({ isTransparent = false }: HeaderProps) {
     const [isLightTheme, setIsLightTheme] = useState<boolean>(true)
+    const headerBackground = isTransparent
+        ? 'bg-none'
+        : 'bg-light-gradient dark:bg-dark-gradient'
     const lightIconStyle = isLightTheme
         ? 'w-full h-full'
         : 'w-full h-full hidden'
@@ -17,14 +26,7 @@ export default function Header() {
         : 'w-full h-full'
 
     return (
-        <header
-            style={{
-                background: isLightTheme
-                    ? 'linear-gradient(90deg, #8d90e3,#9ec0ea,#8d90e3)'
-                    : 'linear-gradient(90deg, #8aa0c7,#5e6a9d,#30284e)',
-            }}
-            id='header'
-            className='relative'>
+        <header id='header' className={'relative ' + headerBackground}>
             <div className='container mx-auto px-2 sm:px-0'>
                 <div id='header-wrapper'>
                     {/* Logo */}
@@ -57,24 +59,28 @@ export default function Header() {
 
                     {/* Icons */}
                     <div className='flex justify-between items-center gap-3 sm:gap-12'>
-                        <div
-                            className='w-5 h-5 sm:w-8 sm:h-8 cursor-pointer'
-                            onClick={() => setIsLightTheme((prev) => !prev)}
-                            id='theme'>
-                            <img
-                                className={darkIconsStyle}
-                                src={lightTheme}
-                                alt='light-theme'
-                            />
-                            <img
-                                className={lightIconStyle}
-                                src={darkTheme}
-                                alt='dark-theme'
-                            />
-                        </div>
-                        <div
-                            className='w-5 h-5 sm:w-8 sm:h-8 cursor-pointer'
-                            id='account'>
+                        {/* Theme icons */}
+                        {!isTransparent && (
+                            <div
+                                className='w-5 h-5 sm:w-8 sm:h-8 cursor-pointer'
+                                // onClick={() => setIsLightTheme((prev) => !prev)}
+                                onClick={() => toggleTheme()}
+                                id='theme'>
+                                <img
+                                    className={darkIconsStyle}
+                                    src={lightTheme}
+                                    alt='light-theme'
+                                />
+                                <img
+                                    className={lightIconStyle}
+                                    src={darkTheme}
+                                    alt='dark-theme'
+                                />
+                            </div>
+                        )}
+
+                        {/* Account icons */}
+                        <div className='w-5 h-5 sm:w-8 sm:h-8 cursor-pointer'>
                             <img
                                 className={lightIconStyle}
                                 src={accountLight}
@@ -86,9 +92,9 @@ export default function Header() {
                                 alt='Account-dark'
                             />
                         </div>
-                        <div
-                            className='w-5 h-5 sm:w-8 sm:h-8 lg:hidden cursor-pointer'
-                            id='menu'>
+
+                        {/* Menu icons */}
+                        <div className='w-5 h-5 sm:w-8 sm:h-8 lg:hidden cursor-pointer'>
                             <img
                                 className={lightIconStyle}
                                 src={menuLight}
