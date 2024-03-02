@@ -22,7 +22,7 @@
 
 @layer utilities {
     .text-link {
-        @apply hover:text-[#8D90E3] active:text-[#9EC0EA];
+        @apply hover:cursor-pointer hover:text-[#8D90E3] active:text-[#9EC0EA];
     }
 
     .main-gradient {

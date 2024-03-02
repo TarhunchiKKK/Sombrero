@@ -26,8 +26,6 @@ const menuIcons = document.querySelectorAll('#menu img')
 
 theme.addEventListener('click', () => {
     if (isLightTheme) {
-        // header.style.background ='linear-gradient(90deg, #c773fd,#3d0084)'
-        // header.style.background = 'linear-gradient(0deg, #02d179,#00d175,#002332)'
         header.style.background ='linear-gradient(90deg, #8aa0c7,#5e6a9d,#30284e)'
     }
     else {

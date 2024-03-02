@@ -6,23 +6,31 @@ import menuLight from '../assets/header/menu-light.svg'
 import menuDark from '../assets/header/menu-dark.svg'
 import logo from '../assets/header/logo.svg'
 import { useState } from 'react'
-
 import toggleTheme from '../utils/toggleTheme.ts'
 
 interface HeaderProps {
-    isTransparent: boolean
+    isHome: boolean
 }
 
-export default function Header({ isTransparent = false }: HeaderProps) {
+export default function Header({ isHome = false }: HeaderProps) {
     const [isLightTheme, setIsLightTheme] = useState<boolean>(true)
-    const headerBackground = isTransparent ? 'bg-none' : 'main-gradient'
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+
+    const headerBackground = isHome ? 'bg-none' : 'main-gradient'
+
     const lightIconStyle = isLightTheme
         ? 'w-full h-full hidden'
         : 'w-full h-full'
-
-    const darkIconsStyle = isLightTheme
+    const darkIconStyle = isLightTheme
         ? 'w-full h-full'
         : 'w-full h-full hidden'
+
+    const navListStyle = isMenuOpen
+        ? 'absolute flex-col top-[100%] left-1/2 -translate-x-1/2 w-full z-30'
+        : 'hidden lg:flex justify-between items-center'
+    const navItemStyle = isMenuOpen
+        ? 'leading-10 w-full text-center mr-0 border-b-[1px] border-gray-300'
+        : 'text-link lg:text-xl mr-8 last:mr-0'
 
     function toggleThemeHandler() {
         setIsLightTheme((prev) => !prev)
@@ -45,32 +53,23 @@ export default function Header({ isTransparent = false }: HeaderProps) {
 
                     {/* Navigation  */}
                     <nav>
-                        <ul className='hidden lg:flex justify-between items-center'>
-                            <li className='text-link lg:text-xl hover:cursor-pointer mr-8 last:mr-0'>
-                                Каталог
-                            </li>
-                            <li className='text-link lg:text-xl hover:cursor-pointer mr-8 last:mr-0'>
-                                Доставка
-                            </li>
-                            <li className='text-link lg:text-xl hover:cursor-pointer mr-8 last:mr-0'>
-                                О нас
-                            </li>
-                            <li className='text-link lg:text-xl hover:cursor-pointer mr-8 last:mr-0'>
-                                Помощь
-                            </li>
+                        <ul className={navListStyle}>
+                            <li className={navItemStyle}>Каталог</li>
+                            <li className={navItemStyle}>Доставка</li>
+                            <li className={navItemStyle}>О нас</li>
+                            <li className={navItemStyle}>Помощь</li>
                         </ul>
                     </nav>
 
                     {/* Icons */}
                     <div className='flex justify-between items-center gap-3 sm:gap-12'>
                         {/* Theme icons */}
-                        {!isTransparent && (
+                        {!isHome && (
                             <div
                                 className='w-5 h-5 sm:w-8 sm:h-8 cursor-pointer'
-                                onClick={() => toggleThemeHandler()}
-                                id='theme'>
+                                onClick={() => toggleThemeHandler()}>
                                 <img
-                                    className={darkIconsStyle}
+                                    className={darkIconStyle}
                                     src={lightTheme}
                                     alt='light-theme'
                                 />
@@ -90,21 +89,23 @@ export default function Header({ isTransparent = false }: HeaderProps) {
                                 alt='Account-light'
                             />
                             <img
-                                className={darkIconsStyle}
+                                className={darkIconStyle}
                                 src={accountDark}
                                 alt='Account-dark'
                             />
                         </div>
 
                         {/* Menu icons */}
-                        <div className='w-5 h-5 sm:w-8 sm:h-8 lg:hidden cursor-pointer'>
+                        <div
+                            onClick={() => setIsMenuOpen((prev) => !prev)}
+                            className='w-5 h-5 sm:w-8 sm:h-8 lg:hidden cursor-pointer'>
                             <img
                                 className={lightIconStyle}
                                 src={menuLight}
                                 alt='Menu-light'
                             />
                             <img
-                                className={darkIconsStyle}
+                                className={darkIconStyle}
                                 src={menuDark}
                                 alt='Menu-dark'
                             />
