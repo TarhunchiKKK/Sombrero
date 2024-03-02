@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-none {
+/* .bg-none {
     background: none;
 }
 
@@ -12,7 +12,7 @@
 
 .bg-dark-gradient {
     background: linear-gradient(90deg, #8aa0c7,#5e6a9d,#30284e);
-}
+} */
 
 @layer components {
     #header-wrapper {
@@ -23,5 +23,10 @@
 @layer utilities {
     .text-link {
         @apply hover:text-[#8D90E3] active:text-[#9EC0EA];
+    }
+
+    .main-gradient {
+        @apply bg-gradient-to-r from-[#8d90e3] via-[#9ec0ea] to-[#8d90e3];
+        @apply dark:bg-gradient-to-r dark:from-[#8aa0c7] dark:via-[#5e6a9d] dark:to-[#30284e];
     }
 }

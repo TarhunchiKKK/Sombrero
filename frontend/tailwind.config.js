@@ -1,19 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ['selector', '[class="dark"]'],
+  darkMode: 'selector',
   content: [
-    "./src/**/*.{html,js}"
+    "./index.html",
+    "./src/**/*.{html,js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {
-      colors: {
-        'main-gradient': {
-          DEFAULT: 'linear-gradient(90deg, #8d90e3,#9ec0ea,#8d90e3)',
-          light: 'linear-gradient(90deg, #8d90e3,#9ec0ea,#8d90e3)',
-          dark: 'linear-gradient(90deg, #c773fd,#3d0084)',
-        } 
-      },
-    },
+    extend: {},
   },
   plugins: [],
 }

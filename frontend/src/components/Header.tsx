@@ -15,15 +15,19 @@ interface HeaderProps {
 
 export default function Header({ isTransparent = false }: HeaderProps) {
     const [isLightTheme, setIsLightTheme] = useState<boolean>(true)
-    const headerBackground = isTransparent
-        ? 'bg-none'
-        : 'bg-light-gradient dark:bg-dark-gradient'
+    const headerBackground = isTransparent ? 'bg-none' : 'main-gradient'
     const lightIconStyle = isLightTheme
-        ? 'w-full h-full'
-        : 'w-full h-full hidden'
-    const darkIconsStyle = isLightTheme
         ? 'w-full h-full hidden'
         : 'w-full h-full'
+
+    const darkIconsStyle = isLightTheme
+        ? 'w-full h-full'
+        : 'w-full h-full hidden'
+
+    function toggleThemeHandler() {
+        setIsLightTheme((prev) => !prev)
+        toggleTheme()
+    }
 
     return (
         <header id='header' className={'relative ' + headerBackground}>
@@ -63,8 +67,7 @@ export default function Header({ isTransparent = false }: HeaderProps) {
                         {!isTransparent && (
                             <div
                                 className='w-5 h-5 sm:w-8 sm:h-8 cursor-pointer'
-                                // onClick={() => setIsLightTheme((prev) => !prev)}
-                                onClick={() => toggleTheme()}
+                                onClick={() => toggleThemeHandler()}
                                 id='theme'>
                                 <img
                                     className={darkIconsStyle}
