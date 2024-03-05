@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import AccodreonItem, { AccordeonItems } from '../data/faq'
 
 interface AccordeonItemProps {
