@@ -7,8 +7,10 @@ interface SliderProps {
 
 
 export function Slider({monitor}: SliderProps) {
+    // slides count is immutable
     const slidesCount: number = useMemo(() => sliderImages[monitor].length, [])
     const [currentSlide, setCurrentSlide] = useState<number>(0)
+
 
     useEffect(() => {
         function nextSlide() {
@@ -24,14 +26,21 @@ export function Slider({monitor}: SliderProps) {
             nextSlide()
         }, 3000)
 
-        return () => clearInterval(interval)
-    }, [currentSlide])
+        
+        return () => {
+            clearInterval(interval)
+        }
+    }, [])
 
+    // styles for slides
     const visibleSlideStyle: string = 'w-full h-full'
     const hiddenSlideStyle: string = 'w-full h-full hidden'
 
+    // slides for dots
     const filledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black bg-[#3E3E3E]'
     const unfilledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black'
+
+    console.log('render')
 
     return (
         <>
