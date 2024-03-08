@@ -1,7 +1,7 @@
+import Search from './components/Search'
+
 function App() {
-  return (
-    <></>
-  )
+    return <Search onSubmit={() => {}}></Search>
 }
 
 export default App
