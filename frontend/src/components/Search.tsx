@@ -1,17 +1,25 @@
 interface SearchProps {
-    className?: string
-    onSubmit: () => void
+    className: string
+    placeholder: string
+    onChange?: React.ChangeEventHandler<HTMLInputElement>
+    onSubmit?: () => void
 }
 
-export default function Search({ className = '', onSubmit }: SearchProps) {
+export default function Search(props: SearchProps) {
     const formStyle: string =
-        className +
-        ' w-[720px] px-[7px] py-[6px] flex justify-between items-center main-gradient rounded-lg'
+        props.className +
+        ' w-4/5 md:w-[720px] px-[7px] py-[6px] flex items-center main-gradient rounded-lg'
 
     return (
-        <form className={formStyle} onSubmit={() => onSubmit()}>
-            <input type='text' className='w-[613px] h-[38px] rounded-lg' />
-            <button className='w-[84px]'>
+        <form className={formStyle} onSubmit={props.onSubmit}>
+            <input
+                onChange={props.onChange}
+                type='text'
+                className='w-full sm:w-[613px] h-[38px] rounded-lg outline-none pl-2'
+                placeholder={props.placeholder}
+            />
+
+            <button className='w-[84px] ml-3 hidden sm:block'>
                 <span className='text-white text-xl'>Найти</span>
             </button>
         </form>

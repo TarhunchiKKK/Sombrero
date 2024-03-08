@@ -1,7 +1,7 @@
-import Search from './components/Search'
+import HelpPage from './pages/HelpPage'
 
 function App() {
-    return <Search onSubmit={() => {}}></Search>
+    return <HelpPage />
 }
 
 export default App

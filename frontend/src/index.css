@@ -13,7 +13,7 @@
     }
 
     .text-link {
-        @apply hover:cursor-pointer hover:text-[#8D90E3] active:8D90E3;
+        @apply hover:cursor-pointer hover:text-[#8D90E3] active:text-[8D90E3] visited:text-[8D90E3];
     }
 }
 
