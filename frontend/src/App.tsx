@@ -1,7 +1,7 @@
+import ContactsPage from './pages/ContactPage'
+
 function App() {
-  return (
-    <></>
-  )
+    return <ContactsPage></ContactsPage>
 }
 
 export default App
