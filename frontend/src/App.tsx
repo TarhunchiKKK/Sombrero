@@ -1,7 +1,7 @@
-import ContactsPage from './pages/ContactPage'
+import Footer from './components/Footer'
 
 function App() {
-    return <ContactsPage></ContactsPage>
+    return <Footer></Footer>
 }
 
 export default App
