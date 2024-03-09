@@ -9,6 +9,7 @@
 
     #header-wrapper {
         @apply flex justify-between items-center py-3;
+    }
 
     .main-gradient {
         @apply bg-gradient-to-r from-[#8d90e3] via-[#9ec0ea] to-[#8d90e3];
@@ -22,6 +23,10 @@
 
         @apply after:absolute after:block after:top-full after:-left-[2px] after:w-full after:h-[30px];
         @apply last:after:hidden after:border-l-2 after:border-[#BEC2C6] after:bg-white even:after:bg-[#DEE2E6];
+    }
+
+    .text-link {
+        @apply hover:cursor-pointer hover:text-[#8D90E3] active:text-[8D90E3] visited:text-[8D90E3];
     }
 }
 
