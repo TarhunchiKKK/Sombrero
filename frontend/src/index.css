@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .header-wrapper {
+        @apply h-16 flex justify-between items-center p-[13px];
+    }
+
+    .main-gradient {
+        @apply bg-gradient-to-r from-[#8d90e3] via-[#9ec0ea] to-[#8d90e3];
+        @apply dark:bg-gradient-to-r dark:from-[#8aa0c7] dark:via-[#5e6a9d] dark:to-[#30284e];
+    }
+
+    .text-link {
+        @apply hover:cursor-pointer hover:text-[#8D90E3] active:text-[8D90E3] visited:text-[8D90E3];
+    }
+}
+
+@layer utilities {
+    .slider-text {
+        @apply text-[72px];
+    }
+}
