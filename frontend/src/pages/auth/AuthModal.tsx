@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Login from './Login'
 import Registration from './Registration'
+import Confirm from './Confirm'
 
 enum Tabs {
     Login = 'Login',
@@ -13,7 +14,7 @@ const activeTabStyle: string = `w-1/2 h-full ${activetabBg} flex justify-center 
 const tabStyle: string = `w-1/2 h-full bg-white flex justify-center items-center cursor-pointer hover:${activetabBg}`
 
 export default function AuthModal() {
-    const [tab, setTab] = useState<string>(Tabs.Login)
+    const [tab, setTab] = useState<string>(Tabs.Confirm)
 
     const tabHandler = (value: string) => {
         if (value !== tab) {
@@ -29,7 +30,6 @@ export default function AuthModal() {
                 <div className='flex flex-row h-10 border-b-2 border-[#d4d6d8]'>
                     {/* Login tab */}
                     <button
-                        // style={{ borderRight: '1px solid #d4d6d8' }}
                         className={
                             tab === Tabs.Login ? activeTabStyle : tabStyle
                         }
@@ -57,6 +57,7 @@ export default function AuthModal() {
                     {tab === Tabs.Registration && (
                         <Registration tab={() => tabHandler(Tabs.Login)} />
                     )}
+                    {tab === Tabs.Confirm && <Confirm />}
                 </div>
             </div>
         </>
