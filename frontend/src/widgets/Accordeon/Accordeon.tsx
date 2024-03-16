@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react'
-import AccordeonItem from './components/AccordeonItem'
-import IAccodreonItem from './types/IAccordeonItem'
+import { AccordeonItem } from './components/AccordeonItem'
+import { IAccodreonItem } from './types/IAccordeonItem'
 
 interface AccordeopnProps {
     getItems: () => IAccodreonItem[]
 }
 
-export default function Accordeon({ getItems }: AccordeopnProps) {
+export function Accordeon({ getItems }: AccordeopnProps) {
     const items = useMemo(() => getItems(), [])
     const [currentItem, setCurrentItem] = useState<number>(-1)
 

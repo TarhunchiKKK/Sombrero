@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import RegistrationForm from './forms/RegistrationForm'
-import ConfirmForm from './forms/ConfirmForm'
-import LoginForm from './forms/LoginForm'
+import { LoginForm } from './forms/LoginForm'
+import { RegistrationForm } from './forms/RegistrationForm'
+import { ConfirmForm } from './forms/ConfirmForm'
 
 enum Tabs {
     Login = 'Login',
@@ -13,7 +13,7 @@ const activetabBg: string = 'bg-[#eff1f3]'
 const activeTabStyle: string = `w-1/2 h-full ${activetabBg} flex justify-center items-center cursor-pointer hover:${activetabBg}`
 const tabStyle: string = `w-1/2 h-full bg-white flex justify-center items-center cursor-pointer hover:${activetabBg}`
 
-export default function AuthModal() {
+export function AuthModal() {
     const [tab, setTab] = useState<string>(Tabs.Confirm)
 
     const tabHandler = (value: string) => {

@@ -6,7 +6,7 @@ interface InputFieldProps {
     errors: any
 }
 
-export default function InputField({
+export function InputField({
     field,
     placeholder,
     type,

@@ -4,7 +4,7 @@ interface ContactProps {
     contact: IContact
 }
 
-export default function Contact({ contact }: ContactProps) {
+export function Contact({ contact }: ContactProps) {
     return (
         <div className='contact group'>
             {/* Image and info */}

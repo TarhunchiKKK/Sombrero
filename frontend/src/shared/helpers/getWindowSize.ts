@@ -1,4 +1,4 @@
-export default function getWindowSize(): string {
+export function getWindowSize(): string {
     const windowSize = window.innerWidth
     if (windowSize <= 640) {
         return 'sm'

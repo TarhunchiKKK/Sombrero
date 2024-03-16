@@ -1,16 +1,12 @@
-import AccodreonItem from '../../../pages/Faq/consts/FaqQuestions'
+import { IAccodreonItem } from '../types/IAccordeonItem'
 
-interface AccordeonItemProps {
-    item: AccodreonItem
+export interface AccordeonItemProps {
+    item: IAccodreonItem
     isOpen: boolean
     onClick: () => void
 }
 
-export default function AccordeonItem({
-    item,
-    isOpen,
-    onClick,
-}: AccordeonItemProps) {
+export function AccordeonItem({ item, isOpen, onClick }: AccordeonItemProps) {
     const questionStyle: string = isOpen
         ? 'cursor-pointer h-14 px-4 py-1 flex justify-between items-center border-[#BEC2C6] border-2 main-gradient'
         : 'cursor-pointer h-14 px-4 py-1 flex justify-between items-center border-[#BEC2C6] border-2'

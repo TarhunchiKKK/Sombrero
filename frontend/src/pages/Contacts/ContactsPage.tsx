@@ -1,4 +1,4 @@
-import Contact from '../../widgets/Contact/Contact'
+import { Contact } from '../../widgets/Contact'
 import { contacts } from './consts/Contacts'
 
 export default function ContactsPage() {

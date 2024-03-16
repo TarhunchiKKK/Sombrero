@@ -1,5 +1,5 @@
+import { Accordeon } from '../../widgets/Accordeon'
 import { AccordeonItems } from './consts/FaqQuestions'
-import Accordeon from '../../widgets/Accordeon/Accordeon'
 
 export default function FaqPage() {
     return (

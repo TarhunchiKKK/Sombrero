@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Search from '../../shared/components/Search'
 import { HelpQuestionsCategories } from './consts/HelpQuestions'
-import HelpQuestions from '../../widgets/HelpQuestions/HelpQuestions'
+import { Search } from '../../shared'
+import { HelpQuestions } from '../../widgets/HelpQuestions'
 
 export default function HelpPage() {
     const [searchedQuestion, setSearchedQuestion] = useState<string>('')

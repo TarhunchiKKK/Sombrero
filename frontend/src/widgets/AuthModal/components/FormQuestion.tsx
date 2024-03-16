@@ -3,7 +3,7 @@ interface FormQuestionProps {
     onClick: () => void
 }
 
-export default function FormQuestion({ content, onClick }: FormQuestionProps) {
+export function FormQuestion({ content, onClick }: FormQuestionProps) {
     return (
         <a
             className='cursor-pointer w-full block text-center underline mt-6 mb-8 text-blue-600'

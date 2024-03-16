@@ -1,4 +1,4 @@
-export default interface IAccodreonItem {
+export interface IAccodreonItem {
     id: number
     question: string
     answer: string

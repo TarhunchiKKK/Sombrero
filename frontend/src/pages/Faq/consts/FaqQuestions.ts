@@ -1,4 +1,4 @@
-import IAccodreonItem from "../../../widgets/Accordeon/types/IAccordeonItem";
+import { IAccodreonItem } from "../../../widgets/Accordeon";
 
 export const AccordeonItems: IAccodreonItem[] = [
     {

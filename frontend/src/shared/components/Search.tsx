@@ -5,7 +5,7 @@ interface SearchProps {
     onSubmit?: () => void
 }
 
-export default function Search(props: SearchProps) {
+export function Search(props: SearchProps) {
     const formStyle: string =
         props.className +
         ' w-4/5 md:w-[720px] px-[7px] py-[6px] flex items-center main-gradient rounded-lg'

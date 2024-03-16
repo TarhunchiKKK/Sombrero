@@ -2,7 +2,7 @@ interface FooterProps {
     isHome?: boolean
 }
 
-export default function Footer({ isHome = false }: FooterProps) {
+export function Footer({ isHome = false }: FooterProps) {
     const linkStyle = 'w-4 h-4 text-base sm:text-2xl sm:w-6 sm:h-6 text-black '
 
     return (

@@ -1,5 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
-import { sliderImages } from '../../pages/Home/consts/SliderImages'
+
+// styles for slides
+const visibleSlideStyle: string = 'w-full h-full'
+const hiddenSlideStyle: string = 'w-full h-full hidden'
+
+// slides for dots
+const filledDotStyle: string =
+    'w-4 h-4 border-2 rounded-full border-black bg-[#3E3E3E]'
+const unfilledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black'
 
 interface SliderProps {
     getImages: () => any[]
@@ -28,18 +36,6 @@ export function Slider({ getImages }: SliderProps) {
             clearInterval(interval)
         }
     }, [])
-
-    // styles for slides
-    const visibleSlideStyle: string = 'w-full h-full'
-    const hiddenSlideStyle: string = 'w-full h-full hidden'
-
-    // slides for dots
-    const filledDotStyle: string =
-        'w-4 h-4 border-2 rounded-full border-black bg-[#3E3E3E]'
-    const unfilledDotStyle: string =
-        'w-4 h-4 border-2 rounded-full border-black'
-
-    console.log('render')
 
     return (
         <>

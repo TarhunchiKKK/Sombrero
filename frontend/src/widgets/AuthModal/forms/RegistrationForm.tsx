@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import InputField from '../components/InputField'
-import FormQuestion from '../components/FormQuestion'
+import { InputField } from '../components/InputField'
+import { FormQuestion } from '../components/FormQuestion'
 
 type RegistrationInputs = {
     email: string
@@ -12,7 +12,7 @@ interface RegistrationProps {
     tab: () => void
 }
 
-export default function RegistrationForm({ tab }: RegistrationProps) {
+export function RegistrationForm({ tab }: RegistrationProps) {
     const {
         register,
         handleSubmit,

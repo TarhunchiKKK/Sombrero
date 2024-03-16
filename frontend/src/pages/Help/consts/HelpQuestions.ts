@@ -1,7 +1,7 @@
-import { HelpQuestionsCategory } from "../../../widgets/HelpQuestions/types/IHelpQuestionsCategory";
+import { IHelpQuestionsGroup } from "../../../widgets/HelpQuestions";
 
 
-export const HelpQuestionsCategories: HelpQuestionsCategory[] = [
+export const HelpQuestionsCategories: IHelpQuestionsGroup[] = [
     {
         title: 'Questuons group 1',
         questions: [

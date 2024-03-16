@@ -7,7 +7,7 @@ interface HelpQuestionsProps {
     getQuestions: () => IHelpQuestionsGroup[]
 }
 
-export default function HelpQuestions({
+export function HelpQuestions({
     searchedQuestion,
     getQuestions,
 }: HelpQuestionsProps) {

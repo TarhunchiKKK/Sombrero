@@ -12,7 +12,7 @@ interface HeaderProps {
     isHome: boolean
 }
 
-export default function Header({ isHome = false }: HeaderProps) {
+export function Header({ isHome = false }: HeaderProps) {
     const [isLightTheme, setIsLightTheme] = useState<boolean>(true)
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 

@@ -3,7 +3,7 @@ import { useRef } from 'react'
 const passwordLength: number = 6
 const password: string[] = new Array<string>(passwordLength).fill('')
 
-export default function ConfirmForm() {
+export function ConfirmForm() {
     const refs: any = {
         ref0: useRef(null),
         ref1: useRef(null),

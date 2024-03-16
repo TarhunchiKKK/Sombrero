@@ -1,5 +1,5 @@
+import { getWindowSize } from '../../shared'
 import { Slider } from '../../widgets/Slider/Slider'
-import getWindowSize from '../../shared/helpers/getWindowSize'
 import { sliderImages } from './consts/SliderImages'
 
 export default function HomePage() {
