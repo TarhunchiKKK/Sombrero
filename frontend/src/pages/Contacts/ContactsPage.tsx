@@ -1,7 +1,7 @@
 import { Contact } from '../../widgets/Contact'
 import { contacts } from './consts/Contacts'
 
-export default function ContactsPage() {
+export function ContactsPage() {
     return (
         <section className='pt-[82px] pb-14'>
             <div className='container mx-auto px-2 sm:px-0'>

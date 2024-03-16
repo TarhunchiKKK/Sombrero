@@ -3,7 +3,7 @@ import { HelpQuestionsCategories } from './consts/HelpQuestions'
 import { Search } from '../../shared'
 import { HelpQuestions } from '../../widgets/HelpQuestions'
 
-export default function HelpPage() {
+export function HelpPage() {
     const [searchedQuestion, setSearchedQuestion] = useState<string>('')
 
     return (
