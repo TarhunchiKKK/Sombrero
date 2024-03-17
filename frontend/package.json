@@ -11,6 +11,7 @@
     "tw": "npx tailwindcss -i ./src/app/styles/index.css -o ./src/app/styles/output.css --watch"
   },
   "dependencies": {
+    "@react-spring/web": "^9.7.3",
     "@reduxjs/toolkit": "^2.2.1",
     "@types/react-redux": "^7.1.33",
     "framer-motion": "^11.0.14",
