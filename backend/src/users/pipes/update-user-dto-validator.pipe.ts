@@ -2,9 +2,7 @@ import { ArgumentMetadata, PipeTransform } from '@nestjs/common';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserValidator } from './user.validator';
 
-export class UpdateUserDtoValidationPipe
-    implements PipeTransform<UpdateUserDto>
-{
+export class UpdateUserDtoValidationPipe implements PipeTransform<UpdateUserDto> {
     private readonly userValidator: UserValidator;
 
     constructor() {
@@ -24,8 +22,17 @@ export class UpdateUserDtoValidationPipe
         if (value.password) {
             this.userValidator.validatePassword(value.password);
         }
-        if (value.address) {
-            this.userValidator.validateAddress(value.address);
+        if (value.address?.country) {
+            this.userValidator.validateCountry(value.address.country);
+        }
+        if (value.address?.city) {
+            this.userValidator.validateCity(value.address.city);
+        }
+        if (value.address?.houseNumber) {
+            this.userValidator.validateHouseNumber(value.address.houseNumber);
+        }
+        if (value.address?.flatNumber) {
+            this.userValidator.validateFlatNumber(value.address.flatNumber);
         }
         return value;
     }

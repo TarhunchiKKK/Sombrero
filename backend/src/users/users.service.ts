@@ -11,6 +11,7 @@ export class UsersService {
     constructor(
         @InjectRepository(User)
         private readonly usersRepository: Repository<User>,
+
         @InjectRepository(Address)
         private readonly addressesRepository: Repository<Address>,
     ) {}
@@ -22,18 +23,13 @@ export class UsersService {
             },
         });
 
-        console.log('Exist user');
-
         if (existUser) {
             throw new BadRequestException('This user already exists');
         }
 
-        console.log('Before saving address');
         const address: Address = await this.addressesRepository.save({
             ...createUserDto.address,
         });
-
-        console.log('Before saving user');
 
         return await this.usersRepository.save({
             ...createUserDto,
@@ -57,6 +53,9 @@ export class UsersService {
             where: {
                 id: id,
             },
+            relations: {
+                address: true,
+            },
         });
     }
 
@@ -68,11 +67,28 @@ export class UsersService {
         });
     }
 
-    update(id: number, updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} user`;
+    public async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {
+        const user: User = await this.usersRepository.findOne({
+            where: {
+                id: id,
+            },
+            relations: {
+                address: true,
+            },
+        });
+
+        if (!user) {
+            throw new BadRequestException('No such user');
+        }
+
+        if (updateUserDto.address) {
+            await this.addressesRepository.update(user.address.id, updateUserDto.address);
+        }
+
+        await this.usersRepository.update(id, updateUserDto);
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} user`;
+    public async remove(id: number): Promise<void> {
+        await this.usersRepository.delete(id);
     }
 }

@@ -1,16 +1,10 @@
-import {
-    ArgumentMetadata,
-    BadRequestException,
-    PipeTransform,
-} from '@nestjs/common';
+import { ArgumentMetadata, BadRequestException, PipeTransform } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { Address, Countries } from '../entities/address.entity';
 import { CreateAddressDto } from '../dto/create-address.dto';
 import { UserValidator } from './user.validator';
 
-export class CreateUserDtoValidationPipe
-    implements PipeTransform<CreateUserDto>
-{
+export class CreateUserDtoValidationPipe implements PipeTransform<CreateUserDto> {
     private readonly userValidator: UserValidator;
 
     constructor() {
@@ -22,7 +16,10 @@ export class CreateUserDtoValidationPipe
         this.userValidator.validateSurname(value.surname);
         this.userValidator.validateEmail(value.email);
         this.userValidator.validatePassword(value.password);
-        this.userValidator.validateAddress(value.address);
+        this.userValidator.validateCountry(value.address.country);
+        this.userValidator.validateCity(value.address.city);
+        this.userValidator.validateHouseNumber(value.address.houseNumber);
+        this.userValidator.validateFlatNumber(value.address.flatNumber);
         return value;
     }
 }

@@ -22,7 +22,6 @@ export class UsersController {
     @Post()
     @UsePipes(CreateUserDtoValidationPipe)
     create(@Body() createUserDto: CreateUserDto) {
-        console.log('create');
         return this.usersService.create(createUserDto);
     }
 
@@ -44,6 +43,6 @@ export class UsersController {
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.usersService.remove(+id);
+        this.usersService.remove(+id);
     }
 }

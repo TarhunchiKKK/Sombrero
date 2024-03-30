@@ -3,8 +3,6 @@ import { CreateAddressDto } from '../dto/create-address.dto';
 import { Countries } from '../entities/address.entity';
 
 export class UserValidator {
-    // constructor() {}
-
     validateName(name: string) {
         if (name === '' || name === undefined || name === null) {
             throw new BadRequestException('Name cannot be empty');
@@ -28,9 +26,7 @@ export class UserValidator {
         }
 
         if (surname.length <= 2) {
-            throw new BadRequestException(
-                'Surname cannot be less than 2 symbols',
-            );
+            throw new BadRequestException('Surname cannot be less than 2 symbols');
         }
 
         const numbers: string = '0123456789';
@@ -54,30 +50,30 @@ export class UserValidator {
         }
 
         if (password.length < 6) {
-            throw new BadRequestException(
-                'Password should be more than 6 symbols',
-            );
+            throw new BadRequestException('Password should be more than 6 symbols');
         }
     }
 
-    validateAddress(address: CreateAddressDto) {
-        if (!(address.country in Countries)) {
+    validateCountry(country: Countries) {
+        if (!(country in Countries)) {
             throw new BadRequestException('No such country');
         }
+    }
 
-        if (
-            address.city === '' ||
-            address.city === null ||
-            address.city === undefined
-        ) {
+    validateCity(city: string) {
+        if (city === '' || city === null || city === undefined) {
             throw new BadRequestException('City should be provided');
         }
+    }
 
-        if (address.houseNumber <= 0) {
+    validateHouseNumber(houseNumber: number) {
+        if (houseNumber <= 0) {
             throw new BadRequestException('House number cannot be less than 1');
         }
+    }
 
-        if (address.flatNumber <= 0) {
+    validateFlatNumber(flatNumber: number) {
+        if (flatNumber <= 0) {
             throw new BadRequestException('Flat number cannot be less than 1');
         }
     }
