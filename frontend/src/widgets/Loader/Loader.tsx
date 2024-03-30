@@ -2,7 +2,7 @@ import loaderLight from './assets/loader-light.svg'
 import loaderDark from './assets/loader-dark.svg'
 import { animated, useSpring } from '@react-spring/web'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../app'
+import { RootState } from '../../app/store/store'
 
 export function Loader() {
     const springs = useSpring({
