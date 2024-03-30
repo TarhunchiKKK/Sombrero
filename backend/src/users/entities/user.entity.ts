@@ -1,49 +1,71 @@
-import { Advertisement } from "src/advertisements/entities/advertisement.entity"
-import { Address } from "./address.entity"
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Advertisement } from 'src/advertisements/entities/advertisement.entity';
+import { Address } from './address.entity';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id: number
+    id: number;
 
     @Column()
-    name: string
+    name: string;
 
     @Column()
-    surname: string
+    surname: string;
 
     @Column()
-    phoneNumber: string
+    phoneNumber: string;
 
     @Column()
-    email: string
+    email: string;
 
     @Column()
-    password: string
+    password: string;
 
     @CreateDateColumn()
-    registrationDate: Date
+    registrationDate: Date;
 
     @OneToOne(() => Address)
     @JoinColumn()
-    address: Address
+    address: Address;
 
     @Column({ nullable: true })
-    photo: string
+    photo?: string;
 
-    @OneToMany(()=> Advertisement, (advertisment: Advertisement) => advertisment.vendor, {
-        onDelete: 'CASCADE',
-    })
-    salesList: Advertisement[]
+    @OneToMany(
+        () => Advertisement,
+        (advertisment: Advertisement) => advertisment.vendor,
+        {
+            onDelete: 'CASCADE',
+        },
+    )
+    salesList: Advertisement[];
 
-    @ManyToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.wishedUsers, {
-        onDelete: 'NO ACTION',
-    })
-    wishList: Advertisement[]
+    @ManyToMany(
+        () => Advertisement,
+        (advertisment: Advertisement) => advertisment.wishedUsers,
+        {
+            onDelete: 'NO ACTION',
+        },
+    )
+    wishList: Advertisement[];
 
-    @OneToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.buyer, {
-        onDelete: 'CASCADE',
-    })
-    purchasesList: Advertisement[]
+    @OneToMany(
+        () => Advertisement,
+        (advertisment: Advertisement) => advertisment.buyer,
+        {
+            onDelete: 'CASCADE',
+        },
+    )
+    purchasesList: Advertisement[];
 }

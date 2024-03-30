@@ -1,36 +1,43 @@
-import { Category } from "src/categories/entities/category.entity"
-import { User } from "src/users/entities/user.entity"
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm"
+import { Category } from 'src/categories/entities/category.entity';
+import { User } from 'src/users/entities/user.entity';
+import {
+    Column,
+    Entity,
+    ManyToMany,
+    ManyToOne,
+    PrimaryColumn,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Advertisement {
-    @PrimaryColumn()
-    id: number
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column()
-    title: string
+    title: string;
 
     @Column({ nullable: true })
-    description: string
+    description: string;
 
     @Column()
-    price: number
+    price: number;
 
     @Column({ default: false })
-    saleStatus:  boolean
+    saleStatus: boolean;
 
     @Column({ nullable: true })
-    photo: string
+    photo: string;
 
     @ManyToOne(() => Category, (category: Category) => category.advertisements)
-    category: Category
+    category: Category;
 
     @ManyToOne(() => User, (user: User) => user.salesList)
-    vendor:  User
+    vendor: User;
 
     @ManyToMany(() => User, (user: User) => user.wishList)
-    wishedUsers: User[]
+    wishedUsers: User[];
 
     @ManyToOne(() => User, (user: User) => user.purchasesList)
-    buyer: User
+    buyer: User;
 }

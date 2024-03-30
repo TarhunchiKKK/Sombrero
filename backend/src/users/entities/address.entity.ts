@@ -1,26 +1,30 @@
-import { Column, Entity, PrimaryColumn } from "typeorm"
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum Countries {
-    
+    Belarus = 'Belarus',
+    Russia = 'Russia',
+    Poland = 'Poland',
+    Kazakhstan = 'Kazakhstan',
+    France = 'France',
 }
 
 @Entity()
 export class Address {
-    @PrimaryColumn()
-    id: number
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column()
-    country: Countries
+    country: Countries;
 
     @Column()
-    city: string
+    city: string;
 
     @Column({ nullable: true })
-    street: string
+    street?: string;
 
     @Column({ nullable: true })
-    houseNumber: number
+    houseNumber?: number;
 
     @Column({ nullable: true })
-    flatNumber: number
+    flatNumber?: number;
 }

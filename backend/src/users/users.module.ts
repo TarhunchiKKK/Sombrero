@@ -4,6 +4,7 @@ import { UsersController } from './users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
 import { User } from './entities/user.entity';
+import { UserValidator } from './pipes/user.validator';
 
 @Module({
     imports: [TypeOrmModule.forFeature([User, Address])],
