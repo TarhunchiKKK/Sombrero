@@ -22,7 +22,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
             case UserValidationStatus.INCORRECT_PASSWORD:
                 throw new UnauthorizedException('Invalid password');
             default:
-                return result.user;
+                const user = result.user;
+                return user;
         }
     }
 }
