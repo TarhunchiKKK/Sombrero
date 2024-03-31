@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
 import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,28 +7,68 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class AdvertisementsService {
-  constructor(
-    @InjectRepository(Advertisement)
-    private readonly advertisementsRepository: Repository<Advertisement>
-  ) {}
-  
-  create(createAdvertisementDto: CreateAdvertisementDto) {
-    return 'This action adds a new advertisement';
-  }
+    constructor(
+        @InjectRepository(Advertisement)
+        private readonly advertisementsRepository: Repository<Advertisement>,
+    ) {}
 
-  findAll() {
-    return `This action returns all advertisements`;
-  }
+    public async create(createAdvertisementDto: CreateAdvertisementDto): Promise<Advertisement> {
+        const advertisement = {
+            ...createAdvertisementDto,
+            category: {
+                id: createAdvertisementDto.category.id,
+            },
+            vendor: {
+                id: createAdvertisementDto.vendor.id,
+            },
+        };
+        return await this.advertisementsRepository.save(advertisement);
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} advertisement`;
-  }
+    public async findAll(): Promise<Advertisement[]> {
+        return await this.advertisementsRepository.find({
+            relations: {
+                vendor: false,
+                buyer: false,
+                category: false,
+                wishedUsers: false,
+            },
+        });
+    }
 
-  update(id: number, updateAdvertisementDto: UpdateAdvertisementDto) {
-    return `This action updates a #${id} advertisement`;
-  }
+    public async findOne(id: number): Promise<Advertisement> {
+        return await this.advertisementsRepository.findOne({
+            where: {
+                id: id,
+            },
+            relations: {
+                category: true,
+                vendor: true,
+                buyer: true,
+                wishedUsers: true,
+            },
+        });
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} advertisement`;
-  }
+    public async update(id: number, updateAdvertisementDto: UpdateAdvertisementDto): Promise<void> {
+        const advertisement: Advertisement = await this.advertisementsRepository.findOne({
+            where: {
+                id: id,
+            },
+            relations: {
+                category: true,
+                vendor: true,
+            },
+        });
+
+        if (!advertisement) {
+            throw new BadRequestException('No such advertisement');
+        }
+
+        await this.advertisementsRepository.update(id, updateAdvertisementDto);
+    }
+
+    public async remove(id: number): Promise<void> {
+        await this.advertisementsRepository.delete(id);
+    }
 }
