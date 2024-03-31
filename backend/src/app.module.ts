@@ -14,6 +14,7 @@ import { SombreroConfigModule } from './config/sombrero-config.module';
 
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisClientOptions } from 'redis';
+import { AuthModule } from './auth/auth.module';
 import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
@@ -45,6 +46,7 @@ import * as redisStore from 'cache-manager-redis-store';
                 port: 6379,
             },
         }),
+        AuthModule,
     ],
 })
 export class AppModule {}

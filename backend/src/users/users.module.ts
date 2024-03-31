@@ -10,5 +10,6 @@ import { UserValidator } from './pipes/user.validator';
     imports: [TypeOrmModule.forFeature([User, Address])],
     controllers: [UsersController],
     providers: [UsersService],
+    exports: [UsersService],
 })
 export class UsersModule {}
