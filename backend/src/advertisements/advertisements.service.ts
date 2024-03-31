@@ -4,12 +4,15 @@ import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Advertisement } from './entities/advertisement.entity';
 import { Repository } from 'typeorm';
+import { CategoriesService } from 'src/categories/categories.service';
+import { Category } from 'src/categories/entities/category.entity';
 
 @Injectable()
 export class AdvertisementsService {
     constructor(
         @InjectRepository(Advertisement)
         private readonly advertisementsRepository: Repository<Advertisement>,
+        private readonly categoriesService: CategoriesService,
     ) {}
 
     public async create(createAdvertisementDto: CreateAdvertisementDto): Promise<Advertisement> {
@@ -63,6 +66,13 @@ export class AdvertisementsService {
 
         if (!advertisement) {
             throw new BadRequestException('No such advertisement');
+        }
+
+        if (updateAdvertisementDto.category) {
+            const category: Category = await this.categoriesService.findOne(
+                updateAdvertisementDto.category.id,
+            );
+            updateAdvertisementDto.category = category;
         }
 
         await this.advertisementsRepository.update(id, updateAdvertisementDto);
