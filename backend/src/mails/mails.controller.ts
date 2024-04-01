@@ -1,15 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { MailsService } from './mails.service';
-import { CreateMailDto } from './dto/create-mail.dto';
-import { UpdateMailDto } from './dto/update-mail.dto';
+import { SendMailDto } from './dto/send-mail.dto';
 
 @Controller('mails')
 export class MailsController {
-  constructor(private readonly mailsService: MailsService) {}
+    constructor(private readonly mailsService: MailsService) {}
 
-  @Post()
-  async create() {
-    
-    await this.mailsService.sendMail();
-  }
+    @Post()
+    public async send(@Body() sendmailDto: SendMailDto) {
+        await this.mailsService.send(sendmailDto.email, sendmailDto.message);
+    }
 }
