@@ -16,7 +16,7 @@ export class MailsController {
             recipients: [
                 {
                     name: 'John Doe',
-                    address: 'john@example.com',
+                    address: 'TarhunchicKKK@yandex.ru',
                 },
             ],
             subject: 'Lucky Winner',

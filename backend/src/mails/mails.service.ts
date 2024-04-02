@@ -10,12 +10,12 @@ export class MailsService {
 
     mailTransport() {
         const transport = nodemailer.createTransport({
-            host: 'sandbox.smtp.mailtrap.io', // this.configService.get<string>('MAIL_HOST'),
-            port: 465, // +this.configService.get<number>('MAIL_PORT'),
+            host: this.configService.get<string>('MAIL_HOST'),
+            port: this.configService.get<number>('MAIL_PORT'),
             secure: false,
             auth: {
-                user: '5201168406c57d', //this.configService.get<string>('MAIL_USER'),
-                pass: 'b17700abc344ef', //this.configService.get<string>('MAIL_PASSWORD'),
+                user: this.configService.get<string>('MAIL_USER'),
+                pass: this.configService.get<string>('MAIL_PASSWORD'),
             },
         });
         console.log(transport);
