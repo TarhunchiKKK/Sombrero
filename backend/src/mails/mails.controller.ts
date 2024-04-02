@@ -10,8 +10,8 @@ export class MailsController {
     async sendMail() {
         const dto: SendMailDto = {
             from: {
-                name: 'Lucie',
-                address: 'lucie@example.com',
+                name: 'Konstantin Barilo',
+                address: 'kostabarilo12@outlook.com',
             },
             recipients: [
                 {

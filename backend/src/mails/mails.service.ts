@@ -10,28 +10,24 @@ export class MailsService {
 
     mailTransport() {
         const transport = nodemailer.createTransport({
-            host: this.configService.get<string>('MAIL_HOST'),
-            port: this.configService.get<number>('MAIL_PORT'),
-            secure: false,
+            service: this.configService.get<string>('MAIL_SERVICE'),
             auth: {
                 user: this.configService.get<string>('MAIL_USER'),
                 pass: this.configService.get<string>('MAIL_PASSWORD'),
             },
         });
-        console.log(transport);
         return transport;
     }
 
     async sendMail(dto: SendMailDto) {
-        const { from, recipients, subject, html, placeholderReplacements } =
-            dto;
+        const { recipients, subject, html } = dto;
 
         const transport = this.mailTransport();
 
         const options: Mail.Options = {
-            from: from ?? {
-                name: this.configService.get<string>('APP_NAME'),
-                address: this.configService.get<string>('DEFAULT_MAIL_FROM'),
+            from: {
+                name: this.configService.get<string>('MAIL_FROM'),
+                address: this.configService.get<string>('MAIL_ADDRESS'),
             },
             to: recipients,
             subject: subject,
