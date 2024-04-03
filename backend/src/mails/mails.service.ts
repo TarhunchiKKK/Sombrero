@@ -5,6 +5,7 @@ import { SendMailDto } from './dto/send-mail.dto';
 import Mail from 'nodemailer/lib/mailer';
 import { getMailHtml } from './utils/getMailHtml';
 import { getMailText } from './utils/getMailText';
+import { generateVerificationCode } from './utils/generateVerificationCode';
 
 @Injectable()
 export class MailsService {
@@ -24,6 +25,8 @@ export class MailsService {
     async sendVerificationCode(sendMailDto: SendMailDto) {
         const transport = this.getMailTransport();
 
+        const verificationCode: string = generateVerificationCode();
+
         const options: Mail.Options = {
             from: {
                 name: this.configService.get<string>('MAIL_FROM'),
@@ -36,8 +39,8 @@ export class MailsService {
                 },
             ],
             subject: this.configService.get<string>('MAIL_SUBJECT'),
-            text: getMailText(sendMailDto.recipientEmail, ''),
-            html: getMailHtml(sendMailDto.recipientEmail, ''),
+            text: getMailText(sendMailDto.recipientEmail, verificationCode),
+            html: getMailHtml(sendMailDto.recipientEmail, verificationCode),
         };
 
         try {
