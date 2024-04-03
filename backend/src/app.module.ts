@@ -25,6 +25,9 @@ import * as redisStore from 'cache-manager-redis-store';
         UsersModule,
         AdvertisementsModule,
         FaqModule,
+        AuthModule,
+        FilesModule,
+        MailsModule,
         ConfigModule.forRoot({ isGlobal: true }),
         SombreroConfigModule,
         // TypeOrmModule.forRootAsync({
@@ -48,9 +51,6 @@ import * as redisStore from 'cache-manager-redis-store';
                 port: 6379,
             },
         }),
-        AuthModule,
-        FilesModule,
-        MailsModule,
     ],
 })
 export class AppModule {}
