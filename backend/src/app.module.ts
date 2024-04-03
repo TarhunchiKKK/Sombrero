@@ -3,6 +3,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { UsersModule } from './users/users.module';
 import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { FaqModule } from './faq/faq.module';
+import { MailsModule } from './mails/mails.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { Faq } from './faq/entities/faq.entity';
@@ -49,6 +50,7 @@ import * as redisStore from 'cache-manager-redis-store';
         }),
         AuthModule,
         FilesModule,
+        MailsModule,
     ],
 })
 export class AppModule {}

@@ -4,3 +4,4 @@
 /**/build/
 /backend/data
 /**/database
+/**/.env
