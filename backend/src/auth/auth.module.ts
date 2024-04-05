@@ -12,6 +12,7 @@ import { PassportModule } from '@nestjs/passport';
     imports: [
         UsersModule,
         PassportModule,
+        ConfigModule,
         JwtModule.registerAsync({
             imports: [ConfigModule],
             useFactory: (configService: ConfigService) => ({
