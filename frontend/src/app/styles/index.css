@@ -11,6 +11,10 @@
         @apply flex justify-between items-center py-3;
     }
 
+    .section-title {
+        @apply text-3xl mb-6 sm:mb-12 text-center;
+    }
+
     .main-gradient {
         @apply bg-gradient-to-r from-[#8d90e3] via-[#9ec0ea] to-[#8d90e3];
         @apply dark:bg-gradient-to-r dark:from-[#8aa0c7] dark:via-[#5e6a9d] dark:to-[#30284e];

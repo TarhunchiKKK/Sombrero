@@ -9,9 +9,7 @@ export function HelpPage() {
     return (
         <section className='pt-[100px] pb-[94px]'>
             <div className='container mx-auto'>
-                <h2 className='text-center text-xl sm:text-3xl mb-11'>
-                    Поиск по вопросам
-                </h2>
+                <h2 className='section-title'>Поиск по вопросам</h2>
 
                 {/* Search form */}
                 <Search

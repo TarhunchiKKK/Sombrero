@@ -7,6 +7,7 @@ export function HomePage() {
 
     return (
         <section id='home'>
+            {/* Slider */}
             <Slider getImages={() => sliderImages[windowSize]} />
         </section>
     )
