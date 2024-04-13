@@ -2,10 +2,8 @@ import { Module } from '@nestjs/common';
 import { CategoriesModule } from './categories/categories.module';
 import { UsersModule } from './users/users.module';
 import { AdvertisementsModule } from './advertisements/advertisements.module';
-import { FaqModule } from './faq/faq.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { Faq } from './faq/entities/faq.entity';
 import { User } from './users/entities/user.entity';
 import { Address } from './users/entities/address.entity';
 import { Advertisement } from './advertisements/entities/advertisement.entity';
@@ -24,7 +22,6 @@ import * as redisStore from 'cache-manager-redis-store';
         CategoriesModule,
         UsersModule,
         AdvertisementsModule,
-        FaqModule,
         AuthModule,
         FilesModule,
         ConfigModule.forRoot({ isGlobal: true }),
@@ -40,7 +37,7 @@ import * as redisStore from 'cache-manager-redis-store';
             password: '123456',
             database: 'sombrero',
             synchronize: true,
-            entities: [Faq, User, Address, Advertisement, Category],
+            entities: [User, Address, Advertisement, Category],
         }),
         CacheModule.register<RedisClientOptions>({
             isGlobal: true,
