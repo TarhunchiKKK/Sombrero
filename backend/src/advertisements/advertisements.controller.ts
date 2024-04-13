@@ -5,6 +5,7 @@ import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
 import { CreateAdvertisementDtoValidatioonPipe } from './pipes/create-advertisement-dto-validation.pipe';
 import { UpdateAdvertisementDtoValidatioonPipe } from './pipes/update-advertisement-dto-validation.pipe';
 import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
+import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
 
 @Controller('advertisements')
 export class AdvertisementsController {
@@ -40,5 +41,10 @@ export class AdvertisementsController {
     @Post('like')
     likeAdvertisement(@Body() likeDto: LikeAdvertisementDto) {
         return this.advertisementsService.likeAdvertisement(likeDto);
+    }
+
+    @Post('buy')
+    buyAdvertisement(@Body() buyAdvertisementDto: BuyAdvertisementDto) {
+        return this.advertisementsService.buyAdvertisement(buyAdvertisementDto);
     }
 }

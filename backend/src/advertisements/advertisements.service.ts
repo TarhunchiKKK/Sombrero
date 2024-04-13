@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { CategoriesService } from 'src/categories/categories.service';
 import { Category } from 'src/categories/entities/category.entity';
 import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
+import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
 
 @Injectable()
 export class AdvertisementsService {
@@ -102,6 +103,28 @@ export class AdvertisementsService {
             advertisement.wishedUsers = advertisement.wishedUsers.filter((u) => u.id !== +likeDto.user.id);
         }
 
+        return await this.advertisementsRepository.save(advertisement);
+    }
+
+    public async buyAdvertisement(buyAdvertisementDto: BuyAdvertisementDto) {
+        const advertisement: Advertisement = await this.advertisementsRepository.findOne({
+            where: {
+                id: +buyAdvertisementDto.advertisement.id,
+            },
+            relations: {
+                buyer: true,
+            },
+        });
+
+        if (!advertisement) {
+            throw new BadRequestException('No such advertisement');
+        }
+
+        if (advertisement.buyer) {
+            throw new BadRequestException('Advertisement already buyed');
+        }
+
+        advertisement.buyer = buyAdvertisementDto.user;
         return await this.advertisementsRepository.save(advertisement);
     }
 }
