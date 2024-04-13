@@ -6,6 +6,7 @@ import { Advertisement } from './entities/advertisement.entity';
 import { Repository } from 'typeorm';
 import { CategoriesService } from 'src/categories/categories.service';
 import { Category } from 'src/categories/entities/category.entity';
+import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
 
 @Injectable()
 export class AdvertisementsService {
@@ -19,12 +20,13 @@ export class AdvertisementsService {
         const advertisement = {
             ...createAdvertisementDto,
             category: {
-                id: createAdvertisementDto.category.id,
+                id: +createAdvertisementDto.category.id,
             },
             vendor: {
-                id: createAdvertisementDto.vendor.id,
+                id: +createAdvertisementDto.vendor.id,
             },
         };
+
         return await this.advertisementsRepository.save(advertisement);
     }
 
@@ -69,9 +71,7 @@ export class AdvertisementsService {
         }
 
         if (updateAdvertisementDto.category) {
-            const category: Category = await this.categoriesService.findOne(
-                updateAdvertisementDto.category.id,
-            );
+            const category: Category = await this.categoriesService.findOne(updateAdvertisementDto.category.id);
             updateAdvertisementDto.category = category;
         }
 
@@ -80,5 +80,28 @@ export class AdvertisementsService {
 
     public async remove(id: number): Promise<void> {
         await this.advertisementsRepository.delete(id);
+    }
+
+    public async likeAdvertisement(likeDto: LikeAdvertisementDto) {
+        const advertisement: Advertisement = await this.advertisementsRepository.findOne({
+            where: {
+                id: +likeDto.advertisement.id,
+            },
+            relations: {
+                wishedUsers: true,
+            },
+        });
+
+        if (!advertisement) {
+            throw new BadRequestException('No such  advertisement');
+        }
+
+        if (advertisement.wishedUsers.findIndex((u) => u.id === +likeDto.user.id) === -1) {
+            advertisement.wishedUsers.push(likeDto.user);
+        } else {
+            advertisement.wishedUsers = advertisement.wishedUsers.filter((u) => u.id !== +likeDto.user.id);
+        }
+
+        return await this.advertisementsRepository.save(advertisement);
     }
 }

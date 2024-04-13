@@ -5,8 +5,8 @@ import {
     CreateDateColumn,
     Entity,
     JoinColumn,
+    JoinTable,
     ManyToMany,
-    ManyToOne,
     OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
@@ -42,30 +42,19 @@ export class User {
     @Column({ nullable: true })
     photo?: string;
 
-    @OneToMany(
-        () => Advertisement,
-        (advertisment: Advertisement) => advertisment.vendor,
-        {
-            onDelete: 'CASCADE',
-        },
-    )
+    @OneToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.vendor, {
+        onDelete: 'CASCADE',
+    })
     salesList: Advertisement[];
 
-    @ManyToMany(
-        () => Advertisement,
-        (advertisment: Advertisement) => advertisment.wishedUsers,
-        {
-            onDelete: 'NO ACTION',
-        },
-    )
+    @ManyToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.wishedUsers, {
+        onDelete: 'NO ACTION',
+    })
+    @JoinTable()
     wishList: Advertisement[];
 
-    @OneToMany(
-        () => Advertisement,
-        (advertisment: Advertisement) => advertisment.buyer,
-        {
-            onDelete: 'CASCADE',
-        },
-    )
+    @OneToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.buyer, {
+        onDelete: 'CASCADE',
+    })
     purchasesList: Advertisement[];
 }

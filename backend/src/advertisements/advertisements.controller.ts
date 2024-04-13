@@ -4,6 +4,7 @@ import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
 import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
 import { CreateAdvertisementDtoValidatioonPipe } from './pipes/create-advertisement-dto-validation.pipe';
 import { UpdateAdvertisementDtoValidatioonPipe } from './pipes/update-advertisement-dto-validation.pipe';
+import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
 
 @Controller('advertisements')
 export class AdvertisementsController {
@@ -34,5 +35,10 @@ export class AdvertisementsController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.advertisementsService.remove(+id);
+    }
+
+    @Post('like')
+    likeAdvertisement(@Body() likeDto: LikeAdvertisementDto) {
+        return this.advertisementsService.likeAdvertisement(likeDto);
     }
 }

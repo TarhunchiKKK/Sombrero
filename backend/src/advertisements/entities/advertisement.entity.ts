@@ -1,13 +1,6 @@
 import { Category } from 'src/categories/entities/category.entity';
 import { User } from 'src/users/entities/user.entity';
-import {
-    Column,
-    Entity,
-    ManyToMany,
-    ManyToOne,
-    PrimaryColumn,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Advertisement {
