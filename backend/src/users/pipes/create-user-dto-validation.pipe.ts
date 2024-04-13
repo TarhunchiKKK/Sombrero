@@ -1,7 +1,5 @@
-import { ArgumentMetadata, BadRequestException, PipeTransform } from '@nestjs/common';
+import { ArgumentMetadata, PipeTransform } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { Address, Countries } from '../entities/address.entity';
-import { CreateAddressDto } from '../dto/create-address.dto';
 import { UserValidator } from './user.validator';
 
 export class CreateUserDtoValidationPipe implements PipeTransform<CreateUserDto> {

@@ -9,11 +9,6 @@ export class Category {
     @Column()
     title: string;
 
-    // description: string
-
-    @OneToMany(
-        () => Advertisement,
-        (advertisement: Advertisement) => advertisement.category,
-    )
+    @OneToMany(() => Advertisement, (advertisement: Advertisement) => advertisement.category)
     advertisements: Advertisement[];
 }

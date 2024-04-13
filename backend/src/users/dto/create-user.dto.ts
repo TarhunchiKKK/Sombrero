@@ -1,4 +1,3 @@
-import { Address } from '../entities/address.entity';
 import { CreateAddressDto } from './create-address.dto';
 
 export class CreateUserDto {

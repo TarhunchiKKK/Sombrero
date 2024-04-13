@@ -4,8 +4,6 @@ import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Advertisement } from './entities/advertisement.entity';
 import { Repository } from 'typeorm';
-import { CategoriesService } from 'src/categories/categories.service';
-import { Category } from 'src/categories/entities/category.entity';
 import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
 import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
 
@@ -14,7 +12,6 @@ export class AdvertisementsService {
     constructor(
         @InjectRepository(Advertisement)
         private readonly advertisementsRepository: Repository<Advertisement>,
-        private readonly categoriesService: CategoriesService,
     ) {}
 
     public async create(createAdvertisementDto: CreateAdvertisementDto): Promise<Advertisement> {
@@ -63,7 +60,6 @@ export class AdvertisementsService {
             },
             relations: {
                 category: true,
-                vendor: true,
             },
         });
 
@@ -72,8 +68,8 @@ export class AdvertisementsService {
         }
 
         if (updateAdvertisementDto.category) {
-            const category: Category = await this.categoriesService.findOne(updateAdvertisementDto.category.id);
-            updateAdvertisementDto.category = category;
+            advertisement.category.id = updateAdvertisementDto.category.id;
+            await this.advertisementsRepository.save(advertisement);
         }
 
         await this.advertisementsRepository.update(id, updateAdvertisementDto);

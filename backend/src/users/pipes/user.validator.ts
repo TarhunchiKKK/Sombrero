@@ -1,5 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateAddressDto } from '../dto/create-address.dto';
+import { BadRequestException } from '@nestjs/common';
 import { Countries } from '../entities/address.entity';
 
 export class UserValidator {

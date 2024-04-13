@@ -65,6 +65,9 @@ export class UsersService {
             },
             relations: {
                 address: true,
+                salesList: true,
+                wishList: true,
+                purchasesList: true,
             },
         });
     }
@@ -95,7 +98,10 @@ export class UsersService {
             await this.addressesRepository.update(user.address.id, updateUserDto.address);
         }
 
-        await this.usersRepository.update(id, updateUserDto);
+        await this.usersRepository.update(id, {
+            ...updateUserDto,
+            address: undefined,
+        });
     }
 
     public async remove(id: number): Promise<void> {
