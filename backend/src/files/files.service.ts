@@ -1,6 +1,6 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { read } from 'fs';
+import { generateFilename } from './helpers/generateFilename';
 
 const fs = require('fs');
 const path = require('path');
@@ -17,7 +17,8 @@ export class FilesService {
     }
 
     public uploadAccountImage(file: Express.Multer.File): void {
-        const writeStream = fs.createWriteStream(path.join(this.accountsDir, file.originalname));
+        const filename: string = generateFilename(file.originalname);
+        const writeStream = fs.createWriteStream(path.join(this.accountsDir, filename));
         writeStream.write(file.buffer);
         writeStream.close();
     }
@@ -33,7 +34,8 @@ export class FilesService {
     }
 
     public uploadAdvertisementImage(file: Express.Multer.File): void {
-        const writeStream = fs.createWriteStream(path.join(this.advertisementsDir, file.originalname));
+        const filename: string = generateFilename(file.originalname);
+        const writeStream = fs.createWriteStream(path.join(this.advertisementsDir, filename));
         writeStream.write(file.buffer);
         writeStream.close();
     }
