@@ -48,7 +48,9 @@ export class AdvertisementsService {
             },
             relations: {
                 category: true,
-                vendor: true,
+                vendor: {
+                    address: true,
+                },
                 buyer: true,
                 wishedUsers: true,
             },
