@@ -44,18 +44,4 @@ export class FilesController {
     public uploadAdvertisemetImage(@UploadedFile() file: Express.Multer.File) {
         this.filesService.uploadAdvertisementImage(file);
     }
-
-    @Get(FilesControllerRoutes.Category)
-    public downloadCategoryImage(@Body() downloadFileDto: DownloadFileDto): StreamableFile {
-        if (downloadFileDto.fileName) {
-            return this.filesService.downloadCategoryImage(downloadFileDto.fileName);
-        }
-        throw new BadRequestException('Filename should be provided');
-    }
-
-    @Post(FilesControllerRoutes.Category)
-    @UseInterceptors(FileInterceptor('file'))
-    public uploadCategoryImage(@UploadedFile() file: Express.Multer.File) {
-        this.filesService.uploadCategoryImage(file);
-    }
 }
