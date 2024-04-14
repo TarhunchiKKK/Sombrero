@@ -28,7 +28,7 @@ export class AdvertisementsService {
         return await this.advertisementsRepository.save(advertisement);
     }
 
-    public async findAll(): Promise<Advertisement[]> {
+    public async findAll(page: number, limit: number): Promise<Advertisement[]> {
         return await this.advertisementsRepository.find({
             relations: {
                 vendor: false,
@@ -36,6 +36,8 @@ export class AdvertisementsService {
                 category: false,
                 wishedUsers: false,
             },
+            skip: (page - 1) * limit,
+            take: limit,
         });
     }
 

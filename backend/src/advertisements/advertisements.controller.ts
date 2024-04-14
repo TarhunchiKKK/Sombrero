@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Query } from '@nestjs/common';
 import { AdvertisementsService } from './advertisements.service';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
 import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
@@ -18,8 +18,8 @@ export class AdvertisementsController {
     }
 
     @Get()
-    findAll() {
-        return this.advertisementsService.findAll();
+    findAll(@Query('page') page: number = 1, @Query('limit') limit: number = 40) {
+        return this.advertisementsService.findAll(page, limit);
     }
 
     @Get(':id')
