@@ -8,7 +8,6 @@ import { User } from './users/entities/user.entity';
 import { Address } from './users/entities/address.entity';
 import { Advertisement } from './advertisements/entities/advertisement.entity';
 import { Category } from './categories/entities/category.entity';
-import { SombreroConfigModule } from './config/sombrero-config.module';
 
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisClientOptions } from 'redis';
@@ -25,7 +24,6 @@ import * as redisStore from 'cache-manager-redis-store';
         AuthModule,
         FilesModule,
         ConfigModule.forRoot({ isGlobal: true }),
-        SombreroConfigModule,
         // TypeOrmModule.forRootAsync({
         //   useClass: TypeOrmConfigService,
         // }),
