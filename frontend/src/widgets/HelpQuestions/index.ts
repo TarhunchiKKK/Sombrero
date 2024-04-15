@@ -1,2 +1,1 @@
-export {HelpQuestions} from './HelpQuestions'
-export type {IHelpQuestionsGroup} from './types/IHelpQuestionsCategory'
+export { HelpQuestions } from './components/HelpQuestions'

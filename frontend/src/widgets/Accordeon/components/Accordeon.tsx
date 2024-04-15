@@ -1,13 +1,12 @@
-import { useMemo, useState } from 'react'
-import { AccordeonItem } from './components/AccordeonItem'
-import { IAccodreonItem } from './types/IAccordeonItem'
+import { useState } from 'react'
+import { AccordeonItem } from './AccordeonItem'
+import { getFaqs, IFaq } from '../../../entities/questions'
 
-interface AccordeopnProps {
-    getItems: () => IAccodreonItem[]
-}
+const items: (IFaq & { id: number })[] = (await getFaqs()).map((faq, idx) => {
+    return { ...faq, id: idx }
+})
 
-export function Accordeon({ getItems }: AccordeopnProps) {
-    const items = useMemo(() => getItems(), [])
+export function Accordeon() {
     const [currentItem, setCurrentItem] = useState<number>(-1)
 
     const itemClickHandler = (item: number) => {
