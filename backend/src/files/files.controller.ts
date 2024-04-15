@@ -1,46 +1,29 @@
-import {
-    BadRequestException,
-    Body,
-    Controller,
-    Get,
-    Post,
-    StreamableFile,
-    UploadedFile,
-    UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Param, Post, StreamableFile, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { DownloadFileDto } from './dto/download-file.dto';
-import { FilesControllerRoutes } from './enums/files-controller-routes.enum';
 
 @Controller('files')
 export class FilesController {
     constructor(private readonly filesService: FilesService) {}
 
-    @Get(FilesControllerRoutes.Account)
-    public downloadAccountImage(@Body() downloadFileDto: DownloadFileDto): StreamableFile {
-        if (downloadFileDto.fileName) {
-            return this.filesService.downloadAccountImage(downloadFileDto.fileName);
-        }
-        throw new BadRequestException('Filename should be provided');
+    @Get('account/:filename')
+    public downloadAccountImage(@Param('filename') filename: string): StreamableFile {
+        return this.filesService.downloadAccountImage(filename);
     }
 
-    @Post(FilesControllerRoutes.Account)
-    @UseInterceptors(FileInterceptor('file'))
+    @Post('account')
+    @UseInterceptors(FileInterceptor('account'))
     public uploadAccountImage(@UploadedFile() file: Express.Multer.File) {
         this.filesService.uploadAccountImage(file);
     }
 
-    @Get(FilesControllerRoutes.Advertisement)
-    public downloadAdvertisementImage(@Body() downloadFileDto: DownloadFileDto): StreamableFile {
-        if (downloadFileDto.fileName) {
-            return this.filesService.downloadAdvertisementImage(downloadFileDto.fileName);
-        }
-        throw new BadRequestException('Filename should be provided');
+    @Get('advertisement/:filename')
+    public downloadAdvertisementImage(@Param('filename') filename: string): StreamableFile {
+        return this.filesService.downloadAdvertisementImage(filename);
     }
 
-    @Post(FilesControllerRoutes.Advertisement)
-    @UseInterceptors(FileInterceptor('file'))
+    @Post('advertisement')
+    @UseInterceptors(FileInterceptor('advrtisement'))
     public uploadAdvertisemetImage(@UploadedFile() file: Express.Multer.File) {
         this.filesService.uploadAdvertisementImage(file);
     }
