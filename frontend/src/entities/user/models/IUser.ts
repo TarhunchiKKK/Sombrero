@@ -6,8 +6,38 @@ export interface IUser {
     surname: string;
     phoneNumber: string;
     email: string;
-    address: {};
+    photo: string;
+    address: {
+        id: number;
+        country: string;
+        city: string;
+        street?: string;
+        houseNumber?: number;
+        flatNumber?: number;
+    };
     salesList: IAdvertisement[];
     wishList: IAdvertisement[];
     purchasesList: IAdvertisement[];
+}
+
+export function getDefaultUser(): IUser {
+    return {
+        id: 0,
+        name: '',
+        surname: '',
+        phoneNumber: '',
+        email: '',
+        photo: '',
+        address: {
+            id: 0,
+            country: '',
+            city: '',
+            street: '',
+            houseNumber: 0,
+            flatNumber: 0,
+        },
+        salesList: [],
+        wishList: [],
+        purchasesList: [],
+    };
 }

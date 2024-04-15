@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { SERVER_URL } from '../../../shared';
 
-export async function likeAdvertisement(advertisementId: number, userId: number): Promise<void> {
-    await axios.post(`${SERVER_URL}/advertisements/like`, {
+export async function buyAdvertisement(advertisementId: number, userId: number) {
+    await axios.post(`${SERVER_URL}/advertisements/buy`, {
         user: {
             id: +userId,
         },
