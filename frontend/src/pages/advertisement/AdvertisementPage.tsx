@@ -7,19 +7,17 @@ import {
     likeAdvertisement,
 } from '../../entities/advertisement';
 import { SERVER_URL } from '../../shared';
-
-interface IAdvertisementPageProps {
-    advertisementId: number;
-}
+import { useParams } from 'react-router-dom';
 
 const userId: number = 1;
 
-export function AdvertisementPage({ advertisementId }: IAdvertisementPageProps) {
+export function AdvertisementPage() {
+    const { advertisementId } = useParams();
     const [advertisement, setAdvertisement] = useState<IAdvertisement>(getDefaultAdvertisement());
 
     function handleLikeAdvertisement(e: React.MouseEvent<HTMLButtonElement>) {
         e.stopPropagation();
-        likeAdvertisement(userId, advertisementId);
+        likeAdvertisement(userId, advertisement.id);
     }
 
     function handleBuyAdvertisement(e: React.MouseEvent<HTMLButtonElement>) {
@@ -29,7 +27,7 @@ export function AdvertisementPage({ advertisementId }: IAdvertisementPageProps) 
 
     useEffect(() => {
         async function fetchAdvertisement() {
-            const data: IAdvertisement = await getOneAdvertisement(advertisementId);
+            const data: IAdvertisement = await getOneAdvertisement(+advertisementId!);
             setAdvertisement(data);
         }
         console.log('Render');

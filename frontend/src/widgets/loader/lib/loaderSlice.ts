@@ -1,26 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface ILoaderState {
-    isLoading: boolean
+    isLoading: boolean;
 }
 
 const initialState: ILoaderState = {
-    isLoading: true
-}
-
+    isLoading: true,
+};
 
 export const loaderSlice = createSlice({
     name: 'loader',
     initialState,
     reducers: {
         startLoading: (state) => {
-            state.isLoading = true
+            state.isLoading = true;
         },
         endLoading: (state) => {
-            state.isLoading = false
-        }
-    }
-})
+            state.isLoading = false;
+        },
+    },
+});
 
-export const {startLoading, endLoading} = loaderSlice.actions
-export default loaderSlice.reducer
+export const { startLoading, endLoading } = loaderSlice.actions;
+export default loaderSlice.reducer;
