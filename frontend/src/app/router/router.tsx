@@ -3,7 +3,7 @@ import { AdvertisementPage } from '../../pages/advertisement/AdvertisementPage';
 import { AccountPage } from '../../pages/account/AccountPage';
 import { AccountEditPage } from '../../pages/account/AccountEditPage';
 import { Layout } from '../layout/Layout';
-import { FaqPage, HelpPage, HomePage } from '../../pages';
+import { FaqPage, HelpPage } from '../../pages';
 import { AdvertisementsPage } from '../../pages/advertisements/AdvertisementsPage';
 
 export const router = createBrowserRouter([

@@ -7,6 +7,7 @@ import menuDark from '../assets/menu-dark.svg';
 import logo from '../../../shared//assets/logo.svg';
 import { useState } from 'react';
 import { toggleTheme } from '../../../features';
+import { NavLink } from 'react-router-dom';
 
 interface HeaderProps {
     isHome: boolean;
@@ -48,10 +49,41 @@ export function Header({ isHome = false }: HeaderProps) {
                     {/* Navigation  */}
                     <nav>
                         <ul className={navListStyle}>
-                            <li className={navItemStyle}>Каталог</li>
-                            <li className={navItemStyle}>Доставка</li>
-                            <li className={navItemStyle}>О нас</li>
-                            <li className={navItemStyle}>Помощь</li>
+                            <li className={navItemStyle}>
+                                <NavLink
+                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    to={'/'}>
+                                    Главная
+                                </NavLink>
+                            </li>
+                            <li className={navItemStyle}>
+                                <NavLink
+                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    to={'/advertisements'}>
+                                    Каталог
+                                </NavLink>
+                            </li>
+                            <li className={navItemStyle}>
+                                <NavLink
+                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    to={'/faqs'}>
+                                    FAQ
+                                </NavLink>
+                            </li>
+                            <li className={navItemStyle}>
+                                <NavLink
+                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    to={'/contacts'}>
+                                    Контакты
+                                </NavLink>
+                            </li>
+                            <li className={navItemStyle}>
+                                <NavLink
+                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    to={'/help'}>
+                                    Помощь
+                                </NavLink>
+                            </li>
                         </ul>
                     </nav>
 
