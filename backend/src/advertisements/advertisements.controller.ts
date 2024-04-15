@@ -18,8 +18,12 @@ export class AdvertisementsController {
     }
 
     @Get()
-    findAll(@Query('page') page: number = 1, @Query('limit') limit: number = 40) {
-        return this.advertisementsService.findAll(page, limit);
+    findAll(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 40,
+        @Query('category') categoryId: number = undefined,
+    ) {
+        return this.advertisementsService.findAll(page, limit, categoryId);
     }
 
     @Get(':id')

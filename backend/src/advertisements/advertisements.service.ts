@@ -28,13 +28,31 @@ export class AdvertisementsService {
         return await this.advertisementsRepository.save(advertisement);
     }
 
-    public async findAll(page: number, limit: number): Promise<Advertisement[]> {
+    public async findAll(page: number, limit: number, categoryId: number | undefined): Promise<Advertisement[]> {
+        // const searchOptions = {
+        //     relations: {
+        //         vendor: false,
+        //         buyer: false,
+        //         category: true,
+        //         wishedUsers: false,
+        //     },
+        //     where: {},
+        //     skip: (page - 1) * limit,
+        //     take: limit,
+        // };
+        // if (categoryId !== undefined) {
+        //     searchOptions.where['id'] = +categoryId;
+        // }
+
         return await this.advertisementsRepository.find({
             relations: {
                 vendor: false,
                 buyer: false,
-                category: false,
+                category: true,
                 wishedUsers: false,
+            },
+            where: {
+                id: categoryId ? +categoryId : undefined,
             },
             skip: (page - 1) * limit,
             take: limit,
