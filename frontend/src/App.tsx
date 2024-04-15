@@ -1,5 +1,5 @@
-import { CategoriesContainer } from './widgets/Categories';
+import { AdvertisementsContainer } from './widgets/Advertisements';
 
 export function App() {
-    return <CategoriesContainer onClick={() => {}} />;
+    return <AdvertisementsContainer />;
 }

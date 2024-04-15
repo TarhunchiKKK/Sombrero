@@ -1,8 +1,10 @@
 export function GetColumnsCount(): number {
     const width: number = window.innerWidth;
     if (1500 < width) {
+        return 6;
+    } else if (1024 < width && width <= 1500) {
         return 5;
-    } else if (768 < width && width <= 1500) {
+    } else if (768 < width && width <= 1024) {
         return 4;
     } else if (540 < width && width <= 768) {
         return 3;

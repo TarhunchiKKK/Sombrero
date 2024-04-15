@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { IAdvertisement } from '../../../entities';
 import { SERVER_URL } from '../../../shared';
+import { IAdvertisementInfo } from '../models/IAdvertisementInfo';
 
-export async function GetAdvertisements(): Promise<IAdvertisement[]> {
+export async function getAdvertisements(): Promise<IAdvertisementInfo[]> {
     const { data } = await axios.get(`${SERVER_URL}/advertisements`);
     return data;
 }

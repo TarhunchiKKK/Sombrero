@@ -1,16 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { GetCategories } from '../../../entities/category/api/GetCategories';
+import { IAdvertisement } from '../../../entities/advertisement/models/IAdvertisementInfo';
 import { GetColumnsCount } from '../helpers/GetColumnsCount';
-import { CategoryButton } from './CategoryButton';
-import { ICategoryInfo } from '../../../entities/category/models/ICategoryInfo';
+import { Advertisement } from './Advertisement';
+import { GetAdvertisements } from '../../../entities/advertisement/api/GetAdvertisements';
 
-const categories: ICategoryInfo[] = await GetCategories();
+const advertisements: IAdvertisement[] = await GetAdvertisements();
 
-interface ICategoriesContainerProps {
-    onClick: (id: number) => void;
-}
-
-export function CategoriesContainer({ onClick }: ICategoriesContainerProps) {
+export function AdvertisementsContainer() {
     const [columnsCount, setColumnsCount] = useState<number>(GetColumnsCount());
 
     const handleWindowResize = useCallback(() => {
@@ -28,15 +24,13 @@ export function CategoriesContainer({ onClick }: ICategoriesContainerProps) {
     }, []);
 
     return (
-        <section id='categories' className='py-4 px-2'>
+        <section id='catalog'>
             <div className='container mx-auto'>
                 <div
-                    style={{
-                        gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))`,
-                    }}
+                    style={{ gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))` }}
                     className='grid gap-x-2 gap-y-4'>
-                    {categories.map((category) => (
-                        <CategoryButton key={category.id} category={category} onClick={() => onClick(category.id)} />
+                    {advertisements.map((a) => (
+                        <Advertisement advertisement={a} key={a.id} />
                     ))}
                 </div>
             </div>

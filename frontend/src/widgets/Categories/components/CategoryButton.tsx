@@ -1,7 +1,7 @@
-import { ICategory } from '../../../entities';
+import { ICategoryInfo } from '../../../entities/category/models/ICategoryInfo';
 
 interface ICategoryButtonProps {
-    category: ICategory;
+    category: ICategoryInfo;
     onClick: () => void;
 }
 
