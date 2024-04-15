@@ -1,5 +1,5 @@
-import { Accordeon } from '../../widgets/Accordeon'
-import { AccordeonItems } from './consts/FaqQuestions'
+import { Accordeon } from '../../widgets/accordeon';
+import { AccordeonItems } from './consts/FaqQuestions';
 
 export function FaqPage() {
     return (
@@ -11,5 +11,5 @@ export function FaqPage() {
                 <Accordeon getItems={() => AccordeonItems} />
             </div>
         </section>
-    )
+    );
 }

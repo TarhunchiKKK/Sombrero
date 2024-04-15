@@ -1,1 +1,1 @@
-export {toggleTheme} from './ToggleTheme/toggleTheme'
+export { toggleTheme } from './toggleTheme/toggleTheme';

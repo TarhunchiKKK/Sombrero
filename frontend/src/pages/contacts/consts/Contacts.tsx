@@ -1,4 +1,4 @@
-import { IContact } from '../../../widgets/Contact/types/IContact'
+import { IContact } from '../../../widgets/contact/types/IContact';
 
 export const contacts: IContact[] = [
     {
@@ -43,4 +43,4 @@ export const contacts: IContact[] = [
         description:
             'Открыт к разговору 24 часа в сутки. Окночил МГУ на специальности “Экономика электронного бизнеса.” Специализируется на увеличении количества продаж и обоспеении контроля качества.',
     },
-]
+];

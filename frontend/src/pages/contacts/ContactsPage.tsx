@@ -1,5 +1,5 @@
-import { Contact } from '../../widgets/Contact'
-import { contacts } from './consts/Contacts'
+import { Contact } from '../../widgets/contact';
+import { contacts } from './consts/Contacts';
 
 export function ContactsPage() {
     return (
@@ -15,5 +15,5 @@ export function ContactsPage() {
                 </div>
             </div>
         </section>
-    )
+    );
 }

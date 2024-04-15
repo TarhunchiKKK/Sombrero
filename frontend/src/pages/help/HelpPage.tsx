@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { HelpQuestionsCategories } from './consts/HelpQuestions'
-import { Search } from '../../shared'
-import { HelpQuestions } from '../../widgets/HelpQuestions'
+import { useState } from 'react';
+import { HelpQuestionsCategories } from './consts/HelpQuestions';
+import { Search } from '../../shared';
+import { HelpQuestions } from '../../widgets/help-questions';
 
 export function HelpPage() {
-    const [searchedQuestion, setSearchedQuestion] = useState<string>('')
+    const [searchedQuestion, setSearchedQuestion] = useState<string>('');
 
     return (
         <section className='pt-[100px] pb-[94px]'>
@@ -19,11 +19,8 @@ export function HelpPage() {
                 />
 
                 {/* Help questions */}
-                <HelpQuestions
-                    searchedQuestion={searchedQuestion}
-                    getQuestions={() => HelpQuestionsCategories}
-                />
+                <HelpQuestions searchedQuestion={searchedQuestion} getQuestions={() => HelpQuestionsCategories} />
             </div>
         </section>
-    )
+    );
 }
