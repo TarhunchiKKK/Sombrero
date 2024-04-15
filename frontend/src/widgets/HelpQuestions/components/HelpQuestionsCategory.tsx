@@ -1,6 +1,8 @@
+import { IHelpQuestion } from '../../../entities/questions'
+
 interface HelpQuestionsGroupProps {
     title: string
-    questions: string[]
+    questions: IHelpQuestion[]
     searchedQuestion: string
 }
 
@@ -10,11 +12,13 @@ export default function HelpQuestionsGroup(props: HelpQuestionsGroupProps) {
             <h3 className='font-bold'>{props.title}</h3>
             {props.questions
                 .filter((question) =>
-                    question.toLowerCase().includes(props.searchedQuestion),
+                    question.title
+                        .toLowerCase()
+                        .includes(props.searchedQuestion),
                 )
                 .map((question, idx) => (
                     <a className='text-link block mt-4' key={idx}>
-                        {question}
+                        {question.title}
                     </a>
                 ))}
         </div>

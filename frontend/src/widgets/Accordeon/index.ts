@@ -1,2 +1,1 @@
-export {Accordeon} from './Accordeon'
-export type {IAccodreonItem} from './types/IAccordeonItem'
+export { Accordeon } from './components/Accordeon'
