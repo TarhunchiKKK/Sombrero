@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { GetCategories } from '../../../entities/category/api/GetCategories';
 import { GetColumnsCount } from '../helpers/GetColumnsCount';
 import { CategoryButton } from './CategoryButton';
 import { ICategoryInfo } from '../../../entities/category/models/ICategoryInfo';
+import { getCategories } from '../../../entities/category';
 
-const categories: ICategoryInfo[] = await GetCategories();
+const categories: ICategoryInfo[] = await getCategories();
 
 interface ICategoriesContainerProps {
     onClick: (id: number) => void;

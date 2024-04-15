@@ -19,7 +19,7 @@ export function AccountPage() {
     }, []);
 
     return (
-        <section id='account' className='pt-8'>
+        <section id='account' className='pt-8 pb-12'>
             <div className='container mx-auto px-2 sm:px-0'>
                 <div className='flex flex-col sm:flex-row justify-between items-center sm:items-start'>
                     {/* Personal info */}

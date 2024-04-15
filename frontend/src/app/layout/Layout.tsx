@@ -1,9 +1,16 @@
 import { Outlet } from 'react-router-dom';
+import { Footer, Header } from '../../widgets';
 
-export function Layout() {
+interface ILayoutProps {
+    isHome?: boolean;
+}
+
+export function Layout({ isHome = false }: ILayoutProps) {
     return (
-        <div>
+        <>
+            <Header isHome={isHome} />
             <Outlet />
-        </div>
+            {!isHome && <Footer />}
+        </>
     );
 }

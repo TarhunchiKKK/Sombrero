@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { GetColumnsCount } from '../helpers/GetColumnsCount';
 import { Advertisement } from './Advertisement';
 import { getAdvertisements } from '../../../entities/advertisement/api/GetAdvertisements';
-import { IAdvertisement, IAdvertisementInfo } from '../../../entities/advertisement';
+import { IAdvertisementInfo } from '../../../entities/advertisement';
 
 const advertisements: IAdvertisementInfo[] = await getAdvertisements();
 

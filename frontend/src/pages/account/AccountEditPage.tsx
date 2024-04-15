@@ -1,15 +1,10 @@
-import { formToJSON } from 'axios';
-import { useRef, useState } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
-import { IUpdateUserDto, IUser, IUserInfo, updateUser } from '../../entities/user';
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { IUpdateUserDto, IUserInfo, updateUser } from '../../entities/user';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store';
 
 const inputStyle: string = 'w-full h-10 px-4 bg-gray-300 border-none outline-none outline rounded-lg';
-
-interface IAccountEditPageProps {
-    user: IUser;
-}
 
 export function AccountEditPage() {
     const user: IUserInfo = useSelector((state: RootState) => state.user.currentUser);

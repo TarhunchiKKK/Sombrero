@@ -1,12 +1,12 @@
-import accountLight from './assets/header/account-light.svg';
-import accountDark from './assets/header/account-dark.svg';
-import darkTheme from './assets/header/dark-theme.svg';
-import lightTheme from './assets/header/light-theme.svg';
-import menuLight from './assets/header/menu-light.svg';
-import menuDark from './assets/header/menu-dark.svg';
-import logo from '../../shared/assets/logo.svg';
+import accountLight from '../assets/account-light.svg';
+import accountDark from '../assets/account-dark.svg';
+import darkTheme from '../assets/dark-theme.svg';
+import lightTheme from '../assets/light-theme.svg';
+import menuLight from '../assets/menu-light.svg';
+import menuDark from '../assets/menu-dark.svg';
+import logo from '../../../shared//assets/logo.svg';
 import { useState } from 'react';
-import toggleTheme from '../../../features/toggleTheme/toggleTheme.ts';
+import { toggleTheme } from '../../../features';
 
 interface HeaderProps {
     isHome: boolean;

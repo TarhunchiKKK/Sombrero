@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { HomePage } from '../../pages';
 import { AdvertisementPage } from '../../pages/advertisement/AdvertisementPage';
 import { AccountPage } from '../../pages/account/AccountPage';
 import { AccountEditPage } from '../../pages/account/AccountEditPage';
-import { getDefaultUser } from '../../entities/user';
 import { Layout } from '../layout/Layout';
+import { FaqPage, HelpPage, HomePage } from '../../pages';
+import { AdvertisementsPage } from '../../pages/advertisements/AdvertisementsPage';
 
 export const router = createBrowserRouter([
     {
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'advertisements',
-                // element: <AdvertisementsPage />,
+                element: <AdvertisementsPage />,
             },
             {
                 path: 'advertisements/:advertisementId',
@@ -26,6 +26,14 @@ export const router = createBrowserRouter([
             {
                 path: 'account/edit',
                 element: <AccountEditPage />,
+            },
+            {
+                path: 'faqs',
+                element: <FaqPage />,
+            },
+            {
+                path: 'help',
+                element: <HelpPage />,
             },
         ],
     },
