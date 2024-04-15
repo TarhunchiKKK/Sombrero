@@ -2,11 +2,15 @@ import { useState } from 'react'
 import { AccordeonItem } from './AccordeonItem'
 import { getFaqs, IFaq } from '../../../entities/questions'
 
-const items: (IFaq & { id: number })[] = (await getFaqs()).map((faq, idx) => {
-    return { ...faq, id: idx }
-})
+// const items: (IFaq & { id: number })[] = (await getFaqs()).map((faq, idx) => {
+//     return { ...faq, id: idx }
+// })
 
-export function Accordeon() {
+interface Props {
+    items: IFaq[]
+}
+
+export function Accordeon({ items }: Props) {
     const [currentItem, setCurrentItem] = useState<number>(-1)
 
     const itemClickHandler = (item: number) => {
@@ -17,14 +21,16 @@ export function Accordeon() {
         }
     }
 
+    console.log(items)
+
     return (
         <div id='accordeon'>
-            {items.map((item) => (
+            {items.map((item, idx) => (
                 <AccordeonItem
                     item={item}
-                    isOpen={currentItem === item.id}
-                    onClick={() => itemClickHandler(item.id)}
-                    key={item.id}></AccordeonItem>
+                    isOpen={currentItem === idx}
+                    onClick={() => itemClickHandler(idx)}
+                    key={idx}></AccordeonItem>
             ))}
         </div>
     )
