@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { IAdvertisement } from '../../../entities/advertisement/models/IAdvertisementInfo';
 import { GetColumnsCount } from '../helpers/GetColumnsCount';
 import { Advertisement } from './Advertisement';
-import { GetAdvertisements } from '../../../entities/advertisement/api/GetAdvertisements';
+import { getAdvertisements } from '../../../entities/advertisement/api/GetAdvertisements';
+import { IAdvertisement, IAdvertisementInfo } from '../../../entities/advertisement';
 
-const advertisements: IAdvertisement[] = await GetAdvertisements();
+const advertisements: IAdvertisementInfo[] = await getAdvertisements();
 
 export function AdvertisementsContainer() {
     const [columnsCount, setColumnsCount] = useState<number>(GetColumnsCount());
@@ -28,7 +28,7 @@ export function AdvertisementsContainer() {
             <div className='container mx-auto'>
                 <div
                     style={{ gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))` }}
-                    className='grid gap-x-2 gap-y-4'>
+                    className='grid gap-x-4 gap-y-4'>
                     {advertisements.map((a) => (
                         <Advertisement advertisement={a} key={a.id} />
                     ))}
