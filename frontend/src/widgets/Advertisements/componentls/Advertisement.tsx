@@ -6,12 +6,14 @@ interface IAdvertisementProps {
     advertisement: IAdvertisementInfo;
 }
 
+const userId: number = 1;
+
 export function Advertisement({ advertisement }: IAdvertisementProps) {
     const [isLiked, setIsLiked] = useState<boolean>(false);
 
     function handleLike(e: React.MouseEvent<HTMLButtonElement>) {
         setIsLiked((prev) => !prev);
-        likeAdvertisement(1, advertisement.id);
+        likeAdvertisement(advertisement.id, userId);
     }
 
     return (

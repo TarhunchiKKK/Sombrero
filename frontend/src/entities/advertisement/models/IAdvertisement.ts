@@ -1,5 +1,5 @@
-import { ICategory } from '../../category/models/ICategory';
-import { IUser } from '../../user/models/IUser';
+import { getDefaultCategory, ICategory } from '../../category/models/ICategory';
+import { getDefaultUser, IUser } from '../../user/models/IUser';
 
 export interface IAdvertisement {
     id: number;
@@ -12,4 +12,19 @@ export interface IAdvertisement {
     vendor: IUser;
     wishedUsers: IUser[];
     buyer: IUser;
+}
+
+export function getDefaultAdvertisement(): IAdvertisement {
+    return {
+        id: 0,
+        title: '',
+        description: '',
+        price: 0,
+        saleStatus: false,
+        photo: '',
+        category: getDefaultCategory(),
+        vendor: getDefaultUser(),
+        wishedUsers: [],
+        buyer: getDefaultUser(),
+    };
 }

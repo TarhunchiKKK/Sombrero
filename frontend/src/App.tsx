@@ -1,5 +1,6 @@
+import { AdvertisementPage } from './pages/Advertisement/AdvertisementPage';
 import { AdvertisementsContainer } from './widgets/Advertisements';
 
 export function App() {
-    return <AdvertisementsContainer />;
+    return <AdvertisementPage advertisementId={2} />;
 }
