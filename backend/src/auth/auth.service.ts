@@ -52,7 +52,7 @@ export class AuthService {
     }
 
     public async registration(createUserDto: CreateUserDto) {
-        const verificationCode: string = '111'; // generateVerificationCode();
+        const verificationCode: string = generateVerificationCode();
         this.usersCodes.push({
             createUserDto,
             verificationCode,
