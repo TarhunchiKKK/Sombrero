@@ -36,7 +36,7 @@ export function Header({ isHome = false }: HeaderProps) {
     }
 
     return (
-        <header id='header' className={'relative ' + headerBackground}>
+        <header id='header' className={headerBackground + ' relative'}>
             <div className='container mx-auto px-2 sm:px-0'>
                 <div id='header-wrapper'>
                     {/* Logo */}
@@ -53,7 +53,7 @@ export function Header({ isHome = false }: HeaderProps) {
                             <li className={navItemStyle}>
                                 <NavLink
                                     className={({ isActive }) => (isActive ? 'text-yellow-400' : 'dark:text-white')}
-                                    to={'/'}>
+                                    to={'/home'}>
                                     Главная
                                 </NavLink>
                             </li>
