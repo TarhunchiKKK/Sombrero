@@ -28,21 +28,24 @@ export class UsersService {
         });
 
         if (existUser) {
-            throw new BadRequestException('This user already exists');
+            throw new BadRequestException('User with such email already exists');
         }
 
-        const address: Address = await this.addressesRepository.save({
-            ...createUserDto.address,
-        });
+        if (createUserDto.address) {
+            const address: Address = await this.addressesRepository.save({
+                ...createUserDto.address,
+            });
+            createUserDto.address = address;
+        }
 
         const user: User = await this.usersRepository.save({
             ...createUserDto,
             password: await argon2.hash(createUserDto.password),
-            address: address,
+            // address: address,
         });
 
         return {
-            ...user,
+            user: user,
             token: await this.jwtService.sign({ id: user.id, email: user.email }),
         };
     }
