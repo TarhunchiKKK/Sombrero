@@ -6,3 +6,4 @@ export { getAdvertisements } from './api/GetAdvertisements.ts';
 export { getOneAdvertisement } from './api/GetOneAdvertisement.ts';
 export { likeAdvertisement } from './api/LikeAdvertisement.ts';
 export { buyAdvertisement } from './api/BuyAdvertisement.ts';
+export { setSearchTitle, setSearchCategory, resetSearchCategory } from './lib/searchSlice.ts';

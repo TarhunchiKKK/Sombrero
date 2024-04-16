@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getDefaultUser, IUser } from '../models/IUser';
+import { getDefaultUser } from '../models/IUser';
 import { IUserInfo } from '../models/IUserInfo';
 
 export interface IUserState {

@@ -1,10 +1,20 @@
-import { useState } from 'react';
-import { HelpQuestionsCategories } from './consts/HelpQuestions';
+import { useEffect, useState } from 'react';
 import { Search } from '../../shared';
 import { HelpQuestions } from '../../widgets/help-questions';
+import { getHelpQuestions, IHelpQuestionsCategory } from '../../entities/questions';
 
 export function HelpPage() {
     const [searchedQuestion, setSearchedQuestion] = useState<string>('');
+    const [questionsGroups, setQustionsGroups] = useState<IHelpQuestionsCategory[]>([]);
+
+    useEffect(() => {
+        async function fetchHelpQuestions() {
+            const data: IHelpQuestionsCategory[] = await getHelpQuestions();
+            setQustionsGroups(data);
+        }
+
+        fetchHelpQuestions();
+    }, []);
 
     return (
         <section className='pt-[100px] pb-[94px]'>
@@ -19,7 +29,7 @@ export function HelpPage() {
                 />
 
                 {/* Help questions */}
-                <HelpQuestions searchedQuestion={searchedQuestion} getQuestions={() => HelpQuestionsCategories} />
+                <HelpQuestions searchedQuestion={searchedQuestion} questionsGroups={questionsGroups} />
             </div>
         </section>
     );

@@ -44,7 +44,7 @@ export function AdvertisementPage() {
     }, []);
 
     return (
-        <section id='advertisement'>
+        <section id='advertisement' className='py-8'>
             <div className='container mx-auto'>
                 <h2 className='font-bold text-xl mt-8'>{advertisement.title}</h2>
                 <span>{advertisement.price}</span>
@@ -115,7 +115,7 @@ export function AdvertisementPage() {
 
                 {/* Advertisement description */}
                 <div className='mt-6'>
-                    <p className='indent-1'>{advertisement.description}</p>
+                    <p className='indent-1 text-lg'>{advertisement.description}</p>
                 </div>
             </div>
         </section>

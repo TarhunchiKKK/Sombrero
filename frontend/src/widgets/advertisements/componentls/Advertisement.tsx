@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
+import { useState, useContext } from 'react';
 import { SERVER_URL } from '../../../shared';
 import { IAdvertisementInfo, likeAdvertisement } from '../../../entities/advertisement';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { AuthModalContext } from '../../authModal/context/AuthModalContext';
 
@@ -27,11 +28,13 @@ export function Advertisement({ advertisement }: IAdvertisementProps) {
         <div className=''>
             {/* Image wrapper  */}
             <div className='w-full overflow-hidden rounded-lg border-2 border-gray-400'>
-                <img
-                    className='w-full object-center object-cover'
-                    src={`${SERVER_URL}/files/advertisement/${advertisement.photo}`}
-                    alt={advertisement.title}
-                />
+                <Link to={`/advertisements/${advertisement.id}`}>
+                    <img
+                        className='w-full object-center object-cover'
+                        src={`${SERVER_URL}/files/advertisement/${advertisement.photo}`}
+                        alt={advertisement.title}
+                    />
+                </Link>
             </div>
 
             {/* Price, title and like */}

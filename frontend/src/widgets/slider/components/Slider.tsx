@@ -1,59 +1,44 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react';
 
 // styles for slides
-const visibleSlideStyle: string = 'w-full h-full'
-const hiddenSlideStyle: string = 'w-full h-full hidden'
+const visibleSlideStyle: string = 'w-full h-full';
+const hiddenSlideStyle: string = 'w-full h-full hidden';
 
 // slides for dots
-const filledDotStyle: string =
-    'w-4 h-4 border-2 rounded-full border-black bg-[#3E3E3E]'
-const unfilledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black'
+const filledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black bg-[#3E3E3E]';
+const unfilledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black';
 
 interface SliderProps {
-    getImages: () => any[]
+    getImages: () => any[];
 }
 
 export function Slider({ getImages }: SliderProps) {
     // slides count is immutable
-    const images: any[] = useMemo(() => getImages(), [])
-    const slidesCount: number = images.length
-    const [currentSlide, setCurrentSlide] = useState<number>(0)
+    const images: any[] = useMemo(() => getImages(), []);
+    const slidesCount: number = images.length;
+    const [currentSlide, setCurrentSlide] = useState<number>(0);
 
     useEffect(() => {
-        function nextSlide() {
-            if (currentSlide == slidesCount - 1) {
-                setCurrentSlide(0)
-            } else {
-                setCurrentSlide((prev) => prev + 1)
-            }
-        }
-
         const interval = setInterval(() => {
-            nextSlide()
-        }, 3000)
+            if (currentSlide === slidesCount - 1) {
+                setCurrentSlide(0);
+            } else {
+                setCurrentSlide((prev) => prev + 1);
+            }
+        }, 3000);
 
         return () => {
-            clearInterval(interval)
-        }
-    }, [])
+            clearInterval(interval);
+        };
+    }, [currentSlide]);
 
     return (
         <>
             {/* Slider images */}
             <div className='relative w-screen h-screen'>
                 {images.map((image, index) => (
-                    <div
-                        className={
-                            index === currentSlide
-                                ? visibleSlideStyle
-                                : hiddenSlideStyle
-                        }
-                        key={index}>
-                        <img
-                            className='w-full h-full object-cover object-center'
-                            src={image}
-                            alt={`Slide${index}`}
-                        />
+                    <div className={index === currentSlide ? visibleSlideStyle : hiddenSlideStyle} key={index}>
+                        <img className='w-full h-full object-cover object-center' src={image} alt={`Slide${index}`} />
                     </div>
                 ))}
             </div>
@@ -65,14 +50,10 @@ export function Slider({ getImages }: SliderProps) {
                 {images.map((_, index) => (
                     <li
                         onClick={() => setCurrentSlide(index)}
-                        className={
-                            currentSlide === index
-                                ? filledDotStyle
-                                : unfilledDotStyle
-                        }
+                        className={currentSlide === index ? filledDotStyle : unfilledDotStyle}
                         key={index}></li>
                 ))}
             </ul>
         </>
-    )
+    );
 }

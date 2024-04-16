@@ -3,13 +3,13 @@ import { GetColumnsCount } from '../helpers/GetColumnsCount';
 import { CategoryButton } from './CategoryButton';
 import { ICategoryInfo } from '../../../entities/category/models/ICategoryInfo';
 import { getCategories } from '../../../entities/category';
+import { useDispatch } from 'react-redux';
+import { setSearchCategory } from '../../../entities/advertisement';
 
-interface ICategoriesContainerProps {
-    onClick: (id: number) => void;
-}
+export function CategoriesContainer() {
+    const dispatch = useDispatch();
 
-export function CategoriesContainer({ onClick }: ICategoriesContainerProps) {
-    const [categories, setcategories] = useState<ICategoryInfo[]>([]);
+    const [categories, setCategories] = useState<ICategoryInfo[]>([]);
     const [columnsCount, setColumnsCount] = useState<number>(GetColumnsCount());
 
     const handleWindowResize = useCallback(() => {
@@ -21,7 +21,7 @@ export function CategoriesContainer({ onClick }: ICategoriesContainerProps) {
     useEffect(() => {
         async function fetchCategories() {
             const data = await getCategories();
-            setcategories(data);
+            setCategories(data);
         }
 
         fetchCategories();
@@ -33,7 +33,7 @@ export function CategoriesContainer({ onClick }: ICategoriesContainerProps) {
     }, []);
 
     return (
-        <section id='categories' className='py-4 px-2'>
+        <section id='categories' className='py-4 px-2 mb-14'>
             <div className='container mx-auto'>
                 <div
                     style={{
@@ -41,7 +41,11 @@ export function CategoriesContainer({ onClick }: ICategoriesContainerProps) {
                     }}
                     className='grid gap-x-2 gap-y-4'>
                     {categories.map((category) => (
-                        <CategoryButton key={category.id} category={category} onClick={() => onClick(category.id)} />
+                        <CategoryButton
+                            key={category.id}
+                            category={category}
+                            onClick={() => dispatch(setSearchCategory(category.id))}
+                        />
                     ))}
                 </div>
             </div>
