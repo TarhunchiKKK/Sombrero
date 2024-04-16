@@ -1,53 +1,45 @@
-import { useRef } from 'react'
-
-const passwordLength: number = 6
-const password: string[] = new Array<string>(passwordLength).fill('')
+import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../app/store/store';
+import { IRegistrationResult, setCurrentUser } from '../../../entities/user';
+import { confirmVerificationCode } from '../../../entities/user/api/confirmVerificationCode';
+import { useDispatch } from 'react-redux';
+import { setTokenToLocalStorage } from '../helpers/localStorage';
 
 export function ConfirmForm() {
-    const refs: any = {
-        ref0: useRef(null),
-        ref1: useRef(null),
-        ref2: useRef(null),
-        ref3: useRef(null),
-        ref4: useRef(null),
-        ref5: useRef(null),
-    }
+    const [verificationCode, setVerificationCode] = useState<string>('');
+    const email: string = useSelector((state: RootState) => state.registration.email);
+    const dispatch = useDispatch();
 
-    function getInputChangeHandler(idx: number) {
-        function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-            const value = e.target.value
-            if (value.length === 1) {
-                refs[`ref${idx + 1}`].current.focus()
-            } else if (value.length > 1) {
-                let i: number = idx
-                while (i < value.length && i < passwordLength) {
-                    refs[`ref${i}`].current.value = value[i]
-                    i++
-                }
-                if (i !== passwordLength) {
-                    refs[`ref${idx}`].current.focus()
-                }
-            }
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        try {
+            const result: IRegistrationResult = await confirmVerificationCode(email, verificationCode);
+            dispatch(setCurrentUser(result.user));
+            setTokenToLocalStorage(result.token);
+            console.log('Confirm');
+        } catch (err) {
+            console.log(err);
         }
-
-        return onChange
     }
 
     return (
-        <form className='flex flex-col bg-white'>
-            <div className='w-3/5 mx-auto flex flex-row justify-between items-center'>
-                {password.map((_, idx) => (
-                    <input
-                        type='text'
-                        placeholder='-'
-                        className='w-12 h-12 text-center outline-none border-2 rounded-lg'
-                        ref={refs[`ref${idx}`]}
-                        onChange={getInputChangeHandler(idx)}
-                        key={idx}
-                    />
-                ))}
+        <form className='flex flex-col bg-white' onSubmit={handleSubmit}>
+            <h3 className='mx-auto text-center w-[90%] sm:w-1/2 mt-4'>
+                We have sent a confirmation code to your email. Check your email and paste the verification code here:
+            </h3>
+            <div className='w-3/5 mx-auto pt-4 pb-10 flex flex-row justify-center items-center'>
+                <input
+                    onChange={(e) => setVerificationCode(e.target.value)}
+                    value={verificationCode}
+                    className='h-10 block w-full outline-none border-2 rounded-lg px-2'
+                    type='text'
+                    placeholder='Paste your code here...'
+                />
             </div>
-            <button className='main-gradient w-full h-10'>Confirm</button>
+            <button type='submit' className='main-gradient w-full h-10'>
+                Confirm
+            </button>
         </form>
-    )
+    );
 }

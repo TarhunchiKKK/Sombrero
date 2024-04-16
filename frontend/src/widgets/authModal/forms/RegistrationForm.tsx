@@ -1,15 +1,18 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { InputField } from '../components/InputField'
-import { FormQuestion } from '../components/FormQuestion'
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { InputField } from '../components/InputField';
+import { FormQuestion } from '../components/FormQuestion';
+import { registration, setRegistrationData } from '../../../entities/user';
+import { Tabs } from '../enums/Tabs';
+import { useDispatch } from 'react-redux';
 
 type RegistrationInputs = {
-    email: string
-    password1: string
-    password2: string
-}
+    email: string;
+    password1: string;
+    password2: string;
+};
 
 interface RegistrationProps {
-    tab: () => void
+    tab: (value: Tabs) => void;
 }
 
 export function RegistrationForm({ tab }: RegistrationProps) {
@@ -17,18 +20,24 @@ export function RegistrationForm({ tab }: RegistrationProps) {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<RegistrationInputs>()
+    } = useForm<RegistrationInputs>();
 
-    const onSubmit: SubmitHandler<RegistrationInputs> = (data) => {
-        console.log(`Email: ${data.email}`)
-        console.log(`Password1: ${data.password1}`)
-        console.log(`Password2: ${data.password2}`)
-    }
+    const dispatch = useDispatch();
+
+    const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
+        tab(Tabs.Confirm);
+        dispatch(
+            setRegistrationData({
+                email: data.email,
+                password: data.password1,
+            }),
+        );
+
+        registration(data.email, data.password1);
+    };
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className='w-full h-full flex flex-col bg-white'>
+        <form onSubmit={handleSubmit(onSubmit)} className='w-full h-full flex flex-col bg-white'>
             <div className='grow w-4/5 mx-auto'>
                 <h2 className='text-center mt-4 mb-6'>Registration</h2>
                 {/* Email */}
@@ -59,14 +68,11 @@ export function RegistrationForm({ tab }: RegistrationProps) {
                 />
 
                 {/* Already have an account? */}
-                <FormQuestion
-                    content='Alrready have an account?'
-                    onClick={() => tab()}
-                />
+                <FormQuestion content='Alrready have an account?' onClick={() => tab(Tabs.Login)} />
             </div>
 
             {/* Submit button */}
             <button className='main-gradient w-full h-10'>Login</button>
         </form>
-    )
+    );
 }
