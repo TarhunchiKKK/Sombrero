@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getFaqs, IFaq } from '../../entities/questions';
 import { Accordeon } from '../../widgets/accordeon';
-import { AccordeonItems } from './consts/FaqQuestions';
 
 export function FaqPage() {
     const [questions, setQuestions] = useState<IFaq[]>([]);
