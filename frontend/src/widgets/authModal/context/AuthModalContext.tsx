@@ -1,23 +1,32 @@
-import { createContext } from 'react';
+import { createContext, useMemo, useState } from 'react';
 import { AuthModal } from '../AuthModal';
 
 const initialState = {
-    isOpen: false,
-    openAuthModal: function () {
-        this.isOpen = true;
-    },
-    closeAuthModal: function () {
-        this.isOpen = false;
-    },
+    openAuthModal: function () {},
+    closeAuthModal: function () {},
 };
 
 export const AuthModalContext = createContext(initialState);
 
 export function AuthModalLayout({ children }: { children: JSX.Element }) {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const contextValue = useMemo(
+        () => ({
+            openAuthModal: function () {
+                setIsOpen(true);
+            },
+            closeAuthModal: function () {
+                setIsOpen(false);
+            },
+        }),
+        [],
+    );
+
     return (
-        <AuthModalContext.Provider value={initialState}>
+        <AuthModalContext.Provider value={contextValue}>
             {children}
-            {initialState.isOpen && <AuthModal />}
+            {isOpen && <AuthModal />}
         </AuthModalContext.Provider>
     );
 }

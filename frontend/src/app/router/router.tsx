@@ -5,24 +5,17 @@ import { AccountEditPage } from '../../pages/account/AccountEditPage';
 import { Layout } from '../layout/Layout';
 import { ContactsPage, FaqPage, HelpPage, HomePage } from '../../pages';
 import { AdvertisementsPage } from '../../pages/advertisements/AdvertisementsPage';
-import { Header } from '../../widgets';
 
 export const router = createBrowserRouter([
     {
         path: '/home',
-        element: (
-            <>
-                <Header isHome={true} />
-                <HomePage />
-            </>
-        ),
-        // element: <Layout isHome={true} />,
-        // children: [
-        //     {
-        //         index: true,
-        //         element: <HomePage />,
-        //     },
-        // ],
+        element: <Layout isHome={true} />,
+        children: [
+            {
+                index: true,
+                element: <HomePage />,
+            },
+        ],
     },
     {
         path: '/',

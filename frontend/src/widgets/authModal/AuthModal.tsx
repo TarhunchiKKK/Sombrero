@@ -21,7 +21,9 @@ export function AuthModal() {
 
     return (
         <>
-            <div className='w-screen h-screen bg-black opacity-85' onClick={() => closeAuthModal()}></div>
+            <div
+                className='fixed top-0 left-0 w-screen h-screen z-40 bg-black opacity-85'
+                onClick={() => closeAuthModal()}></div>
             <div className='w-4/5 sm:w-1/2 xl:w-1/3 flex flex-col bg-white overflow-hidden rounded-2xl fixed z-50 top-1/4 left-1/2 -translate-x-1/2'>
                 {/* Tabs */}
                 <div className='flex flex-row h-10 border-b-2 border-[#d4d6d8]'>
