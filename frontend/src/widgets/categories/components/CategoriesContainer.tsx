@@ -4,13 +4,12 @@ import { CategoryButton } from './CategoryButton';
 import { ICategoryInfo } from '../../../entities/category/models/ICategoryInfo';
 import { getCategories } from '../../../entities/category';
 
-const categories: ICategoryInfo[] = await getCategories();
-
 interface ICategoriesContainerProps {
     onClick: (id: number) => void;
 }
 
 export function CategoriesContainer({ onClick }: ICategoriesContainerProps) {
+    const [categories, setcategories] = useState<ICategoryInfo[]>([]);
     const [columnsCount, setColumnsCount] = useState<number>(GetColumnsCount());
 
     const handleWindowResize = useCallback(() => {
@@ -20,6 +19,12 @@ export function CategoriesContainer({ onClick }: ICategoriesContainerProps) {
     }, [columnsCount]);
 
     useEffect(() => {
+        async function fetchCategories() {
+            const data = await getCategories();
+            setcategories(data);
+        }
+
+        fetchCategories();
         window.addEventListener('resize', handleWindowResize);
 
         return () => {

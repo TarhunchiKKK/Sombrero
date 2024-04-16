@@ -4,9 +4,8 @@ import { Advertisement } from './Advertisement';
 import { getAdvertisements } from '../../../entities/advertisement/api/GetAdvertisements';
 import { IAdvertisementInfo } from '../../../entities/advertisement';
 
-const advertisements: IAdvertisementInfo[] = await getAdvertisements();
-
 export function AdvertisementsContainer() {
+    const [advertisements, setAdvertisements] = useState<IAdvertisementInfo[]>([]);
     const [columnsCount, setColumnsCount] = useState<number>(GetColumnsCount());
 
     const handleWindowResize = useCallback(() => {
@@ -16,6 +15,12 @@ export function AdvertisementsContainer() {
     }, [columnsCount]);
 
     useEffect(() => {
+        async function fetchAdvertisements() {
+            const data = await getAdvertisements();
+            setAdvertisements(data);
+        }
+
+        fetchAdvertisements();
         window.addEventListener('resize', handleWindowResize);
 
         return () => {

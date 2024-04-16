@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { SERVER_URL } from '../../../shared';
 import { IAdvertisementInfo, likeAdvertisement } from '../../../entities/advertisement';
+import { useAuth } from '../../../shared/hooks/useAuth';
+import { AuthModalContext } from '../../authModal/context/AuthModalContext';
 
 interface IAdvertisementProps {
     advertisement: IAdvertisementInfo;
@@ -10,10 +12,15 @@ const userId: number = 1;
 
 export function Advertisement({ advertisement }: IAdvertisementProps) {
     const [isLiked, setIsLiked] = useState<boolean>(false);
+    const { openAuthModal } = useContext(AuthModalContext);
 
-    function handleLike(e: React.MouseEvent<HTMLButtonElement>) {
-        setIsLiked((prev) => !prev);
-        likeAdvertisement(advertisement.id, userId);
+    function handleLike(_: React.MouseEvent<HTMLButtonElement>) {
+        if (useAuth()) {
+            setIsLiked((prev) => !prev);
+            likeAdvertisement(advertisement.id, userId);
+        } else {
+            openAuthModal();
+        }
     }
 
     return (

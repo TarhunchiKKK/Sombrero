@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
     buyAdvertisement,
     getDefaultAdvertisement,
@@ -8,21 +8,30 @@ import {
 } from '../../entities/advertisement';
 import { SERVER_URL } from '../../shared';
 import { useParams } from 'react-router-dom';
+import { AuthModalContext } from '../../widgets/authModal/context/AuthModalContext';
+import { useAuth } from '../../shared/hooks/useAuth';
 
 const userId: number = 1;
 
 export function AdvertisementPage() {
     const { advertisementId } = useParams();
     const [advertisement, setAdvertisement] = useState<IAdvertisement>(getDefaultAdvertisement());
+    const { openAuthModal } = useContext(AuthModalContext);
 
     function handleLikeAdvertisement(e: React.MouseEvent<HTMLButtonElement>) {
         e.stopPropagation();
-        likeAdvertisement(userId, advertisement.id);
+        if (useAuth()) {
+            likeAdvertisement(userId, advertisement.id);
+        } else {
+            openAuthModal();
+        }
     }
 
     function handleBuyAdvertisement(e: React.MouseEvent<HTMLButtonElement>) {
         e.stopPropagation();
-        buyAdvertisement(advertisement.id, userId);
+        if (useAuth()) {
+            buyAdvertisement(advertisement.id, userId);
+        }
     }
 
     useEffect(() => {
