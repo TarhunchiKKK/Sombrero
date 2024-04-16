@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react';
-import { LoginForm } from './forms/LoginForm';
-import { RegistrationForm } from './forms/RegistrationForm';
-import { ConfirmForm } from './forms/ConfirmForm';
-import { Tabs } from './enums/Tabs';
-import { AuthModalContext } from './context/AuthModalContext';
+import { LoginForm } from '../forms/LoginForm';
+import { RegistrationForm } from '../forms/RegistrationForm';
+import { ConfirmForm } from '../forms/ConfirmForm';
+import { Tabs } from '../enums/Tabs';
+import { AuthModalContext } from '../context/AuthModalContext';
 
 const activetabBg: string = 'bg-[#eff1f3]';
 const activeTabStyle: string = `w-1/2 h-full ${activetabBg} flex justify-center items-center cursor-pointer hover:${activetabBg}`;

@@ -1,5 +1,5 @@
 import { createContext, useMemo, useState } from 'react';
-import { AuthModal } from '../AuthModal';
+import { AuthModal } from '../components/AuthModal';
 
 const initialState = {
     openAuthModal: function () {},

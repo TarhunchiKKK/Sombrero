@@ -35,7 +35,7 @@ export function Slider({ getImages }: SliderProps) {
     return (
         <>
             {/* Slider images */}
-            <div className='relative w-screen h-screen'>
+            <div className='fixed top-0 left-0 z-20 w-screen h-screen'>
                 {images.map((image, index) => (
                     <div className={index === currentSlide ? visibleSlideStyle : hiddenSlideStyle} key={index}>
                         <img className='w-full h-full object-cover object-center' src={image} alt={`Slide${index}`} />
