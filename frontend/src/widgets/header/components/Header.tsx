@@ -7,7 +7,7 @@ import menuDark from '../assets/menu-dark.svg';
 import logo from '../../../shared//assets/logo.svg';
 import { useState } from 'react';
 import { toggleTheme } from '../../../features';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
     isHome: boolean;
@@ -16,6 +16,7 @@ interface HeaderProps {
 export function Header({ isHome = false }: HeaderProps) {
     const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const headerBackground = isHome ? 'bg-none' : 'main-gradient';
 
@@ -98,7 +99,7 @@ export function Header({ isHome = false }: HeaderProps) {
                         )}
 
                         {/* Account icons */}
-                        <div className='w-5 h-5 sm:w-8 sm:h-8 cursor-pointer'>
+                        <div className='w-5 h-5 sm:w-8 sm:h-8 cursor-pointer' onClick={() => navigate('/account')}>
                             <img className={lightIconStyle} src={accountLight} alt='Account-light' />
                             <img className={darkIconStyle} src={accountDark} alt='Account-dark' />
                         </div>
