@@ -51,35 +51,35 @@ export function Header({ isHome = false }: HeaderProps) {
                         <ul className={navListStyle}>
                             <li className={navItemStyle}>
                                 <NavLink
-                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    className={({ isActive }) => (isActive ? 'text-yellow-400' : 'dark:text-white')}
                                     to={'/'}>
                                     Главная
                                 </NavLink>
                             </li>
                             <li className={navItemStyle}>
                                 <NavLink
-                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    className={({ isActive }) => (isActive ? 'text-yellow-400' : 'dark:text-white')}
                                     to={'/advertisements'}>
                                     Каталог
                                 </NavLink>
                             </li>
                             <li className={navItemStyle}>
                                 <NavLink
-                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    className={({ isActive }) => (isActive ? 'text-yellow-400' : 'dark:text-white')}
                                     to={'/faqs'}>
                                     FAQ
                                 </NavLink>
                             </li>
                             <li className={navItemStyle}>
                                 <NavLink
-                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    className={({ isActive }) => (isActive ? 'text-yellow-400' : 'dark:text-white')}
                                     to={'/contacts'}>
                                     Контакты
                                 </NavLink>
                             </li>
                             <li className={navItemStyle}>
                                 <NavLink
-                                    className={({ isActive }) => (isActive ? 'text-yellow' : 'dark:text-white')}
+                                    className={({ isActive }) => (isActive ? 'text-yellow-400' : 'dark:text-white')}
                                     to={'/help'}>
                                     Помощь
                                 </NavLink>

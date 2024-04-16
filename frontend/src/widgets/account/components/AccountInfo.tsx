@@ -9,7 +9,7 @@ interface IAccountInfoProps {
 export function AccountInfo({ user }: IAccountInfoProps) {
     const navigate = useNavigate();
 
-    function handleEditButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+    function handleEditButtonClick(_: React.MouseEvent<HTMLButtonElement>) {
         navigate('./edit');
     }
 
