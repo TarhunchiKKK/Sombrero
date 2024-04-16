@@ -34,7 +34,7 @@ export function AccountEditPage() {
         updateUser(user.id, data);
     }
 
-    function handleGoBack(e: React.MouseEvent<HTMLButtonElement>) {
+    function handleGoBack(_: React.MouseEvent<HTMLButtonElement>) {
         navigate('/account');
     }
 

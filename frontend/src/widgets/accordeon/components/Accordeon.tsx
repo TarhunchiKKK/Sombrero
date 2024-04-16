@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AccordeonItem } from './AccordeonItem';
-import { getFaqs, IFaq } from '../../../entities/questions';
+import { IFaq } from '../../../entities/questions';
 
 interface Props {
     items: IFaq[];

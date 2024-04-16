@@ -1,2 +1,2 @@
-export {Contact} from './Contact'
-export type {IContact} from './types/IContact'
+export { Contact } from './components/Contact';
+export type { IContact } from './types/IContact';
