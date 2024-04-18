@@ -4,6 +4,8 @@ import { FormQuestion } from '../components/FormQuestion';
 import { registration, setRegistrationData } from '../../../entities/user';
 import { Tabs } from '../enums/Tabs';
 import { useDispatch } from 'react-redux';
+import { useContext } from 'react';
+import { AuthModalContext } from '../context/AuthModalContext';
 
 type RegistrationInputs = {
     email: string;
@@ -22,6 +24,8 @@ export function RegistrationForm({ tab }: RegistrationProps) {
         formState: { errors },
     } = useForm<RegistrationInputs>();
 
+    const { closeAuthModal } = useContext(AuthModalContext);
+
     const dispatch = useDispatch();
 
     const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
@@ -33,7 +37,8 @@ export function RegistrationForm({ tab }: RegistrationProps) {
             }),
         );
 
-        registration(data.email, data.password1);
+        await registration(data.email, data.password1);
+        closeAuthModal();
     };
 
     return (

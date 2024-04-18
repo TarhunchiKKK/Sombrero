@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { IUser } from '../../../entities/user';
 import { SERVER_URL } from '../../../shared';
+import { useDispatch } from 'react-redux';
+import { removeTokenFromLocalStorage } from '../../authModal/helpers/localStorage';
 
 interface IAccountInfoProps {
     user: IUser;
@@ -11,6 +13,11 @@ export function AccountInfo({ user }: IAccountInfoProps) {
 
     function handleEditButtonClick(_: React.MouseEvent<HTMLButtonElement>) {
         navigate('./edit');
+    }
+
+    function handleLogout(_: React.MouseEvent<HTMLButtonElement>) {
+        removeTokenFromLocalStorage();
+        navigate('/advertisements');
     }
 
     return (
@@ -49,6 +56,10 @@ export function AccountInfo({ user }: IAccountInfoProps) {
                     {user.address.flatNumber && <span>кв. {user.address.flatNumber}</span>}
                 </div>
             </div>
+
+            <button className='main-gradient px-4 py-2 dark:text-white rounded-md' onClick={handleLogout}>
+                Logout
+            </button>
         </div>
     );
 }

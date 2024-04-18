@@ -4,16 +4,18 @@ import { IAdvertisementInfo, likeAdvertisement } from '../../../entities/adverti
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { AuthModalContext } from '../../authModal/context/AuthModalContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../app/store/store';
 
 interface IAdvertisementProps {
     advertisement: IAdvertisementInfo;
 }
 
-const userId: number = 1;
-
 export function Advertisement({ advertisement }: IAdvertisementProps) {
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const { openAuthModal } = useContext(AuthModalContext);
+
+    const userId: number = useSelector((state: RootState) => state.user.currentUser.id);
 
     function handleLike(_: React.MouseEvent<HTMLButtonElement>) {
         if (useAuth()) {

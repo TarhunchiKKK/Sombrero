@@ -2,18 +2,25 @@ import { useEffect, useState } from 'react';
 import { getDefaultUser, getUser, IUser, setCurrentUser } from '../../entities/user';
 import { AccountInfo, AdvertisementsList } from '../../widgets/account';
 import { useDispatch } from 'react-redux';
-
-const userId: number = 1;
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store/store';
+import { useNavigate } from 'react-router-dom';
 
 export function AccountPage() {
     const [user, setUser] = useState<IUser>(getDefaultUser());
+    const userId: number | undefined = useSelector((state: RootState) => state.user.currentUser?.id);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchUser() {
-            const data: IUser = await getUser(userId);
-            setUser(data);
-            dispatch(setCurrentUser(data));
+            if (userId) {
+                const data: IUser = await getUser(userId);
+                setUser(data);
+                dispatch(setCurrentUser(data));
+            } else {
+                navigate('/advertisements');
+            }
         }
         fetchUser();
     }, []);

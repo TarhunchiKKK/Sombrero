@@ -1,15 +1,17 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store/store';
 import { IRegistrationResult, setCurrentUser } from '../../../entities/user';
 import { confirmVerificationCode } from '../../../entities/user/api/confirmVerificationCode';
 import { useDispatch } from 'react-redux';
 import { setTokenToLocalStorage } from '../helpers/localStorage';
+import { AuthModalContext } from '../context/AuthModalContext';
 
 export function ConfirmForm() {
     const [verificationCode, setVerificationCode] = useState<string>('');
     const email: string = useSelector((state: RootState) => state.registration.email);
     const dispatch = useDispatch();
+    const { closeAuthModal } = useContext(AuthModalContext);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -17,7 +19,7 @@ export function ConfirmForm() {
             const result: IRegistrationResult = await confirmVerificationCode(email, verificationCode);
             dispatch(setCurrentUser(result.user));
             setTokenToLocalStorage(result.token);
-            console.log('Confirm');
+            closeAuthModal();
         } catch (err) {
             console.log(err);
         }

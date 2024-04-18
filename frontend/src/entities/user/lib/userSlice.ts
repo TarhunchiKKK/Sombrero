@@ -3,7 +3,7 @@ import { getDefaultUser } from '../models/IUser';
 import { IUserInfo } from '../models/IUserInfo';
 
 export interface IUserState {
-    currentUser: IUserInfo;
+    currentUser: IUserInfo | null;
 }
 
 const initialState: IUserState = {
@@ -16,6 +16,9 @@ export const userSlice = createSlice({
     reducers: {
         setCurrentUser: (state, action: PayloadAction<IUserInfo>) => {
             state.currentUser = action.payload;
+        },
+        resetCurrentUser: (state) => {
+            state.currentUser = null;
         },
     },
 });

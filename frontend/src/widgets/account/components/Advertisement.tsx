@@ -8,7 +8,7 @@ interface IAdvertisementProps {
 
 export function Advertisement({ advertisement }: IAdvertisementProps) {
     return (
-        <div className='w-[200px] h-[150px]'>
+        <div className=''>
             {/* Image wrapper  */}
             <div className='w-full overflow-hidden rounded-lg border-2 border-gray-400'>
                 <Link to={`/advertisements/${advertisement.id}`}>

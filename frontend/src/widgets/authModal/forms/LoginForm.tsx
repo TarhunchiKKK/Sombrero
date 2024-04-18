@@ -5,6 +5,8 @@ import { Tabs } from '../enums/Tabs';
 import { login, setCurrentUser } from '../../../entities/user';
 import { useDispatch } from 'react-redux';
 import { setTokenToLocalStorage } from '../helpers/localStorage';
+import { useContext } from 'react';
+import { AuthModalContext } from '../context/AuthModalContext';
 
 type LoginInputs = {
     email: string;
@@ -22,17 +24,18 @@ export function LoginForm({ tab }: LoginProps) {
         formState: { errors },
     } = useForm<LoginInputs>();
 
+    const { closeAuthModal } = useContext(AuthModalContext);
+
     const dispatch = useDispatch();
 
     const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
-        console.log(`Email: ${data.email}`);
-        console.log(`Password: ${data.password}`);
-
         try {
             const result = await login(data.email, data.password);
             if (result) {
-                dispatch(setCurrentUser(result.user));
+                console.log(result);
+                dispatch(setCurrentUser(result));
                 setTokenToLocalStorage(result.token);
+                closeAuthModal();
             }
         } catch (err) {
             console.log(err);
