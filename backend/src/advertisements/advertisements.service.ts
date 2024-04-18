@@ -29,8 +29,6 @@ export class AdvertisementsService {
     }
 
     public async findAll(page: number, limit: number, categoryId: number | undefined): Promise<Advertisement[]> {
-        console.log(`Page: ${page}, Limit: ${limit}, CategoryId: ${categoryId}`);
-
         return await this.advertisementsRepository.find({
             relations: {
                 vendor: false,
