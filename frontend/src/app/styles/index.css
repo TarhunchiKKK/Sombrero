@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .header-wrapper {
+        @apply h-16 flex justify-between items-center p-[13px];
+    }
+
+    #header-wrapper {
+        @apply flex justify-between items-center py-3;
+    }
+
+    .section-title {
+        @apply text-3xl mb-6 sm:mb-12 text-center;
+    }
+
+    .main-gradient {
+        @apply bg-gradient-to-r from-[#8d90e3] via-[#9ec0ea] to-[#8d90e3];
+        @apply dark:bg-gradient-to-r dark:from-[#8aa0c7] dark:via-[#5e6a9d] dark:to-[#30284e];
+    }
+
+    .contact {
+        @apply relative px-0 sm:px-6 lg:px-20 py-2 sm:py-7 rounded-tl-[30px] border-b-0 border-2 border-[#BEC2C6];
+        @apply flex flex-col sm:flex-row sm:even:flex-row-reverse justify-between items-center;
+        @apply bg-white even:bg-[#DEE2E6] last:border-b-2;
+
+        @apply after:absolute after:block after:top-full after:-left-[2px] after:w-full after:h-[30px];
+        @apply last:after:hidden after:border-l-2 after:border-[#BEC2C6] after:bg-white even:after:bg-[#DEE2E6];
+    }
+
+    .text-link {
+        @apply hover:cursor-pointer hover:text-[#8D90E3] active:text-[8D90E3] visited:text-[8D90E3];
+    }
+}
+
+@layer utilities {
+    .slider-text {
+        @apply text-[72px];
+    }
+}

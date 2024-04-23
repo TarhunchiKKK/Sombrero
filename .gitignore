@@ -1,7 +1,8 @@
 /**/node_modules/
-/**/package-lock.json/
 /**/dist/
+/**/package-lock.json
 /**/build/
-/backend/data
-/**/database
+./src/output.css
 /**/.env
+/**/data
+/**/database
