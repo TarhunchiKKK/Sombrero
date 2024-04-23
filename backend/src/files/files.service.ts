@@ -1,6 +1,8 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { generateFilename } from './helpers/generateFilename';
+import { Express } from 'express';
+import { Multer } from 'multer';
 
 const fs = require('fs');
 const path = require('path');
@@ -11,7 +13,7 @@ export class FilesService {
     private readonly advertisementsDir: string;
 
     constructor(private configService: ConfigService) {
-        const filesStorage: string = this.configService.get('FILES_STORAGE');
+        const filesStorage: string = this.configService.get('FILES_STORAGE')!;
         this.accountsDir = path.join(`${filesStorage}/accounts/`);
         this.advertisementsDir = path.join(`${filesStorage}/advertisements/`);
     }
