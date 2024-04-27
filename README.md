@@ -1,6 +1,26 @@
 # Sombrero
 
-[TOC]
+## Table of Contents
+1. [About application](#About-application)
+1. [Tech stack](#Tech-stack)
+1. [Project structure](#Project-structure)
+1. [Backend folder](#Backend-folder)
+1. [Frontend folder](#Frontend-folder)
+1. [Startup guide](#Startup-guide)
+1. [Functionality](#Functionality)
+1. [Home page](#Home-page)
+1. [Catalog](#Catalog)
+1. [Toggle color theme](#Toggle-color-theme)
+1. [Authorization](#Authorization)
+1. [Account page](#Account-page)
+1. [Product page](#Product-page)
+1. [Help pages](#Help-pages)
+1. [FAQs page](#FAQs-page)
+1. [Help page](#Help-page)
+1. [Contacts page](#Contacts-page)
+
+
+
 
 ## About application
 
@@ -169,7 +189,7 @@ This page contains questions grouped by category. Each question has a link to it
 
 
 
-###  Contacts page
+### Contacts page
 
 The contact page looks like this:
 
