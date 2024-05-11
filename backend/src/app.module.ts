@@ -13,7 +13,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { RedisClientOptions } from 'redis';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
-import { QuestionsModule } from './questions/questions.module';
+import { StaticDataModule } from './static-data/static-data.module';
 import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
@@ -23,6 +23,7 @@ import * as redisStore from 'cache-manager-redis-store';
         AdvertisementsModule,
         AuthModule,
         FilesModule,
+        StaticDataModule,
         ConfigModule.forRoot({ isGlobal: true }),
         // TypeOrmModule.forRootAsync({
         //   useClass: TypeOrmConfigService,
@@ -45,7 +46,6 @@ import * as redisStore from 'cache-manager-redis-store';
                 port: 6379,
             },
         }),
-        QuestionsModule,
     ],
 })
 export class AppModule {}

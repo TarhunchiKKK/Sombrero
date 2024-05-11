@@ -1,9 +1,9 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { QuestionsService } from './questions.service';
+import { StaticDataService } from './static-data.service';
 
 @Controller('help')
-export class QuestionsController {
-    constructor(private readonly questionsService: QuestionsService) {}
+export class StaticDataController {
+    constructor(private readonly questionsService: StaticDataService) {}
 
     @Get('questions')
     findAllHelpQuestions() {
@@ -13,5 +13,10 @@ export class QuestionsController {
     @Get('faqs')
     findAllfaqs() {
         return this.questionsService.findAllFaqs();
+    }
+
+    @Get('contacts')
+    findAllContacts() {
+        return this.questionsService.findAllContacts();
     }
 }

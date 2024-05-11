@@ -1,4 +1,4 @@
-export class HelpQuestion {
+export interface IHelpQuestion {
     title: string;
     answer: string;
 }
