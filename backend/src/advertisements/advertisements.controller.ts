@@ -1,9 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Query, ValidationPipe } from '@nestjs/common';
 import { AdvertisementsService } from './advertisements.service';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
 import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
-import { CreateAdvertisementDtoValidatioonPipe } from './pipes/create-advertisement-dto-validation.pipe';
-import { UpdateAdvertisementDtoValidatioonPipe } from './pipes/update-advertisement-dto-validation.pipe';
 import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
 import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
 
@@ -12,7 +10,7 @@ export class AdvertisementsController {
     constructor(private readonly advertisementsService: AdvertisementsService) {}
 
     @Post()
-    @UsePipes(CreateAdvertisementDtoValidatioonPipe)
+    @UsePipes(ValidationPipe)
     create(@Body() createAdvertisementDto: CreateAdvertisementDto) {
         return this.advertisementsService.create(createAdvertisementDto);
     }
@@ -32,7 +30,7 @@ export class AdvertisementsController {
     }
 
     @Patch(':id')
-    @UsePipes(UpdateAdvertisementDtoValidatioonPipe)
+    @UsePipes(ValidationPipe)
     update(@Param('id') id: string, @Body() updateAdvertisementDto: UpdateAdvertisementDto) {
         return this.advertisementsService.update(+id, updateAdvertisementDto);
     }
