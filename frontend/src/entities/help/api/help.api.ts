@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { SERVER_URL } from '../../../shared';
 import { IHelpQuestionsCategory } from '../models/IHelpQuestionCategory';
 import { IHelpQuestion } from '../models/IHelpQusetion';
+import { AddQuestionToCategryDto } from '../models/IAddQuestionToCategoryDto';
+import { HttpMethods, QueryTags } from '../../utils';
 
 export const helpApi = createApi({
     reducerPath: 'help/api',
@@ -10,90 +12,98 @@ export const helpApi = createApi({
         baseUrl: `${SERVER_URL}/help`,
     }),
 
-    tagTypes: ['HelpQuestion', 'HelpQuestionsCategory'],
+    tagTypes: [QueryTags.HelpQuestion, QueryTags.HelpQuestionsCategory],
 
     endpoints: (build) => ({
         getHelp: build.query<IHelpQuestionsCategory[], void>({
             query: () => ({
                 url: '',
             }),
-            providesTags: () => ['HelpQuestion', 'HelpQuestionsCategory'],
+            providesTags: () => [QueryTags.HelpQuestion, QueryTags.HelpQuestionsCategory],
         }),
         getHelpQuestions: build.query<IHelpQuestion[], void>({
             query: () => ({
                 url: '/questions',
             }),
-            providesTags: ['HelpQuestion'],
+            providesTags: [QueryTags.HelpQuestion],
         }),
         getOneHelpQuestion: build.query<IHelpQuestion, number>({
             query: (id: number) => ({
                 url: `/questions/${id}`,
             }),
-            providesTags: ['HelpQuestion'],
+            providesTags: [QueryTags.HelpQuestion],
         }),
         createHelpQuestion: build.mutation<IHelpQuestion, Omit<IHelpQuestion, 'id'>>({
             query: (question: Omit<IHelpQuestion, 'id'>) => ({
                 url: '/questions',
-                method: 'POST',
+                method: HttpMethods.POST,
                 body: question,
             }),
-            invalidatesTags: ['HelpQuestion', 'HelpQuestionsCategory'],
+            invalidatesTags: [QueryTags.HelpQuestion, QueryTags.HelpQuestionsCategory],
         }),
         updateHelpQuestion: build.mutation<void, IHelpQuestion>({
             query: (question: IHelpQuestion) => ({
                 url: `questions/${question.id}`,
-                method: 'PATCH',
+                method: HttpMethods.PATCH,
                 body: {
                     ...question,
                     id: undefined,
                 },
             }),
-            invalidatesTags: ['HelpQuestion', 'HelpQuestionsCategory'],
+            invalidatesTags: [QueryTags.HelpQuestion, QueryTags.HelpQuestionsCategory],
         }),
         removeHelpQuestion: build.mutation<void, number>({
             query: (id: number) => ({
                 url: `/questions/${id}`,
-                method: 'DELETE',
+                method: HttpMethods.DELETE,
             }),
-            invalidatesTags: ['HelpQuestion', 'HelpQuestionsCategory'],
+            invalidatesTags: [QueryTags.HelpQuestion, QueryTags.HelpQuestionsCategory],
         }),
         getHelpQuestionsCategories: build.query<IHelpQuestionsCategory[], void>({
             query: () => ({
                 url: '/categories',
             }),
-            providesTags: ['HelpQuestionsCategory'],
+            providesTags: [QueryTags.HelpQuestionsCategory],
         }),
         getOneHelpQuestionsCategory: build.query<IHelpQuestionsCategory, number>({
             query: (id: number) => ({
                 url: `/categories/${id}`,
             }),
-            providesTags: ['HelpQuestionsCategory'],
+            providesTags: [QueryTags.HelpQuestionsCategory],
         }),
         createHelpQuestionsCategory: build.mutation<IHelpQuestionsCategory, Omit<IHelpQuestionsCategory, 'id'>>({
             query: (category: Omit<IHelpQuestionsCategory, 'id'>) => ({
                 url: '/categories',
-                method: 'POST',
+                method: HttpMethods.POST,
                 body: category,
             }),
-            invalidatesTags: ['HelpQuestionsCategory'],
+            invalidatesTags: [QueryTags.HelpQuestionsCategory],
         }),
         updateHelpQuestionsCategory: build.mutation<void, IHelpQuestionsCategory>({
             query: (category: IHelpQuestionsCategory) => ({
                 url: `categories/${category.id}`,
-                method: 'PATCH',
+                method: HttpMethods.PATCH,
                 body: {
                     ...category,
                     id: undefined,
                 },
             }),
-            invalidatesTags: ['HelpQuestionsCategory'],
+            invalidatesTags: [QueryTags.HelpQuestionsCategory],
         }),
         removeHelpQuestionsCategory: build.mutation<void, number>({
             query: (id: number) => ({
                 url: `/categories/${id}`,
-                method: 'DELETE',
+                method: HttpMethods.DELETE,
             }),
-            invalidatesTags: ['HelpQuestionsCategory'],
+            invalidatesTags: [QueryTags.HelpQuestionsCategory],
+        }),
+        addQuestionToCategory: build.mutation<void, AddQuestionToCategryDto>({
+            query: (dto: AddQuestionToCategryDto) => ({
+                url: 'questions/add-to-category',
+                method: HttpMethods.PATCH,
+                body: dto,
+            }),
+            invalidatesTags: [QueryTags.HelpQuestion, QueryTags.HelpQuestionsCategory],
         }),
     }),
 });
@@ -110,4 +120,5 @@ export const {
     useCreateHelpQuestionsCategoryMutation,
     useUpdateHelpQuestionsCategoryMutation,
     useRemoveHelpQuestionsCategoryMutation,
+    useAddQuestionToCategoryMutation,
 } = helpApi;
