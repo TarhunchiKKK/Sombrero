@@ -14,7 +14,10 @@ import { RedisClientOptions } from 'redis';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
 import { StaticDataModule } from './static-data/static-data.module';
+import { ContactsModule } from './contacts/contacts.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { Contact } from './contacts/entities/contact.entity';
+import { FaqModule } from './faq/faq.module';
 
 @Module({
     imports: [
@@ -36,7 +39,7 @@ import * as redisStore from 'cache-manager-redis-store';
             password: '123456',
             database: 'sombrero',
             synchronize: true,
-            entities: [User, Address, Advertisement, Category],
+            entities: [User, Address, Advertisement, Category, Contact],
         }),
         CacheModule.register<RedisClientOptions>({
             isGlobal: true,
@@ -46,6 +49,8 @@ import * as redisStore from 'cache-manager-redis-store';
                 port: 6379,
             },
         }),
+        ContactsModule,
+        FaqModule,
     ],
 })
 export class AppModule {}
