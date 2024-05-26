@@ -1,5 +1,0 @@
-export type { IFaq } from './models/IFaq.ts'
-export type { IHelpQuestion } from './models/IHelpQusetion.ts'
-export type { IHelpQuestionsCategory } from './models/IHelpQuestionCategory.ts'
-export { getFaqs } from './api/GetFaqs.ts'
-export { getHelpQuestions } from './api/GetHelpQuestions.ts'

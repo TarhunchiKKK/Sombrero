@@ -1,7 +1,9 @@
+import { useGetContactsQuery } from '../../entities/contact';
 import { Contact } from '../../widgets/contact';
-import { contacts } from './consts/Contacts';
 
 export function ContactsPage() {
+    const { data: contacts } = useGetContactsQuery();
+
     return (
         <section className='pt-[82px] pb-14'>
             <div className='container mx-auto px-2 sm:px-0'>
@@ -9,9 +11,7 @@ export function ContactsPage() {
 
                 {/* Contacts */}
                 <div className='flex flex-col'>
-                    {contacts.map((contact, idx) => (
-                        <Contact contact={contact} key={idx} />
-                    ))}
+                    {contacts?.map((contact, idx) => <Contact contact={contact} key={idx} />)}
                 </div>
             </div>
         </section>

@@ -1,4 +1,4 @@
-import { IContact } from '../types/IContact';
+import { IContact } from '../../../entities/contact';
 import avatar from '../assets/avatar.png';
 
 interface ContactProps {
@@ -18,13 +18,13 @@ export function Contact({ contact }: ContactProps) {
                 {/* Name and job */}
                 <div className='mt-4 md:mt-0 text-center md:text-left'>
                     <h4 className='text-2xl sm:text-3xl text-center md:text-left'>{contact.name}</h4>
-                    <span className='text-lg sm:text-xl'>{contact.job}</span>
+                    <span className='text-lg sm:text-xl'>{contact.post}</span>
                 </div>
             </div>
 
             {/* Description */}
             <div className='w-5/6 sm:w-1/2 mt-4 sm:mt-0 text-center sm:text-left'>
-                <p className='text-sm'>{contact.description}</p>
+                <p className='text-sm'>{contact.about}</p>
             </div>
         </div>
     );

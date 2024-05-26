@@ -1,4 +1,4 @@
-import { IHelpQuestion } from '../../../entities/questions';
+import { IHelpQuestion } from '../../../entities/help';
 
 interface HelpQuestionsGroupProps {
     title: string;

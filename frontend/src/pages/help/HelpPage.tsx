@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Search } from '../../shared';
 import { HelpQuestions } from '../../widgets/help-questions';
-import { getHelpQuestions, IHelpQuestionsCategory } from '../../entities/questions';
+import { getHelpQuestions, IHelpQuestionsCategory, useGetHelpQuery } from '../../entities/help';
 
 export function HelpPage() {
     const [searchedQuestion, setSearchedQuestion] = useState<string>('');
-    const [questionsGroups, setQustionsGroups] = useState<IHelpQuestionsCategory[]>([]);
+    // const [questionsGroups, setQustionsGroups] = useState<IHelpQuestionsCategory[]>([]);
 
-    useEffect(() => {
-        async function fetchHelpQuestions() {
-            const data: IHelpQuestionsCategory[] = await getHelpQuestions();
-            setQustionsGroups(data);
-        }
+    // useEffect(() => {
+    //     async function fetchHelpQuestions() {
+    //         const data: IHelpQuestionsCategory[] = await getHelpQuestions();
+    //         setQustionsGroups(data);
+    //     }
 
-        fetchHelpQuestions();
-    }, []);
+    //     fetchHelpQuestions();
+    // }, []);
+
+    const { data: questionsGroups } = useGetHelpQuery();
 
     return (
         <section className='pt-[100px] pb-[94px]'>
@@ -29,7 +31,9 @@ export function HelpPage() {
                 />
 
                 {/* Help questions */}
-                <HelpQuestions searchedQuestion={searchedQuestion} questionsGroups={questionsGroups} />
+                {questionsGroups && (
+                    <HelpQuestions searchedQuestion={searchedQuestion} questionsGroups={questionsGroups} />
+                )}
             </div>
         </section>
     );

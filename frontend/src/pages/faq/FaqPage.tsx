@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getFaqs, IFaq } from '../../entities/questions';
+import { getFaqs, IFaq } from '../../entities/help';
 import { Accordeon } from '../../widgets/accordeon';
+import { useGetFaqsQuery } from '../../entities/faqs';
 
 export function FaqPage() {
-    const [questions, setQuestions] = useState<IFaq[]>([]);
-
-    useEffect(() => {
-        async function fetchFaqs() {
-            const data = await getFaqs();
-            setQuestions(data);
-        }
-        fetchFaqs();
-    }, []);
+    const { data: faqs } = useGetFaqsQuery();
 
     return (
         <section id='faq' className='pt-20 pb-14'>
@@ -19,7 +12,7 @@ export function FaqPage() {
                 <h2 className='section-title'>Faq</h2>
 
                 {/* Accordeon with frequently asked questions */}
-                <Accordeon items={questions} />
+                {faqs && <Accordeon items={faqs} />}
             </div>
         </section>
     );
