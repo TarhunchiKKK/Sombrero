@@ -14,7 +14,14 @@ import { RedisClientOptions } from 'redis';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
 import { StaticDataModule } from './static-data/static-data.module';
+import { ContactsModule } from './contacts/contacts.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { Contact } from './contacts/entities/contact.entity';
+import { FaqsModule } from './faqs/faqs.module';
+import { Faq } from './faqs/entities/faq.entity';
+import { HelpModule } from './help/help.module';
+import { Question } from './help/entities/question.entity';
+import { QuestionsCategory } from './help/entities/questions-category.entity';
 
 @Module({
     imports: [
@@ -25,18 +32,15 @@ import * as redisStore from 'cache-manager-redis-store';
         FilesModule,
         StaticDataModule,
         ConfigModule.forRoot({ isGlobal: true }),
-        // TypeOrmModule.forRootAsync({
-        //   useClass: TypeOrmConfigService,
-        // }),
         TypeOrmModule.forRoot({
             type: 'postgres',
             host: 'localhost',
             port: 5432,
-            username: 'root',
+            username: 'konstantin',
             password: '123456',
             database: 'sombrero',
             synchronize: true,
-            entities: [User, Address, Advertisement, Category],
+            entities: [User, Address, Advertisement, Category, Contact, Faq, Question, QuestionsCategory],
         }),
         CacheModule.register<RedisClientOptions>({
             isGlobal: true,
@@ -46,6 +50,9 @@ import * as redisStore from 'cache-manager-redis-store';
                 port: 6379,
             },
         }),
+        ContactsModule,
+        FaqsModule,
+        HelpModule,
     ],
 })
 export class AppModule {}
