@@ -7,13 +7,13 @@ export class UpdateContactDto {
     @IsNotEmpty({ message: 'Name should be provided' })
     @IsAlpha('en-US', { message: "Name can't contains numbers" })
     @MinLength(2, { message: "Name can't be less than 2 symbols" })
-    name: string;
+    name?: string;
 
     @IsOptional()
     @IsNotEmpty({ message: 'Post should be provided' })
     @IsAlpha('en-US', { message: "Post can't contains numbers" })
     @MinLength(2, { message: "Name can't be less than 2 symbols" })
-    post: string;
+    post?: string;
 
     @IsOptional()
     @IsNotEmpty({ message: 'Photo should be provided' })
@@ -22,5 +22,5 @@ export class UpdateContactDto {
     @IsOptional()
     @IsNotEmpty({ message: 'About text should be provided' })
     @MinLength(2, { message: "About can't be less than 2 symbols" })
-    about: string;
+    about?: string;
 }

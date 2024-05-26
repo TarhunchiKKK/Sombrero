@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { StaticDataService } from './static-data.service';
 
-@Controller('help')
+@Controller('abc')
 export class StaticDataController {
     constructor(private readonly questionsService: StaticDataService) {}
 
