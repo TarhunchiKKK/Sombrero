@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { setupFilesStorage, setupSwagger } from './config';
 
 const cors = require('cors');
 
@@ -8,15 +8,10 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.use(cors());
 
-    // Swgger setup
-    const swaggerConfig = new DocumentBuilder()
-        .setTitle('Sombrero Marketplace')
-        .setDescription('Rest API documentation')
-        .setVersion('1.0.0')
-        .build();
-    const documentation = SwaggerModule.createDocument(app, swaggerConfig);
-    SwaggerModule.setup('documentation', app, documentation);
+    setupSwagger(app);
+    setupFilesStorage();
 
     await app.listen(3000);
 }
+
 bootstrap();

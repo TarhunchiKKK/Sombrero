@@ -22,6 +22,7 @@ import { HelpModule } from './help/help.module';
 import { Question } from './help/entities/question.entity';
 import { QuestionsCategory } from './help/entities/questions-category.entity';
 import { MailsModule } from './mails/mails.module';
+import { ConfigModuleConfigOptions, PostgresConfigOptions, RedisConfigOptions } from './config';
 
 @Module({
     imports: [
@@ -30,29 +31,13 @@ import { MailsModule } from './mails/mails.module';
         AdvertisementsModule,
         AuthModule,
         FilesModule,
-        ConfigModule.forRoot({ isGlobal: true }),
-        TypeOrmModule.forRoot({
-            type: 'postgres',
-            host: 'localhost',
-            port: 5432,
-            username: 'konstantin',
-            password: '123456',
-            database: 'sombrero',
-            synchronize: true,
-            entities: [User, Address, Advertisement, Category, Contact, Faq, Question, QuestionsCategory],
-        }),
-        CacheModule.register<RedisClientOptions>({
-            isGlobal: true,
-            store: redisStore,
-            socket: {
-                host: 'localhost',
-                port: 6379,
-            },
-        }),
         ContactsModule,
         FaqsModule,
         HelpModule,
         MailsModule,
+        ConfigModule.forRoot(ConfigModuleConfigOptions),
+        TypeOrmModule.forRoot(PostgresConfigOptions),
+        CacheModule.register<RedisClientOptions>(RedisConfigOptions),
     ],
 })
 export class AppModule {}
