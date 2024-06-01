@@ -99,4 +99,25 @@ export class FilesService {
             fs.rm(path.join(this.storage.contacts, fileName), removeFileCallback);
         }
     }
+
+    public downloadHomeImage(fileName: string): StreamableFile {
+        let readStream: any;
+        if (!fileName || !fs.existsSync(path.join(this.storage.home, fileName))) {
+            readStream = fs.createReadStream(this.storage.default.object);
+        } else {
+            readStream = fs.createReadStream(path.join(this.storage.home, fileName));
+        }
+        return new StreamableFile(readStream);
+    }
+
+    public async getHomeImagesCount(): Promise<number> {
+        return new Promise((resolve, reject) => {
+            fs.readdir(this.storage.home, (err, files) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(files.length);
+            });
+        });
+    }
 }
