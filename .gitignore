@@ -4,5 +4,8 @@
 /**/build/
 ./src/output.css
 /**/.env
-/**/data
-/**/database
+/**/data/advertisements/
+/**/data/accounts/
+/**/data/home/
+/**/data/contacts/
+/**/data/json/
