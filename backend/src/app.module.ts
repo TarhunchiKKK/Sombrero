@@ -28,7 +28,7 @@ import { ConfigModuleConfigOptions, PostgresConfigOptions } from './config';
         ConfigModule.forRoot(ConfigModuleConfigOptions),
         TypeOrmModule.forRoot(PostgresConfigOptions),
         // CacheModule.register<RedisClientOptions>(RedisConfigOptions),
-        CacheModule.register(),
+        // CacheModule.register({ isGlobal: true }),
     ],
 })
 export class AppModule {}
