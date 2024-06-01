@@ -36,6 +36,7 @@ Backend:
 * <a href="https://jwt.io/">JWT</a>
 * <a href="https://www.nodemailer.com/">Nodemailer</a>
 * <a href="https://redis.io/">Redis</a>
+* <a href="https://swagger.io/">Swagger</a>
 
 Frontend:
 * <a href="https://www.typescriptlang.org/">TypeScript</a>
@@ -48,6 +49,8 @@ Frontend:
 ## Project structure
 
 ### Backend folder
+
+See the backend Rest APi documentation <a href="https://tarhunchikkk.github.io/Sombrero/API.html">here</a>.
 
 The backend folder has the following structure:
 
