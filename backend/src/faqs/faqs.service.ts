@@ -1,16 +1,19 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Faq } from './entities/faq.entity';
 import { Repository } from 'typeorm';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class FaqsService {
     constructor(@InjectRepository(Faq) private readonly faqRepository: Repository<Faq>) {}
 
     public async create(createFaqDto: CreateFaqDto): Promise<Faq> {
-        return await this.faqRepository.save({ ...createFaqDto });
+        const faq: Faq = await this.faqRepository.save({ ...createFaqDto });
+
+        return faq;
     }
 
     public async findAll(): Promise<Faq[]> {
