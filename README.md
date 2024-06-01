@@ -1,23 +1,25 @@
 # Sombrero
 
 ## Table of Contents
-- [About application](#About-application)
-- [Tech stack](#Tech-stack)
-- [Project structure](#Project-structure)
-  - [Backend folder](#Backend-folder)
-  - [Frontend folder](#Frontend-folder)
-- [Startup guide](#Startup-guide)
-- [Functionality](#Functionality)
-  - [Home page](#Home-page)
-  - [Catalog](#Catalog)
-  - [Toggle color theme](#Toggle-color-theme)
-  - [Authorization](#Authorization)
-  - [Account page](#Account-page)
-  - [Product page](#Product-page)
-  - [Help pages](#Help-pages)
-    - [FAQs page](#FAQs-page)
-    - [Help page](#Help-page)
-  - [Contacts page](#Contacts-page)
+- [Sombrero](#sombrero)
+  - [Table of Contents](#table-of-contents)
+  - [About application](#about-application)
+  - [Tech stack](#tech-stack)
+  - [Project structure](#project-structure)
+    - [Backend folder](#backend-folder)
+    - [Frontend folder](#frontend-folder)
+  - [Startup guide](#startup-guide)
+  - [Functionality](#functionality)
+    - [Home page](#home-page)
+    - [Catalog](#catalog)
+    - [Toggle color theme](#toggle-color-theme)
+    - [Authorization](#authorization)
+    - [Account page](#account-page)
+    - [Product page](#product-page)
+    - [Help pages](#help-pages)
+      - [FAQs page](#faqs-page)
+      - [Help page](#help-page)
+    - [Contacts page](#contacts-page)
 
 
 
@@ -58,7 +60,7 @@ The backend folder has the following structure:
 
 Nest JS framework is based on a modular architecture where the application is broken down into modules, controllers, services and middleware. In src folder you can see all modules, used in application. 
 
-The **data** folder is necessary for storing product photos and user avatars. It contains files **accounts/_default.jpg** and **advertisements/_default.webp**, which are used as default photos.
+The **data** folder is necessary for storing product photos and user avatars. It contains files in **_default/** folder, which are used as default photos.
 
 Еhe files in the root of the directory are configuration files for the application and Nest JS framework.
 
