@@ -98,6 +98,9 @@ export class AdvertisementsController {
         return this.advertisementsService.buyAdvertisement(buyAdvertisementDto);
     }
 
+    @ApiOperation({ summary: 'Change advertisement category' })
+    @ApiBody({ type: ChangeAdvertisementCategoryDto })
+    @ApiResponse({ status: 200, type: Advertisement })
     @Post('category')
     changeAdvertisementCategory(@Body() dto: ChangeAdvertisementCategoryDto) {
         return this.advertisementsService.changeAdvertisementCategory(dto);
