@@ -4,6 +4,7 @@ import { generateFilename } from './helpers/generateFilename';
 import { Express } from 'express';
 import { Multer } from 'multer';
 import { IStorage } from './types/storage.interface';
+import { removeFileCallback } from './helpers/removeFileCallback';
 
 const fs = require('fs');
 const path = require('path');
@@ -45,6 +46,12 @@ export class FilesService {
         return new StreamableFile(readStream);
     }
 
+    public removeAccountImage(fileName: string) {
+        if (fileName && fs.existsSync(path.join(this.storage.accounts, fileName))) {
+            fs.rm(path.join(this.storage.accounts, fileName), removeFileCallback);
+        }
+    }
+
     public uploadAdvertisementImage(file: Express.Multer.File): string {
         const filename: string = generateFilename(file.originalname);
         const writeStream = fs.createWriteStream(path.join(this.storage.advertisements, filename));
@@ -61,5 +68,35 @@ export class FilesService {
             readStream = fs.createReadStream(path.join(this.storage.advertisements, fileName));
         }
         return new StreamableFile(readStream);
+    }
+
+    public removeAdvertisementImage(fileName: string) {
+        if (fileName && fs.existsSync(path.join(this.storage.advertisements, fileName))) {
+            fs.rm(path.join(this.storage.advertisements, fileName), removeFileCallback);
+        }
+    }
+
+    public uploadContactImage(file: Express.Multer.File): string {
+        const filename: string = generateFilename(file.originalname);
+        const writeStream = fs.createWriteStream(path.join(this.storage.contacts, filename));
+        writeStream.write(file.buffer);
+        writeStream.close();
+        return filename;
+    }
+
+    public downloadContactImage(fileName: string): StreamableFile {
+        let readStream: any;
+        if (!fileName || !fs.existsSync(path.join(this.storage.contacts, fileName))) {
+            readStream = fs.createReadStream(this.storage.default.person);
+        } else {
+            readStream = fs.createReadStream(path.join(this.storage.contacts, fileName));
+        }
+        return new StreamableFile(readStream);
+    }
+
+    public removeContactImage(fileName: string) {
+        if (fileName && fs.existsSync(path.join(this.storage.contacts, fileName))) {
+            fs.rm(path.join(this.storage.contacts, fileName), removeFileCallback);
+        }
     }
 }

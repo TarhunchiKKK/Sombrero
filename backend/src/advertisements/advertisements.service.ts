@@ -6,17 +6,26 @@ import { Advertisement } from './entities/advertisement.entity';
 import { Repository } from 'typeorm';
 import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
 import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
+import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class AdvertisementsService {
     constructor(
         @InjectRepository(Advertisement)
         private readonly advertisementsRepository: Repository<Advertisement>,
+
+        private readonly filesService: FilesService,
     ) {}
 
-    public async create(createAdvertisementDto: CreateAdvertisementDto): Promise<Advertisement> {
+    public async create(
+        createAdvertisementDto: CreateAdvertisementDto,
+        image: Express.Multer.File,
+    ): Promise<Advertisement> {
+        const photo: string = this.filesService.uploadAccountImage(image);
+
         const advertisement = {
             ...createAdvertisementDto,
+            photo: photo,
             category: {
                 id: +createAdvertisementDto.category.id,
             },
@@ -62,7 +71,11 @@ export class AdvertisementsService {
         });
     }
 
-    public async update(id: number, updateAdvertisementDto: UpdateAdvertisementDto): Promise<void> {
+    public async update(
+        id: number,
+        updateAdvertisementDto: UpdateAdvertisementDto,
+        image: Express.Multer.File,
+    ): Promise<void> {
         const advertisement: Advertisement = await this.advertisementsRepository.findOne({
             where: {
                 id: id,
@@ -81,10 +94,31 @@ export class AdvertisementsService {
             await this.advertisementsRepository.save(advertisement);
         }
 
-        await this.advertisementsRepository.update(id, updateAdvertisementDto);
+        if (image) {
+            const photo: string = this.filesService.uploadAdvertisementImage(image);
+            this.filesService.removeAdvertisementImage(advertisement.photo);
+            advertisement.photo = photo;
+        }
+
+        await this.advertisementsRepository.update(id, {
+            ...advertisement,
+            ...updateAdvertisementDto,
+        });
     }
 
     public async remove(id: number): Promise<void> {
+        const advertisement: Advertisement = await this.advertisementsRepository.findOne({
+            where: {
+                id: id,
+            },
+        });
+
+        if (!advertisement) {
+            throw new BadRequestException('No such advertisement');
+        }
+
+        this.filesService.removeAdvertisementImage(advertisement.photo);
+
         await this.advertisementsRepository.delete(id);
     }
 
