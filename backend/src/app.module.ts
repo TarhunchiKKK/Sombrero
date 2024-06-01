@@ -13,7 +13,6 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { RedisClientOptions } from 'redis';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
-import { StaticDataModule } from './static-data/static-data.module';
 import { ContactsModule } from './contacts/contacts.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { Contact } from './contacts/entities/contact.entity';
@@ -30,7 +29,6 @@ import { QuestionsCategory } from './help/entities/questions-category.entity';
         AdvertisementsModule,
         AuthModule,
         FilesModule,
-        StaticDataModule,
         ConfigModule.forRoot({ isGlobal: true }),
         TypeOrmModule.forRoot({
             type: 'postgres',
