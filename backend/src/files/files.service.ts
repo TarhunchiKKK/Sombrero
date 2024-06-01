@@ -1,8 +1,6 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { generateFilename } from './helpers/generateFilename';
-import { Express } from 'express';
-import { Multer } from 'multer';
 import { IStorage } from './types/storage.interface';
 import { removeFileCallback } from './helpers/removeFileCallback';
 

@@ -127,7 +127,7 @@ export class HelpService {
         await this.categoriesRepository.delete(id);
     }
 
-    public async addQuestionToCategory(dto: AddQuestionToCategryDto): Promise<void> {
+    public async addQuestionToCategory(dto: AddQuestionToCategryDto): Promise<QuestionsCategory> {
         const question: Question = await this.questionsRepository.findOne({
             where: {
                 id: dto.question.id,
@@ -152,6 +152,6 @@ export class HelpService {
         }
 
         category.questions.push(dto.question);
-        await this.categoriesRepository.save(category);
+        return await this.categoriesRepository.save(category);
     }
 }
