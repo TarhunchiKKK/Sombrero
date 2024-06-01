@@ -20,6 +20,7 @@ import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Advertisement } from './entities/advertisement.entity';
+import { ChangeAdvertisementCategoryDto } from './dto/change-advertisement-category.dto';
 
 @ApiTags('Advertisements')
 @Controller('advertisements')
@@ -95,5 +96,10 @@ export class AdvertisementsController {
     @Post('buy')
     buyAdvertisement(@Body() buyAdvertisementDto: BuyAdvertisementDto) {
         return this.advertisementsService.buyAdvertisement(buyAdvertisementDto);
+    }
+
+    @Post('category')
+    changeAdvertisementCategory(@Body() dto: ChangeAdvertisementCategoryDto) {
+        return this.advertisementsService.changeAdvertisementCategory(dto);
     }
 }

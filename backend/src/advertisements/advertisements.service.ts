@@ -7,12 +7,17 @@ import { Repository } from 'typeorm';
 import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
 import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
 import { FilesService } from 'src/files/files.service';
+import { CategoriesService } from 'src/categories/categories.service';
+import { ChangeAdvertisementCategoryDto } from './dto/change-advertisement-category.dto';
+import { Category } from 'src/categories/entities/category.entity';
 
 @Injectable()
 export class AdvertisementsService {
     constructor(
         @InjectRepository(Advertisement)
         private readonly advertisementsRepository: Repository<Advertisement>,
+
+        private readonly categoriesService: CategoriesService,
 
         private readonly filesService: FilesService,
     ) {}
@@ -164,6 +169,28 @@ export class AdvertisementsService {
         }
 
         advertisement.buyer = buyAdvertisementDto.user;
+        return await this.advertisementsRepository.save(advertisement);
+    }
+
+    async changeAdvertisementCategory(dto: ChangeAdvertisementCategoryDto) {
+        const advertisement: Advertisement = await this.advertisementsRepository.findOne({
+            where: {
+                id: +dto.advertisement.id,
+            },
+        });
+
+        if (!advertisement) {
+            throw new BadRequestException('No such advertisement');
+        }
+
+        const category: Category = await this.categoriesService.findOne(dto.category.id);
+
+        if (!category) {
+            throw new BadRequestException('No such category');
+        }
+
+        advertisement.category = category;
+
         return await this.advertisementsRepository.save(advertisement);
     }
 }

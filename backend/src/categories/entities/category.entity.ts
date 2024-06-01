@@ -9,6 +9,8 @@ export class Category {
     @Column()
     title: string;
 
-    @OneToMany(() => Advertisement, (advertisement: Advertisement) => advertisement.category)
+    @OneToMany(() => Advertisement, (advertisement: Advertisement) => advertisement.category, {
+        onDelete: 'SET NULL',
+    })
     advertisements: Advertisement[];
 }
