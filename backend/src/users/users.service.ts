@@ -18,8 +18,6 @@ export class UsersService {
         @InjectRepository(Address)
         private readonly addressesRepository: Repository<Address>,
 
-        private readonly jwtService: JwtService,
-
         private readonly filesServide: FilesService,
     ) {}
 
@@ -41,16 +39,11 @@ export class UsersService {
             createUserDto.address = address;
         }
 
-        const user: User = await this.usersRepository.save({
+        return await this.usersRepository.save({
             ...createUserDto,
             password: await argon2.hash(createUserDto.password),
             // address: address,
         });
-
-        return {
-            user: user,
-            token: await this.jwtService.sign({ id: user.id, email: user.email }),
-        };
     }
 
     public async findAll(): Promise<User[]> {

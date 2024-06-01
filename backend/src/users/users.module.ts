@@ -9,18 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { FilesModule } from 'src/files/files.module';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([User, Address]),
-        JwtModule.registerAsync({
-            imports: [ConfigModule],
-            useFactory: (configService: ConfigService) => ({
-                secret: configService.get('JWT_SECRET'),
-                signOptions: { expiresIn: '30d' },
-            }),
-            inject: [ConfigService],
-        }),
-        FilesModule,
-    ],
+    imports: [TypeOrmModule.forFeature([User, Address]), FilesModule],
     controllers: [UsersController],
     providers: [UsersService],
     exports: [UsersService],
