@@ -62,4 +62,30 @@ export class FilesService {
         }
         return new StreamableFile(readStream);
     }
+
+    public uploadContactImage(file: Express.Multer.File): string {
+        const filename: string = generateFilename(file.originalname);
+        const writeStream = fs.createWriteStream(path.join(this.storage.contacts, filename));
+        writeStream.write(file.buffer);
+        writeStream.close();
+        return filename;
+    }
+
+    public downloadContactImage(fileName: string): StreamableFile {
+        let readStream: any;
+        if (!fileName || !fs.existsSync(path.join(this.storage.contacts, fileName))) {
+            readStream = fs.createReadStream(this.storage.default.person);
+        } else {
+            readStream = fs.createReadStream(path.join(this.storage.contacts, fileName));
+        }
+        return new StreamableFile(readStream);
+    }
+
+    public removeContactImage(fileName: string) {
+        if (fileName && fs.existsSync(path.join(this.storage.contacts, fileName))) {
+            fs.rm(path.join(this.storage.contacts, fileName), (err) => {
+                console.log(err);
+            });
+        }
+    }
 }
