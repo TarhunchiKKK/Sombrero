@@ -14,7 +14,6 @@ export class CreateAdvertisementDto {
     price: number;
 
     saleStatus: boolean = false;
-    photo: string;
 
     @IsNotEmpty({ message: 'Category should be provided' })
     category: Category;

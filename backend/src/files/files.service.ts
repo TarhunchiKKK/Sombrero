@@ -71,6 +71,14 @@ export class FilesService {
         return new StreamableFile(readStream);
     }
 
+    public removeAdvertisementImage(fileName: string) {
+        if (fileName && fs.existsSync(path.join(this.storage.advertisements, fileName))) {
+            fs.rm(path.join(this.storage.advertisements, fileName), (err) => {
+                console.log(err);
+            });
+        }
+    }
+
     public uploadContactImage(file: Express.Multer.File): string {
         const filename: string = generateFilename(file.originalname);
         const writeStream = fs.createWriteStream(path.join(this.storage.contacts, filename));

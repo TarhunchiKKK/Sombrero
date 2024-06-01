@@ -1,9 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Query, ValidationPipe } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Body,
+    Patch,
+    Param,
+    Delete,
+    UsePipes,
+    Query,
+    ValidationPipe,
+    UseInterceptors,
+    UploadedFile,
+} from '@nestjs/common';
 import { AdvertisementsService } from './advertisements.service';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
 import { UpdateAdvertisementDto } from './dto/update-advertisement.dto';
 import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
 import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('advertisements')
 export class AdvertisementsController {
@@ -11,8 +25,9 @@ export class AdvertisementsController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    create(@Body() createAdvertisementDto: CreateAdvertisementDto) {
-        return this.advertisementsService.create(createAdvertisementDto);
+    @UseInterceptors(FileInterceptor('image'))
+    create(@Body() createAdvertisementDto: CreateAdvertisementDto, @UploadedFile() image: Express.Multer.File) {
+        return this.advertisementsService.create(createAdvertisementDto, image);
     }
 
     @Get()
@@ -31,8 +46,13 @@ export class AdvertisementsController {
 
     @Patch(':id')
     @UsePipes(ValidationPipe)
-    update(@Param('id') id: string, @Body() updateAdvertisementDto: UpdateAdvertisementDto) {
-        return this.advertisementsService.update(+id, updateAdvertisementDto);
+    @UseInterceptors(FileInterceptor('image'))
+    update(
+        @Param('id') id: string,
+        @Body() updateAdvertisementDto: UpdateAdvertisementDto,
+        @UploadedFile() image: Express.Multer.File,
+    ) {
+        return this.advertisementsService.update(+id, updateAdvertisementDto, image);
     }
 
     @Delete(':id')

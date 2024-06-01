@@ -16,10 +16,6 @@ export class UpdateAdvertisementDto {
     price?: number;
 
     @IsOptional()
-    @IsNotEmpty({ message: "Path to photo can't be emty" })
-    photo?: string;
-
-    @IsOptional()
     @IsNotEmpty({ message: "Category can't be empty" })
     category?: Category;
 }

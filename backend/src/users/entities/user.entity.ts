@@ -49,14 +49,10 @@ export class User {
     })
     salesList: Advertisement[];
 
-    @ManyToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.wishedUsers, {
-        onDelete: 'CASCADE',
-    })
+    @ManyToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.wishedUsers)
     @JoinTable()
     wishList: Advertisement[];
 
-    @OneToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.buyer, {
-        onDelete: 'CASCADE',
-    })
+    @OneToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.buyer)
     purchasesList: Advertisement[];
 }
