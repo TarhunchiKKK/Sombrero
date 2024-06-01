@@ -1,7 +1,8 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional } from 'class-validator';
-import { Question } from '../entities/question.entity';
 
 export class UpdateQuestionsCategoryDto {
+    @ApiProperty({ example: 'Создание предложения', description: 'Help questions category title' })
     @IsOptional()
     @IsNotEmpty()
     title?: string;

@@ -1,8 +1,6 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { generateFilename } from './helpers/generateFilename';
-import { Express } from 'express';
-import { Multer } from 'multer';
 import { IStorage } from './types/storage.interface';
 import { removeFileCallback } from './helpers/removeFileCallback';
 
@@ -98,5 +96,26 @@ export class FilesService {
         if (fileName && fs.existsSync(path.join(this.storage.contacts, fileName))) {
             fs.rm(path.join(this.storage.contacts, fileName), removeFileCallback);
         }
+    }
+
+    public downloadHomeImage(fileName: string): StreamableFile {
+        let readStream: any;
+        if (!fileName || !fs.existsSync(path.join(this.storage.home, fileName))) {
+            readStream = fs.createReadStream(this.storage.default.object);
+        } else {
+            readStream = fs.createReadStream(path.join(this.storage.home, fileName));
+        }
+        return new StreamableFile(readStream);
+    }
+
+    public async getHomeImagesCount(): Promise<number> {
+        return new Promise((resolve, reject) => {
+            fs.readdir(this.storage.home, (err, files) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(files.length);
+            });
+        });
     }
 }
