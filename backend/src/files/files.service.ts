@@ -4,6 +4,7 @@ import { generateFilename } from './helpers/generateFilename';
 import { Express } from 'express';
 import { Multer } from 'multer';
 import { IStorage } from './types/storage.interface';
+import { removeFileCallback } from './helpers/removeFileCallback';
 
 const fs = require('fs');
 const path = require('path');
@@ -47,9 +48,7 @@ export class FilesService {
 
     public removeAccountImage(fileName: string) {
         if (fileName && fs.existsSync(path.join(this.storage.accounts, fileName))) {
-            fs.rm(path.join(this.storage.accounts, fileName), (err) => {
-                console.log(err);
-            });
+            fs.rm(path.join(this.storage.accounts, fileName), removeFileCallback);
         }
     }
 
@@ -73,9 +72,7 @@ export class FilesService {
 
     public removeAdvertisementImage(fileName: string) {
         if (fileName && fs.existsSync(path.join(this.storage.advertisements, fileName))) {
-            fs.rm(path.join(this.storage.advertisements, fileName), (err) => {
-                console.log(err);
-            });
+            fs.rm(path.join(this.storage.advertisements, fileName), removeFileCallback);
         }
     }
 
@@ -99,9 +96,7 @@ export class FilesService {
 
     public removeContactImage(fileName: string) {
         if (fileName && fs.existsSync(path.join(this.storage.contacts, fileName))) {
-            fs.rm(path.join(this.storage.contacts, fileName), (err) => {
-                console.log(err);
-            });
+            fs.rm(path.join(this.storage.contacts, fileName), removeFileCallback);
         }
     }
 }
