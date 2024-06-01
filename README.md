@@ -52,7 +52,7 @@ Frontend:
 
 ### Backend folder
 
-See the backend Rest APi documentation <a href="https://tarhunchikkk.github.io/Sombrero/API.html">here</a>.
+See the backend Rest APi documentation <a href="https://tarhunchikkk.github.io/Sombrero/docs/API.html">here</a>.
 
 The backend folder has the following structure:
 
