@@ -1,4 +1,4 @@
-import { IsAlpha, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
+import { IsAlpha, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPositive } from 'class-validator';
 import { Countries } from '../enums/countries.enum';
 import { ApiProperty } from '@nestjs/swagger';
 

@@ -4,8 +4,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { ConfirmVerificationDto } from './dto/confirm-verification.dto';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags, PickType } from '@nestjs/swagger';
-import { User } from 'src/users/entities/user.entity';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Authorization')
 @Controller('auth')

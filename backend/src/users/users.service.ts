@@ -6,7 +6,6 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { Address } from './entities/address.entity';
 import * as argon2 from 'argon2';
-import { JwtService } from '@nestjs/jwt';
 import { FilesService } from 'src/files/files.service';
 
 @Injectable()

@@ -8,14 +8,14 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.use(cors());
 
+    // Swgger setup
     const swaggerConfig = new DocumentBuilder()
-        .setTitle('Sombrero')
-        .setDescription('Simple marketplace')
+        .setTitle('Sombrero Marketplace')
+        .setDescription('Rest API documentation')
         .setVersion('1.0.0')
-        .addTag('TarhunchicKKK')
         .build();
     const documentation = SwaggerModule.createDocument(app, swaggerConfig);
-    SwaggerModule.setup('api', app, documentation);
+    SwaggerModule.setup('documentation', app, documentation);
 
     await app.listen(3000);
 }

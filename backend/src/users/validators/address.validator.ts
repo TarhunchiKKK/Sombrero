@@ -1,4 +1,4 @@
-import { ValidationError, Validator, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
+import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
 import { CreateAddressDto } from '../dto/create-address.dto';
 import { BadRequestException } from '@nestjs/common';
 import { Countries } from '../enums/countries.enum';
