@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsAlpha, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class CreateCategoryDto {
+export class UpdateCategoryDto {
     @ApiProperty({ example: 'Книги', description: 'Category title' })
     @IsNotEmpty({ message: 'Category title should be provided' })
     @IsString({ message: 'Category title should be a string' })
