@@ -21,6 +21,7 @@ import { Faq } from './faqs/entities/faq.entity';
 import { HelpModule } from './help/help.module';
 import { Question } from './help/entities/question.entity';
 import { QuestionsCategory } from './help/entities/questions-category.entity';
+import { MailsModule } from './mails/mails.module';
 
 @Module({
     imports: [
@@ -51,6 +52,7 @@ import { QuestionsCategory } from './help/entities/questions-category.entity';
         ContactsModule,
         FaqsModule,
         HelpModule,
+        MailsModule,
     ],
 })
 export class AppModule {}
