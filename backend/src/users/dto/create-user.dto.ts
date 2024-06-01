@@ -37,10 +37,6 @@ export class CreateUserDto {
     password: string;
 
     @IsOptional()
-    @IsNotEmpty({ message: "Photo can't be empty" })
-    photo?: string;
-
-    @IsOptional()
     @IsObject({ message: 'Incorrect address' })
     @ValidateNested()
     @Validate(AddressValidator)

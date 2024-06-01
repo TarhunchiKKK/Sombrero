@@ -45,6 +45,14 @@ export class FilesService {
         return new StreamableFile(readStream);
     }
 
+    public removeAccountImage(fileName: string) {
+        if (fileName && fs.existsSync(path.join(this.storage.accounts, fileName))) {
+            fs.rm(path.join(this.storage.accounts, fileName), (err) => {
+                console.log(err);
+            });
+        }
+    }
+
     public uploadAdvertisementImage(file: Express.Multer.File): string {
         const filename: string = generateFilename(file.originalname);
         const writeStream = fs.createWriteStream(path.join(this.storage.advertisements, filename));

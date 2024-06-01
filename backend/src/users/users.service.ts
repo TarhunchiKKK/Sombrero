@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { Address } from './entities/address.entity';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
+import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class UsersService {
@@ -18,6 +19,8 @@ export class UsersService {
         private readonly addressesRepository: Repository<Address>,
 
         private readonly jwtService: JwtService,
+
+        private readonly filesServide: FilesService,
     ) {}
 
     public async create(createUserDto: CreateUserDto): Promise<any> {
@@ -83,7 +86,7 @@ export class UsersService {
         });
     }
 
-    public async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {
+    public async update(id: number, updateUserDto: UpdateUserDto, image: Express.Multer.File): Promise<void> {
         const user: User = await this.usersRepository.findOne({
             where: {
                 id: id,
@@ -101,7 +104,14 @@ export class UsersService {
             await this.addressesRepository.update(user.address.id, updateUserDto.address);
         }
 
+        if (image) {
+            const photo: string = this.filesServide.uploadAccountImage(image);
+            this.filesServide.removeAccountImage(user.photo);
+            user.photo = photo;
+        }
+
         await this.usersRepository.update(id, {
+            ...user,
             ...updateUserDto,
             address: undefined,
         });

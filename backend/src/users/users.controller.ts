@@ -1,7 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Body,
+    Patch,
+    Param,
+    Delete,
+    UsePipes,
+    ValidationPipe,
+    UseInterceptors,
+    UploadedFile,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 export class UsersController {
@@ -25,8 +38,9 @@ export class UsersController {
 
     @Patch(':id')
     @UsePipes(ValidationPipe)
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-        return this.usersService.update(+id, updateUserDto);
+    @UseInterceptors(FileInterceptor('image'))
+    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @UploadedFile() image: Express.Multer.File) {
+        return this.usersService.update(+id, updateUserDto, image);
     }
 
     @Delete(':id')

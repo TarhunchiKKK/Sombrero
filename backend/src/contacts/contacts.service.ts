@@ -47,13 +47,15 @@ export class ContactsService {
             throw new BadRequestException(`Contact with id=${id} not found`);
         }
 
-        const photo: string = this.filesService.uploadContactImage(image);
-        this.filesService.removeContactImage(contact.photo);
+        if (image) {
+            const photo: string = this.filesService.uploadContactImage(image);
+            this.filesService.removeContactImage(contact.photo);
+            contact.photo = photo;
+        }
 
         await this.contactsRepository.update(id, {
             ...contact,
             ...updateContactDto,
-            photo: photo,
         });
     }
 
