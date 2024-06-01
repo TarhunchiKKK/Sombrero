@@ -35,7 +35,9 @@ export class User {
     @CreateDateColumn()
     registrationDate: Date;
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, {
+        onDelete: 'CASCADE',
+    })
     @JoinColumn()
     address: Address;
 
@@ -48,7 +50,7 @@ export class User {
     salesList: Advertisement[];
 
     @ManyToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.wishedUsers, {
-        onDelete: 'NO ACTION',
+        onDelete: 'CASCADE',
     })
     @JoinTable()
     wishList: Advertisement[];

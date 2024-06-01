@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -118,6 +118,22 @@ export class UsersService {
     }
 
     public async remove(id: number): Promise<void> {
+        const user: User = await this.usersRepository.findOne({
+            where: {
+                id: id,
+            },
+            relations: {
+                address: true,
+            },
+        });
+
+        if (!user) {
+            throw new NotFoundException(`User with id=${id} not found`);
+        }
+
+        this.filesServide.removeAccountImage(user.photo);
+
+        // await this.addressesRepository.delete(user.address.id);
         await this.usersRepository.delete(id);
     }
 }
