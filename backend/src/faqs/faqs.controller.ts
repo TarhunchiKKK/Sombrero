@@ -21,7 +21,7 @@ export class FaqsController {
     @ApiBody({ type: CreateFaqDto, description: 'Data for faq creation' })
     @ApiResponse({ status: 201, type: Faq })
     @Post()
-    create(@Body() createFaqDto: CreateFaqDto) {
+    public async create(@Body() createFaqDto: CreateFaqDto) {
         this.cacheManager.del('faqs');
         return this.faqService.create(createFaqDto);
     }
@@ -29,10 +29,9 @@ export class FaqsController {
     @ApiOperation({ summary: 'Get all faqs' })
     @ApiResponse({ type: [Faq] })
     @Get()
-    async findAll() {
+    public async findAll() {
         const cachedFaqs: Faq[] = await this.cacheManager.get('faqs');
         if (cachedFaqs && cachedFaqs.length !== 0) {
-            console.log('Get all faqs. Value from cache');
             return cachedFaqs;
         }
         const faqs: Faq[] = await this.faqService.findAll();
@@ -44,37 +43,24 @@ export class FaqsController {
     @ApiParam({ name: 'id', description: 'Faq id to search' })
     @ApiResponse({ type: Faq })
     @Get(':id')
-    async findOne(@Param('id') id: string) {
-        const cachedFaq: Faq = await this.cacheManager.get(`faq:${id}`);
-        if (cachedFaq) {
-            console.log('Get one faq. Value from cache');
-            return cachedFaq;
-        }
-
-        console.log('Get one faq. Value from database');
-        const faq: Faq = await this.faqService.findOne(+id);
-        this.cacheManager.set(`faq:${id}`, faq, 5000);
-        return faq;
+    public async findOne(@Param('id') id: string) {
+        return await this.faqService.findOne(+id);
     }
 
     @ApiOperation({ summary: 'Update one faq by id' })
     @ApiParam({ name: 'id', description: 'Faq id to search' })
     @ApiBody({ type: UpdateFaqDto })
     @Patch(':id')
-    async update(@Param('id') id: string, @Body() updateFaqDto: UpdateFaqDto) {
+    public async update(@Param('id') id: string, @Body() updateFaqDto: UpdateFaqDto) {
         this.cacheManager.del('faqs');
-        this.cacheManager.del(`faq:${id}`);
-
         return await this.faqService.update(+id, updateFaqDto);
     }
 
     @ApiOperation({ summary: 'Delete one faq by id' })
     @ApiParam({ name: 'id', description: 'Faq id to search' })
     @Delete(':id')
-    remove(@Param('id') id: string) {
+    public async remove(@Param('id') id: string) {
         this.cacheManager.del('faqs');
-        this.cacheManager.del(`faq:${id}`);
-
         return this.faqService.remove(+id);
     }
 }

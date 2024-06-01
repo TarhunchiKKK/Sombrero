@@ -1,30 +1,55 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Body,
+    Patch,
+    Param,
+    Delete,
+    UseInterceptors,
+    UploadedFile,
+    Inject,
+} from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Contact } from './entities/contact.entity';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @ApiTags('Contacts')
 @Controller('contacts')
 export class ContactsController {
-    constructor(private readonly contactsService: ContactsService) {}
+    constructor(
+        private readonly contactsService: ContactsService,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    ) {
+        this.cacheManager.reset();
+    }
 
     @ApiOperation({ summary: 'Creates a new contact. Only admin can create new contact' })
     @ApiBody({ type: CreateContactDto })
     @ApiResponse({ status: 201, type: Contact })
     @Post()
     @UseInterceptors(FileInterceptor('image'))
-    create(@Body() createContactDto: CreateContactDto, @UploadedFile() image: Express.Multer.File) {
+    public async create(@Body() createContactDto: CreateContactDto, @UploadedFile() image: Express.Multer.File) {
+        this.cacheManager.del('contacts');
         return this.contactsService.create(createContactDto, image);
     }
 
     @ApiOperation({ summary: 'Find all contacts' })
     @ApiResponse({ status: 200, type: [Contact] })
     @Get()
-    findAll() {
-        return this.contactsService.findAll();
+    public async findAll() {
+        const cachedContacts: Contact[] = await this.cacheManager.get('contacts');
+        if (!cachedContacts) {
+            const contacts: Contact[] = await this.contactsService.findAll();
+            this.cacheManager.set('contacts', contacts);
+            return contacts;
+        }
+        return cachedContacts;
     }
 
     @ApiOperation({ summary: 'Find a contact by id' })
@@ -45,6 +70,7 @@ export class ContactsController {
         @Body() updateContactDto: UpdateContactDto,
         @UploadedFile() image: Express.Multer.File,
     ) {
+        this.cacheManager.del('contacts');
         return this.contactsService.update(+id, updateContactDto, image);
     }
 
@@ -52,6 +78,7 @@ export class ContactsController {
     @ApiParam({ name: 'id', description: 'Conact id for remove' })
     @Delete(':id')
     remove(@Param('id') id: string) {
+        this.cacheManager.del('contacts');
         return this.contactsService.remove(+id);
     }
 }

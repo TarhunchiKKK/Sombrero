@@ -14,8 +14,11 @@ export class ContactsService {
     ) {}
 
     public async create(createContactDto: CreateContactDto, image: Express.Multer.File): Promise<Contact> {
-        const photoPath: string = this.filesService.uploadContactImage(image);
-        return await this.contactsRepository.save({ ...createContactDto, photo: photoPath });
+        if (image) {
+            const photoPath: string = this.filesService.uploadContactImage(image);
+            return await this.contactsRepository.save({ ...createContactDto, photo: photoPath });
+        }
+        return await this.contactsRepository.save(createContactDto);
     }
 
     public async findAll(): Promise<Contact[]> {
