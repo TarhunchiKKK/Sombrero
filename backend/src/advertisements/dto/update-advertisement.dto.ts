@@ -19,7 +19,7 @@ export class UpdateAdvertisementDto {
     @IsPositive({ message: 'Price should be more than zero' })
     price?: number;
 
-    @ApiProperty({ description: 'Advertisement category' })
+    @ApiProperty({ type: () => Category, description: 'Advertisement category' })
     @IsOptional()
     @IsNotEmpty({ message: "Category can't be empty" })
     category?: Category;

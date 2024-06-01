@@ -3,9 +3,9 @@ import { Advertisement } from '../entities/advertisement.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class BuyAdvertisementDto {
-    @ApiProperty({ description: 'Purchased product (need to extract advertisement id)' })
+    @ApiProperty({ type: () => Advertisement, description: 'Purchased product (need to extract advertisement id)' })
     advertisement: Advertisement;
 
-    @ApiProperty({ description: 'Buyer (need to extract user id)' })
+    @ApiProperty({ type: () => User, description: 'Buyer (need to extract user id)' })
     user: User;
 }

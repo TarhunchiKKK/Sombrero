@@ -29,19 +29,19 @@ export class Advertisement {
     @Column({ nullable: true })
     photo: string;
 
-    @ApiProperty({ description: 'Advertisement category' })
+    @ApiProperty({ type: () => Category, description: 'Advertisement category' })
     @ManyToOne(() => Category, (category: Category) => category.advertisements)
     category: Category;
 
-    @ApiProperty({ description: 'Product vendor' })
+    @ApiProperty({ type: () => User, description: 'Product vendor' })
     @ManyToOne(() => User, (user: User) => user.salesList)
     vendor: User;
 
-    @ApiProperty({ description: 'Users liked this advertisement' })
+    @ApiProperty({ type: () => [User], description: 'Users liked this advertisement' })
     @ManyToMany(() => User, (user: User) => user.wishList)
     wishedUsers: User[];
 
-    @ApiProperty({ description: 'User who bought this product' })
+    @ApiProperty({ type: () => User, description: 'User who bought this product' })
     @ManyToOne(() => User, (user: User) => user.purchasesList)
     buyer: User;
 }

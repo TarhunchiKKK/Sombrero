@@ -20,14 +20,14 @@ export class CreateAdvertisementDto {
     @ApiProperty({ example: 'false', description: 'Is advertisemen bought by somebody' })
     saleStatus: boolean = false;
 
-    @ApiProperty({ description: 'Advertisement category' })
+    @ApiProperty({ type: () => Category, description: 'Advertisement category' })
     @IsNotEmpty({ message: 'Category should be provided' })
     category: Category;
 
-    @ApiProperty({ description: 'Product vendor' })
+    @ApiProperty({ type: () => User, description: 'Product vendor' })
     @IsNotEmpty({ message: 'Vendor should be provided' })
     vendor: User;
 
-    @ApiProperty({ description: 'User who bought this product' })
+    @ApiProperty({ type: () => User, description: 'User who bought this product' })
     buyer: User = null;
 }

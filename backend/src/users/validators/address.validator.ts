@@ -1,7 +1,7 @@
 import { ValidationError, Validator, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
 import { CreateAddressDto } from '../dto/create-address.dto';
 import { BadRequestException } from '@nestjs/common';
-import { Countries } from '../entities/address.entity';
+import { Countries } from '../enums/countries.enum';
 
 @ValidatorConstraint()
 export class AddressValidator implements ValidatorConstraintInterface {
