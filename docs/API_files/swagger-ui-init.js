@@ -305,80 +305,16 @@ window.onload = function() {
           ]
         }
       },
-      "/files/account/{filename}": {
+      "/files/{filename}": {
         "get": {
-          "operationId": "FilesController_downloadAccountImage",
-          "summary": "Get user avatar image",
+          "operationId": "FilesController_downloadFile",
+          "summary": "Send requested file",
           "parameters": [
             {
               "name": "filename",
               "required": true,
               "in": "path",
-              "description": "User avatar filename",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/StreamableFile"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "Static files"
-          ]
-        }
-      },
-      "/files/advertisement/{filename}": {
-        "get": {
-          "operationId": "FilesController_downloadAdvertisementImage",
-          "summary": "Get advertisement image",
-          "parameters": [
-            {
-              "name": "filename",
-              "required": true,
-              "in": "path",
-              "description": "Advertisement image filename",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/StreamableFile"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "Static files"
-          ]
-        }
-      },
-      "/files/contact/{filename}": {
-        "get": {
-          "operationId": "FilesController_downloadContactImage",
-          "summary": "Get contact person avatar",
-          "parameters": [
-            {
-              "name": "filename",
-              "required": true,
-              "in": "path",
-              "description": "Contact person avatar filename",
+              "description": "Downloaded file name",
               "schema": {
                 "type": "string"
               }
@@ -423,19 +359,17 @@ window.onload = function() {
           ]
         }
       },
-      "/files/home/{filename}": {
-        "get": {
-          "operationId": "FilesController_downloadHomeImage",
-          "summary": "Get slider image",
+      "/files/home": {
+        "post": {
+          "operationId": "FilesController_createHomeImage",
+          "summary": "Create slider image",
           "parameters": [
             {
-              "name": "filename",
+              "name": "image",
               "required": true,
               "in": "path",
-              "description": "Slider image filename",
-              "schema": {
-                "type": "string"
-              }
+              "description": "Slider image file",
+              "schema": {}
             }
           ],
           "responses": {
@@ -444,10 +378,35 @@ window.onload = function() {
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/StreamableFile"
+                    "$ref": "#/components/schemas/StoredFile"
                   }
                 }
               }
+            }
+          },
+          "tags": [
+            "Static files"
+          ]
+        }
+      },
+      "/files/home/{id}": {
+        "delete": {
+          "operationId": "FilesController_removeHomeImage",
+          "summary": "Remove slider image",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "description": "Slider image id for search",
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
             }
           },
           "tags": [
@@ -1855,6 +1814,25 @@ window.onload = function() {
         "StreamableFile": {
           "type": "object",
           "properties": {}
+        },
+        "StoredFile": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": "1",
+              "description": "Special file id"
+            },
+            "filename": {
+              "type": "string",
+              "example": "BLg4CPSHJ3WPvXbY1vDfQOPQ8HYxajge.jpeg",
+              "description": "Special file name"
+            }
+          },
+          "required": [
+            "id",
+            "filename"
+          ]
         },
         "CreateAdvertisementDto": {
           "type": "object",
