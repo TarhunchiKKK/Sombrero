@@ -30,11 +30,15 @@ export class Advertisement {
     photo: string;
 
     @ApiProperty({ type: () => Category, description: 'Advertisement category' })
-    @ManyToOne(() => Category, (category: Category) => category.advertisements)
+    @ManyToOne(() => Category, (category: Category) => category.advertisements, {
+        onDelete: 'SET NULL',
+    })
     category: Category;
 
     @ApiProperty({ type: () => User, description: 'Product vendor' })
-    @ManyToOne(() => User, (user: User) => user.salesList)
+    @ManyToOne(() => User, (user: User) => user.salesList, {
+        onDelete: 'SET NULL',
+    })
     vendor: User;
 
     @ApiProperty({ type: () => [User], description: 'Users liked this advertisement' })
@@ -42,6 +46,8 @@ export class Advertisement {
     wishedUsers: User[];
 
     @ApiProperty({ type: () => User, description: 'User who bought this product' })
-    @ManyToOne(() => User, (user: User) => user.purchasesList)
+    @ManyToOne(() => User, (user: User) => user.purchasesList, {
+        onDelete: 'CASCADE',
+    })
     buyer: User;
 }

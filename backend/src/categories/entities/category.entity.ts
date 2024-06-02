@@ -14,7 +14,7 @@ export class Category {
 
     @ApiProperty({ type: () => [Advertisement], description: "This category's advertisements" })
     @OneToMany(() => Advertisement, (advertisement: Advertisement) => advertisement.category, {
-        onDelete: 'SET NULL',
+        onDelete: 'NO ACTION',
     })
     advertisements: Advertisement[];
 }

@@ -26,11 +26,9 @@ export class AdvertisementsService {
         createAdvertisementDto: CreateAdvertisementDto,
         image: Express.Multer.File,
     ): Promise<Advertisement> {
-        const photo: string = this.filesService.createFile(image);
-
         const advertisement = {
             ...createAdvertisementDto,
-            photo: photo,
+            photo: undefined,
             category: {
                 id: +createAdvertisementDto.category.id,
             },
@@ -38,6 +36,11 @@ export class AdvertisementsService {
                 id: +createAdvertisementDto.vendor.id,
             },
         };
+
+        if (image) {
+            const photo: string = this.filesService.createFile(image);
+            advertisement.photo = photo;
+        }
 
         return await this.advertisementsRepository.save(advertisement);
     }
