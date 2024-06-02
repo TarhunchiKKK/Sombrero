@@ -11,6 +11,7 @@ import {
     ValidationPipe,
     UseInterceptors,
     UploadedFile,
+    Inject,
 } from '@nestjs/common';
 import { AdvertisementsService } from './advertisements.service';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
@@ -21,11 +22,18 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Advertisement } from './entities/advertisement.entity';
 import { ChangeAdvertisementCategoryDto } from './dto/change-advertisement-category.dto';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @ApiTags('Advertisements')
 @Controller('advertisements')
 export class AdvertisementsController {
-    constructor(private readonly advertisementsService: AdvertisementsService) {}
+    constructor(
+        private readonly advertisementsService: AdvertisementsService,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    ) {
+        this.cacheManager.reset();
+    }
 
     @ApiOperation({ summary: 'Create advertisemnt' })
     @ApiParam({ name: 'image', description: 'Advertisement image' })
@@ -44,20 +52,36 @@ export class AdvertisementsController {
     @ApiParam({ name: 'categoryId', description: 'Category for search' })
     @ApiResponse({ status: 200, type: [Advertisement] })
     @Get()
-    findAll(
+    public async findAll(
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 100,
         @Query('category') categoryId: number = undefined,
     ) {
-        return this.advertisementsService.findAll(page, limit, categoryId);
+        const cachedAdvertisements: Advertisement[] = await this.cacheManager.get(
+            `advertisements:${page}:${limit}:${categoryId}`,
+        );
+
+        if (!cachedAdvertisements) {
+            const advertisements: Advertisement[] = await this.advertisementsService.findAll(page, limit, categoryId);
+            this.cacheManager.set(`advertisements:${page}:${limit}:${categoryId}`, advertisements, 20000);
+            return advertisements;
+        }
+
+        return cachedAdvertisements;
     }
 
     @ApiOperation({ summary: 'Get one advertisement by id' })
     @ApiParam({ name: 'id', description: 'Advertisement id for search' })
     @ApiResponse({ type: Advertisement })
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.advertisementsService.findOne(+id);
+    public async findOne(@Param('id') id: string) {
+        const cachedAdvertisement: Advertisement = await this.cacheManager.get(`advertisement:${id}`);
+        if (!cachedAdvertisement) {
+            const advertisement: Advertisement = await this.advertisementsService.findOne(+id);
+            this.cacheManager.set(`advertisement:${id}`, advertisement, 20000);
+            return advertisement;
+        }
+        return cachedAdvertisement;
     }
 
     @ApiOperation({ summary: 'Update one advertisement by id' })
@@ -72,6 +96,7 @@ export class AdvertisementsController {
         @Body() updateAdvertisementDto: UpdateAdvertisementDto,
         @UploadedFile() image: Express.Multer.File,
     ) {
+        this.cacheManager.del(`advertisement:${id}`);
         return this.advertisementsService.update(+id, updateAdvertisementDto, image);
     }
 
@@ -79,6 +104,7 @@ export class AdvertisementsController {
     @ApiParam({ name: 'id', description: 'Advertisement id for search' })
     @Delete(':id')
     remove(@Param('id') id: string) {
+        this.cacheManager.del(`advertisement:${id}`);
         return this.advertisementsService.remove(+id);
     }
 
@@ -87,6 +113,7 @@ export class AdvertisementsController {
     @ApiResponse({ status: 200 })
     @Post('like')
     likeAdvertisement(@Body() likeDto: LikeAdvertisementDto) {
+        this.cacheManager.del(`advertisement:${likeDto.advertisement.id}`);
         return this.advertisementsService.likeAdvertisement(likeDto);
     }
 
@@ -95,6 +122,7 @@ export class AdvertisementsController {
     @ApiResponse({ status: 200 })
     @Post('buy')
     buyAdvertisement(@Body() buyAdvertisementDto: BuyAdvertisementDto) {
+        this.cacheManager.del(`advertisement:${buyAdvertisementDto.advertisement.id}`);
         return this.advertisementsService.buyAdvertisement(buyAdvertisementDto);
     }
 
@@ -103,6 +131,7 @@ export class AdvertisementsController {
     @ApiResponse({ status: 200, type: Advertisement })
     @Post('category')
     changeAdvertisementCategory(@Body() dto: ChangeAdvertisementCategoryDto) {
+        this.cacheManager.del(`advertisement:${dto.advertisement.id}`);
         return this.advertisementsService.changeAdvertisementCategory(dto);
     }
 }
