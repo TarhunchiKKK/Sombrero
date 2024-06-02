@@ -93,7 +93,21 @@ export class UsersService {
         }
 
         if (updateUserDto.address) {
-            await this.addressesRepository.update(user.address.id, updateUserDto.address);
+            const address: Address = await this.addressesRepository.findOne({
+                where: {
+                    id: user.address.id,
+                },
+            });
+
+            address.country = updateUserDto.address.country;
+            address.city = updateUserDto.address.city;
+            address.street = updateUserDto.address.street || null;
+            address.houseNumber = updateUserDto.address.houseNumber || null;
+            address.flatNumber = updateUserDto.address.flatNumber || null;
+
+            await this.addressesRepository.save(address);
+
+            // await this.addressesRepository.update(user.address.id, updateUserDto.address);
         }
 
         if (image) {

@@ -17,19 +17,19 @@ export class CreateAddressDto {
     @IsOptional()
     @IsNotEmpty({ message: "Street name can't be an empty string" })
     @IsAlpha(undefined, { message: "Street name can't contains numbers" })
-    street?: string;
+    street?: string = null;
 
     @ApiProperty({ example: '45', description: 'User house number' })
     @IsOptional()
     @IsNotEmpty({ message: "House number can't be empty" })
     @IsNumber(undefined, { message: 'House number should contains only letters' })
     @IsPositive({ message: 'House number should be grater than zero' })
-    houseNumber?: number;
+    houseNumber?: number = null;
 
     @ApiProperty({ example: '12', description: 'User flat number' })
     @IsOptional()
     @IsNotEmpty({ message: "Flat number can't be empty" })
     @IsNumber(undefined, { message: 'Flat number cannot contains letters' })
     @IsPositive({ message: 'Flat number should be grater than zero' })
-    flatNumber?: number;
+    flatNumber?: number = null;
 }
