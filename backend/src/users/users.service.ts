@@ -6,7 +6,7 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { Address } from './entities/address.entity';
 import * as argon2 from 'argon2';
-import { FilesService } from 'src/files/files.service';
+import { FilesService } from 'src/files/services/files.service';
 
 @Injectable()
 export class UsersService {
@@ -97,8 +97,8 @@ export class UsersService {
         }
 
         if (image) {
-            const photo: string = this.filesServide.uploadAccountImage(image);
-            this.filesServide.removeAccountImage(user.photo);
+            const photo: string = this.filesServide.createFile(image);
+            this.filesServide.removeFile(user.photo);
             user.photo = photo;
         }
 
@@ -123,7 +123,7 @@ export class UsersService {
             throw new NotFoundException(`User with id=${id} not found`);
         }
 
-        this.filesServide.removeAccountImage(user.photo);
+        this.filesServide.removeFile(user.photo);
 
         // await this.addressesRepository.delete(user.address.id);
         await this.usersRepository.delete(id);

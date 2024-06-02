@@ -6,7 +6,7 @@ import { Advertisement } from './entities/advertisement.entity';
 import { Repository } from 'typeorm';
 import { LikeAdvertisementDto } from './dto/like-advertisement.dto';
 import { BuyAdvertisementDto } from './dto/buy-advertisement.dto';
-import { FilesService } from 'src/files/files.service';
+import { FilesService } from 'src/files/services/files.service';
 import { CategoriesService } from 'src/categories/categories.service';
 import { ChangeAdvertisementCategoryDto } from './dto/change-advertisement-category.dto';
 import { Category } from 'src/categories/entities/category.entity';
@@ -26,7 +26,7 @@ export class AdvertisementsService {
         createAdvertisementDto: CreateAdvertisementDto,
         image: Express.Multer.File,
     ): Promise<Advertisement> {
-        const photo: string = this.filesService.uploadAccountImage(image);
+        const photo: string = this.filesService.createFile(image);
 
         const advertisement = {
             ...createAdvertisementDto,
@@ -100,8 +100,8 @@ export class AdvertisementsService {
         }
 
         if (image) {
-            const photo: string = this.filesService.uploadAdvertisementImage(image);
-            this.filesService.removeAdvertisementImage(advertisement.photo);
+            const photo: string = this.filesService.createFile(image);
+            this.filesService.removeFile(advertisement.photo);
             advertisement.photo = photo;
         }
 
@@ -122,7 +122,7 @@ export class AdvertisementsService {
             throw new BadRequestException('No such advertisement');
         }
 
-        this.filesService.removeAdvertisementImage(advertisement.photo);
+        this.filesService.removeFile(advertisement.photo);
 
         await this.advertisementsRepository.delete(id);
     }

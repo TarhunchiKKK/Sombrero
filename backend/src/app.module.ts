@@ -5,7 +5,6 @@ import { AdvertisementsModule } from './advertisements/advertisements.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
-import { CacheModule } from '@nestjs/cache-manager';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
 import { ContactsModule } from './contacts/contacts.module';
@@ -27,8 +26,6 @@ import { ConfigModuleConfigOptions, PostgresConfigOptions } from './config';
         MailsModule,
         ConfigModule.forRoot(ConfigModuleConfigOptions),
         TypeOrmModule.forRoot(PostgresConfigOptions),
-        // CacheModule.register<RedisClientOptions>(RedisConfigOptions),
-        // CacheModule.register({ isGlobal: true }),
     ],
 })
 export class AppModule {}

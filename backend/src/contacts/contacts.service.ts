@@ -4,7 +4,7 @@ import { UpdateContactDto } from './dto/update-contact.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Contact } from './entities/contact.entity';
 import { Repository } from 'typeorm';
-import { FilesService } from 'src/files/files.service';
+import { FilesService } from 'src/files/services/files.service';
 
 @Injectable()
 export class ContactsService {
@@ -15,7 +15,7 @@ export class ContactsService {
 
     public async create(createContactDto: CreateContactDto, image: Express.Multer.File): Promise<Contact> {
         if (image) {
-            const photoPath: string = this.filesService.uploadContactImage(image);
+            const photoPath: string = this.filesService.createFile(image);
             return await this.contactsRepository.save({ ...createContactDto, photo: photoPath });
         }
         return await this.contactsRepository.save(createContactDto);
@@ -51,8 +51,8 @@ export class ContactsService {
         }
 
         if (image) {
-            const photo: string = this.filesService.uploadContactImage(image);
-            this.filesService.removeContactImage(contact.photo);
+            const photo: string = this.filesService.createFile(image);
+            this.filesService.removeFile(contact.photo);
             contact.photo = photo;
         }
 
@@ -73,7 +73,7 @@ export class ContactsService {
             throw new BadRequestException(`Contact with id=${id} not found`);
         }
 
-        this.filesService.removeContactImage(contact.photo);
+        this.filesService.removeFile(contact.photo);
 
         await this.contactsRepository.delete(id);
     }

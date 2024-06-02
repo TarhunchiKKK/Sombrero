@@ -3,6 +3,7 @@ import { Advertisement } from 'src/advertisements/entities/advertisement.entity'
 import { Category } from 'src/categories/entities/category.entity';
 import { Contact } from 'src/contacts/entities/contact.entity';
 import { Faq } from 'src/faqs/entities/faq.entity';
+import { StoredFile } from 'src/files/entities/stored-file.entiry';
 import { Question } from 'src/help/entities/question.entity';
 import { QuestionsCategory } from 'src/help/entities/questions-category.entity';
 import { Address } from 'src/users/entities/address.entity';
@@ -16,5 +17,5 @@ export const PostgresConfigOptions: TypeOrmModuleOptions = {
     password: process.env.DB_PASSWORD || '123456',
     database: process.env.DB_NAME || 'sombrero',
     synchronize: true,
-    entities: [User, Address, Advertisement, Category, Contact, Faq, Question, QuestionsCategory],
+    entities: [User, Address, Advertisement, Category, Contact, Faq, Question, QuestionsCategory, StoredFile],
 };
