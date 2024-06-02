@@ -12,6 +12,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from 'src/roles/entities/role.entity';
 
 @Entity()
 export class User {
@@ -68,4 +69,8 @@ export class User {
     @ApiProperty({ type: () => [Advertisement], description: 'Advertisements user bought' })
     @OneToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.buyer)
     purchasesList: Advertisement[];
+
+    @ManyToMany(() => Role, (role: Role) => role.users)
+    @JoinTable()
+    roles: Role[];
 }

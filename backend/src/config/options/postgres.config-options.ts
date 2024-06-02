@@ -6,6 +6,7 @@ import { Faq } from 'src/faqs/entities/faq.entity';
 import { StoredFile } from 'src/files/entities/stored-file.entiry';
 import { Question } from 'src/help/entities/question.entity';
 import { QuestionsCategory } from 'src/help/entities/questions-category.entity';
+import { Role } from 'src/roles/entities/role.entity';
 import { Address } from 'src/users/entities/address.entity';
 import { User } from 'src/users/entities/user.entity';
 
@@ -17,5 +18,5 @@ export const PostgresConfigOptions: TypeOrmModuleOptions = {
     password: process.env.DB_PASSWORD || '123456',
     database: process.env.DB_NAME || 'sombrero',
     synchronize: true,
-    entities: [User, Address, Advertisement, Category, Contact, Faq, Question, QuestionsCategory, StoredFile],
+    entities: [User, Address, Advertisement, Category, Contact, Faq, Question, QuestionsCategory, StoredFile, Role],
 };

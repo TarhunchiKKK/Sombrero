@@ -1,10 +1,13 @@
 -- This script drops all tables
 
+DROP TABLE user_roles_role;
 DROP TABLE user_wish_list_advertisement;
 DROP TABLE advertisement;
 DROP TABLE public.user;
 DROP TABLE public.address;
 DROP TABLE category;
+
+DROP TABLE public.role;
 
 DROP TABLE questions_category_questions_question;
 DROP TABLE questions_category;
