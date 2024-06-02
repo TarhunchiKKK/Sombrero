@@ -20,7 +20,7 @@ export class FaqsService {
         return await this.faqRepository.find();
     }
 
-    public async findOne(id: number): Promise<Faq> {
+    public async findOne(id: string): Promise<Faq> {
         const faq: Faq = await this.faqRepository.findOne({
             where: {
                 id: id,
@@ -34,7 +34,7 @@ export class FaqsService {
         return faq;
     }
 
-    public async update(id: number, updateFaqDto: UpdateFaqDto): Promise<void> {
+    public async update(id: string, updateFaqDto: UpdateFaqDto): Promise<void> {
         const faq: Faq = await this.faqRepository.findOne({
             where: {
                 id: id,
@@ -51,7 +51,7 @@ export class FaqsService {
         });
     }
 
-    public async remove(id: number): Promise<void> {
+    public async remove(id: string): Promise<void> {
         await this.faqRepository.delete(id);
     }
 }

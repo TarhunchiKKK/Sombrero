@@ -45,14 +45,14 @@ export class CategoriesController {
     @ApiResponse({ status: 200, type: Category })
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.categoriesService.findOne(+id);
+        return this.categoriesService.findOne(id);
     }
 
     @ApiOperation({ summary: 'Update one category by id' })
     @ApiParam({ name: 'id', description: 'Category id to search' })
     @ApiBody({ type: UpdateCategoryDto })
     @Patch(':id')
-    update(@Param('id') id: number, @Body() dto: UpdateCategoryDto) {
+    update(@Param('id') id: string, @Body() dto: UpdateCategoryDto) {
         this.cacheManager.del('categories');
         return this.categoriesService.updtate(id, dto);
     }
@@ -62,6 +62,6 @@ export class CategoriesController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         this.cacheManager.del('categories');
-        return this.categoriesService.remove(+id);
+        return this.categoriesService.remove(id);
     }
 }

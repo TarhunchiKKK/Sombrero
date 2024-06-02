@@ -77,7 +77,7 @@ export class HelpController {
     @ApiResponse({ status: 200, type: Question })
     @Get('questions/:id')
     findOneQuestion(@Param('id') id: string) {
-        return this.questionsService.findOneQuestion(+id);
+        return this.questionsService.findOneQuestion(id);
     }
 
     @ApiOperation({ summary: 'Get one help questions category by id' })
@@ -85,7 +85,7 @@ export class HelpController {
     @ApiResponse({ status: 200, type: QuestionsCategory })
     @Get('categories/:id')
     findOneQuestionsCategory(@Param('id') id: string) {
-        return this.questionsService.findOneQuestionsCategory(+id);
+        return this.questionsService.findOneQuestionsCategory(id);
     }
 
     @ApiOperation({ summary: 'Create new help question' })
@@ -121,7 +121,7 @@ export class HelpController {
     @Patch('questions/:id')
     updateQuestion(@Param('id') id: string, @Body() updateQuestionDto: UpdateQuestionDto) {
         this.resetCache(...Object.values(this.cacheKeys));
-        return this.questionsService.updateQuestion(+id, updateQuestionDto);
+        return this.questionsService.updateQuestion(id, updateQuestionDto);
     }
 
     @ApiOperation({ summary: 'Update help questions category' })
@@ -130,7 +130,7 @@ export class HelpController {
     @Patch('categories/:id')
     updateQuestionsCategory(@Param('id') id: string, @Body() updateQuestionsCategoryDto: UpdateQuestionsCategoryDto) {
         this.resetCache(this.cacheKeys.help, this.cacheKeys.categories);
-        return this.questionsService.updateQuestionsCategory(+id, updateQuestionsCategoryDto);
+        return this.questionsService.updateQuestionsCategory(id, updateQuestionsCategoryDto);
     }
 
     @ApiOperation({ summary: 'Remove help question by id' })
@@ -138,7 +138,7 @@ export class HelpController {
     @Delete('questions/:id')
     removeQuestion(@Param('id') id: string) {
         this.resetCache(...Object.values(this.cacheKeys));
-        return this.questionsService.removeQuestion(+id);
+        return this.questionsService.removeQuestion(id);
     }
 
     @ApiOperation({ summary: 'Remove help questions category by id' })
@@ -146,6 +146,6 @@ export class HelpController {
     @Delete('categories/:id')
     removeQuestionsCategory(@Param('id') id: string) {
         this.resetCache(this.cacheKeys.help, this.cacheKeys.categories);
-        return this.questionsService.removeQuestionsCategory(+id);
+        return this.questionsService.removeQuestionsCategory(id);
     }
 }

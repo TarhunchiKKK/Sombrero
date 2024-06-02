@@ -4,9 +4,9 @@ import { Countries } from '../enums/countries.enum';
 
 @Entity()
 export class Address {
-    @ApiProperty({ example: '1', description: 'User address id' })
-    @PrimaryGeneratedColumn()
-    id: number;
+    @ApiProperty({ example: 'dba8cd51-8c6b-4f16-a710-64d0957c4812', description: 'User address id' })
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @ApiProperty({ enum: Countries, description: 'User country' })
     @Column()

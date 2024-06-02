@@ -40,7 +40,7 @@ export class FilesController {
     @ApiOperation({ summary: 'Remove slider image' })
     @ApiParam({ name: 'id', description: 'Slider image id for search' })
     @Delete('/home/:id')
-    public removeHomeImage(@Param('id') id: number) {
+    public removeHomeImage(@Param('id') id: string) {
         this.storedFilesService.remove(id);
     }
 }

@@ -31,7 +31,7 @@ export class RolesService {
         return await this.rolesRepository.find();
     }
 
-    public async findOne(id: number): Promise<Role> {
+    public async findOne(id: string): Promise<Role> {
         const role: Role = await this.rolesRepository.findOne({
             where: {
                 id: id,
@@ -59,7 +59,7 @@ export class RolesService {
         return role;
     }
 
-    public async update(id: number, updateRoleDto: UpdateRoleDto): Promise<void> {
+    public async update(id: string, updateRoleDto: UpdateRoleDto): Promise<void> {
         const role: Role = await this.rolesRepository.findOne({
             where: {
                 id: id,
@@ -73,7 +73,7 @@ export class RolesService {
         await this.rolesRepository.update(id, updateRoleDto);
     }
 
-    public async remove(id: number): Promise<void> {
+    public async remove(id: string): Promise<void> {
         await this.rolesRepository.delete(id);
     }
 }

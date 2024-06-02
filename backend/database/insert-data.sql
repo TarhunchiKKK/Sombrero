@@ -1,4 +1,3 @@
--- Data insertion script
 
 INSERT INTO public.address (id, country, city, street, "houseNumber", "flatNumber") VALUES (1, 'Russia', 'Smolensk', NULL, NULL, NULL);
 INSERT INTO public.address (id, country, city, street, "houseNumber", "flatNumber") VALUES (6, 'France', 'Barcelona', NULL, NULL, NULL);
@@ -6,17 +5,6 @@ INSERT INTO public.address (id, country, city, street, "houseNumber", "flatNumbe
 INSERT INTO public.address (id, country, city, street, "houseNumber", "flatNumber") VALUES (3, 'France', 'Paris', NULL, NULL, NULL);
 INSERT INTO public.address (id, country, city, street, "houseNumber", "flatNumber") VALUES (4, 'France', 'Paris', NULL, NULL, NULL);
 INSERT INTO public.address (id, country, city, street, "houseNumber", "flatNumber") VALUES (5, 'Belarus', 'Vitebsk', NULL, NULL, NULL);
-
-
-
-INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, "registrationDate", photo, "addressId") VALUES (1, 'Kosta', 'Barilo', '+375297867255', 'kostabarilo12@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$vnADtmhWboRyL0QWLuvsfw$sWI2NE2482qCx+vs1+/iF9lmriBykwKbRS7IMus72J0', '2024-04-16 21:05:00.803154', NULL, 1);
-INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, "registrationDate", photo, "addressId") VALUES (3, 'Maksim', 'Dubatovka', '+375339009470', 'majorkamaksim1337@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$bNjRR8gpo5KCmkBzJP+4hQ$e6SazjjHtsZzbnZ8phSM1YiMRbxhOKGHrW3bD+laNAY', '2024-04-16 21:08:50.898', 'Maksim.jpg', 3);
-INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, "registrationDate", photo, "addressId") VALUES (4, 'Ilya', 'Tkachencko', '+375337778899', 'safertao@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$CDn/FDd1SkDWauxQmr30/w$753MK3eeyydjD3Jhn82PmS0cF70DYNqsopNd3WIlFEo', '2024-04-16 21:09:54.445316', 'Ilya.jpg', 4);
-INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, "registrationDate", photo, "addressId") VALUES (5, 'Vlad', 'tamashenia', '+375297788212', 'tamashenyavlad2004@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$RdEETp+aK4GbGkpWTU5EnQ$0OPCtZoGcCPC3Z/cp5aTQeKeFqyc9T6Ma91XfYMIr1U', '2024-04-16 21:10:58.36667', 'Vlad.jpg', 5);
-INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, "registrationDate", photo, "addressId") VALUES (6, 'Gil', 'Nikita', '+375297413812', 'gilnikita026@gmail..com', '$argon2id$v=19$m=65536,t=3,p=4$nuOJIhfu0w0CS0MJgmD4vA$fvKSd/TcNTIOVPQsCIMsjiD8vf9UZfh0GGo/lnWiHOQ', '2024-04-16 21:11:56.369549', 'Nikita.jpg', 6);
-INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, "registrationDate", photo, "addressId") VALUES (2, 'Tanya', 'Mikhalovich', '+375298243120', 'physics0.0best@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$bNjRR8gpo5KCmkBzJP+4hQ$e6SazjjHtsZzbnZ8phSM1YiMRbxhOKGHrW3bD+laNAY', '2024-03-31 01:58:21.251', 'Tanya.jpg', 2);
-
-
 
 INSERT INTO public.category (id, title) VALUES (1, 'Auto');
 INSERT INTO public.category (id, title) VALUES (2, 'For work');
@@ -28,6 +16,13 @@ INSERT INTO public.category (id, title) VALUES (7, 'Electronics');
 INSERT INTO public.category (id, title) VALUES (8, 'Beauti and health');
 INSERT INTO public.category (id, title) VALUES (9, 'Spare parts');
 
+
+INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, photo, "registrationDate", "addressId") VALUES (1, 'Kosta', 'Barilo', '+375297867255', 'kostabarilo12@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$vnADtmhWboRyL0QWLuvsfw$sWI2NE2482qCx+vs1+/iF9lmriBykwKbRS7IMus72J0', NULL, '2024-04-16 21:05:00.803154', 1);
+INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, photo, "registrationDate", "addressId") VALUES (3, 'Maksim', 'Dubatovka', '+375339009470', 'majorkamaksim1337@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$bNjRR8gpo5KCmkBzJP+4hQ$e6SazjjHtsZzbnZ8phSM1YiMRbxhOKGHrW3bD+laNAY', 'Maksim.jpg', '2024-04-16 21:08:50.898', 3);
+INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, photo, "registrationDate", "addressId") VALUES (4, 'Ilya', 'Tkachencko', '+375337778899', 'safertao@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$CDn/FDd1SkDWauxQmr30/w$753MK3eeyydjD3Jhn82PmS0cF70DYNqsopNd3WIlFEo', 'Ilya.jpg', '2024-04-16 21:09:54.445316', 4);
+INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, photo, "registrationDate", "addressId") VALUES (5, 'Vlad', 'tamashenia', '+375297788212', 'tamashenyavlad2004@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$RdEETp+aK4GbGkpWTU5EnQ$0OPCtZoGcCPC3Z/cp5aTQeKeFqyc9T6Ma91XfYMIr1U', 'Vlad.jpg', '2024-04-16 21:10:58.36667', 5);
+INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, photo, "registrationDate", "addressId") VALUES (6, 'Gil', 'Nikita', '+375297413812', 'gilnikita026@gmail..com', '$argon2id$v=19$m=65536,t=3,p=4$nuOJIhfu0w0CS0MJgmD4vA$fvKSd/TcNTIOVPQsCIMsjiD8vf9UZfh0GGo/lnWiHOQ', 'Nikita.jpg', '2024-04-16 21:11:56.369549', 6);
+INSERT INTO public."user" (id, name, surname, "phoneNumber", email, password, photo, "registrationDate", "addressId") VALUES (2, 'Tanya', 'Mikhalovich', '+375298243120', 'physics0.0best@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$bNjRR8gpo5KCmkBzJP+4hQ$e6SazjjHtsZzbnZ8phSM1YiMRbxhOKGHrW3bD+laNAY', 'Tanya.jpg', '2024-03-31 01:58:21.251', 2);
 
 
 INSERT INTO public.advertisement (id, title, description, price, "saleStatus", photo, "categoryId", "vendorId", "buyerId") VALUES (1, 'Велосипед', 'двухколесный велосипед с приставными колесами для девочек, возраст: 6-11 лет, рост: 110-125 см, сиденье: обычное (седло), колеса 20'''', рама: сталь, вилка жесткая', 200, false, 'a1.jpg', 4, 5, NULL);
@@ -62,6 +57,18 @@ INSERT INTO public.advertisement (id, title, description, price, "saleStatus", p
 INSERT INTO public.advertisement (id, title, description, price, "saleStatus", photo, "categoryId", "vendorId", "buyerId") VALUES (19, 'Буксировочный трос', 'Лента буксировочная 2.5т*4м - это специальная лента, которую используются для буксировки различных грузов, для буксировки или эвакуации автомобилей и других транспортных средств. Она представляет собой прочную и высокопрочную ленту, специально разработанную для удержания большой массы транспортного средства при буксировке.', 30, false, 'tow_rope.webp', 1, 3, 4);
 
 
+INSERT INTO public.role (id, value) VALUES (1, 'Admin');
+INSERT INTO public.role (id, value) VALUES (2, 'User');
+
+
+INSERT INTO public.user_roles_role ("userId", "roleId") VALUES (1, 1);
+INSERT INTO public.user_roles_role ("userId", "roleId") VALUES (2, 2);
+INSERT INTO public.user_roles_role ("userId", "roleId") VALUES (3, 2);
+INSERT INTO public.user_roles_role ("userId", "roleId") VALUES (4, 2);
+INSERT INTO public.user_roles_role ("userId", "roleId") VALUES (5, 2);
+INSERT INTO public.user_roles_role ("userId", "roleId") VALUES (6, 2);
+
 
 INSERT INTO public.user_wish_list_advertisement ("userId", "advertisementId") VALUES (1, 7);
 INSERT INTO public.user_wish_list_advertisement ("userId", "advertisementId") VALUES (2, 19);
+

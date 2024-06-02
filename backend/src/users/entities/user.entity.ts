@@ -16,9 +16,9 @@ import { Role } from 'src/roles/entities/role.entity';
 
 @Entity()
 export class User {
-    @ApiProperty({ example: '1', description: 'User id' })
-    @PrimaryGeneratedColumn()
-    id: number;
+    @ApiProperty({ example: 'dba8cd51-8c6b-4f16-a710-64d0957c4812', description: 'User id' })
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @ApiProperty({ example: 'Victor', description: 'User name' })
     @Column({ nullable: true })
@@ -70,6 +70,7 @@ export class User {
     @OneToMany(() => Advertisement, (advertisment: Advertisement) => advertisment.buyer)
     purchasesList: Advertisement[];
 
+    @ApiProperty({ type: () => [Role], description: 'Roles this user has' })
     @ManyToMany(() => Role, (role: Role) => role.users)
     @JoinTable()
     roles: Role[];

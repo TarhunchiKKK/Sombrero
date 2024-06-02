@@ -3,9 +3,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Contact {
-    @ApiProperty({ example: '1', description: 'Person id' })
-    @PrimaryGeneratedColumn()
-    id: number;
+    @ApiProperty({ example: 'dba8cd51-8c6b-4f16-a710-64d0957c4812', description: 'Person id' })
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @ApiProperty({ example: 'Дмитрий', description: 'Person name' })
     @Column({ nullable: false })

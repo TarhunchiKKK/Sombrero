@@ -44,7 +44,7 @@ export class FaqsController {
     @ApiResponse({ type: Faq })
     @Get(':id')
     public async findOne(@Param('id') id: string) {
-        return await this.faqService.findOne(+id);
+        return await this.faqService.findOne(id);
     }
 
     @ApiOperation({ summary: 'Update one faq by id' })
@@ -53,7 +53,7 @@ export class FaqsController {
     @Patch(':id')
     public async update(@Param('id') id: string, @Body() updateFaqDto: UpdateFaqDto) {
         this.cacheManager.del('faqs');
-        return await this.faqService.update(+id, updateFaqDto);
+        return await this.faqService.update(id, updateFaqDto);
     }
 
     @ApiOperation({ summary: 'Delete one faq by id' })
@@ -61,6 +61,6 @@ export class FaqsController {
     @Delete(':id')
     public async remove(@Param('id') id: string) {
         this.cacheManager.del('faqs');
-        return this.faqService.remove(+id);
+        return this.faqService.remove(id);
     }
 }

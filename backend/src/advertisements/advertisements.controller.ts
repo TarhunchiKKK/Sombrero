@@ -55,7 +55,7 @@ export class AdvertisementsController {
     public async findAll(
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 100,
-        @Query('category') categoryId: number = undefined,
+        @Query('category') categoryId: string = undefined,
     ) {
         const cachedAdvertisements: Advertisement[] = await this.cacheManager.get(
             `advertisements:${page}:${limit}:${categoryId}`,
@@ -77,7 +77,7 @@ export class AdvertisementsController {
     public async findOne(@Param('id') id: string) {
         const cachedAdvertisement: Advertisement = await this.cacheManager.get(`advertisement:${id}`);
         if (!cachedAdvertisement) {
-            const advertisement: Advertisement = await this.advertisementsService.findOne(+id);
+            const advertisement: Advertisement = await this.advertisementsService.findOne(id);
             this.cacheManager.set(`advertisement:${id}`, advertisement, 20000);
             return advertisement;
         }
@@ -97,7 +97,7 @@ export class AdvertisementsController {
         @UploadedFile() image: Express.Multer.File,
     ) {
         this.cacheManager.del(`advertisement:${id}`);
-        return this.advertisementsService.update(+id, updateAdvertisementDto, image);
+        return this.advertisementsService.update(id, updateAdvertisementDto, image);
     }
 
     @ApiOperation({ summary: 'Remove one advertisement by id' })
@@ -105,7 +105,7 @@ export class AdvertisementsController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         this.cacheManager.del(`advertisement:${id}`);
-        return this.advertisementsService.remove(+id);
+        return this.advertisementsService.remove(id);
     }
 
     @ApiOperation({ summary: 'Like one advertisement' })
