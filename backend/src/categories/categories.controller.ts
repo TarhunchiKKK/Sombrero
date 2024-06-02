@@ -14,7 +14,9 @@ export class CategoriesController {
         private readonly categoriesService: CategoriesService,
 
         @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    ) {}
+    ) {
+        this.cacheManager.reset();
+    }
 
     @ApiOperation({ summary: 'Create new category' })
     @ApiBody({ type: CreateCategoryDto })
