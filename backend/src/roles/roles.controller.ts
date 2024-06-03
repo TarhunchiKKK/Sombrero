@@ -16,9 +16,9 @@ export class RolesController {
     @ApiOperation({ summary: 'Create new role' })
     @ApiBody({ type: CreateRoleDto })
     @ApiResponse({ status: 201, type: Role })
-    @Post()
     @RequiredRoles(Roles.Admin)
     @UseGuards(RolesGuard)
+    @Post()
     create(@Body() createRoleDto: CreateRoleDto) {
         return this.rolesService.create(createRoleDto);
     }
@@ -41,6 +41,8 @@ export class RolesController {
     @ApiOperation({ summary: 'Update role by id' })
     @ApiParam({ name: 'id', description: 'Role id for search' })
     @ApiBody({ type: UpdateRoleDto })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
         return this.rolesService.update(id, updateRoleDto);
@@ -48,6 +50,8 @@ export class RolesController {
 
     @ApiOperation({ summary: 'Remove role by id' })
     @ApiParam({ name: 'id', description: 'Role id for search' })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.rolesService.remove(id);

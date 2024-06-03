@@ -23,9 +23,9 @@ export class FaqsController {
     @ApiOperation({ summary: 'Creates a new faq' })
     @ApiBody({ type: CreateFaqDto, description: 'Data for faq creation' })
     @ApiResponse({ status: 201, type: Faq })
-    @Post()
     @RequiredRoles(Roles.Admin)
     @UseGuards(RolesGuard)
+    @Post()
     public async create(@Body() createFaqDto: CreateFaqDto) {
         this.cacheManager.del('faqs');
         return this.faqService.create(createFaqDto);
@@ -55,9 +55,9 @@ export class FaqsController {
     @ApiOperation({ summary: 'Update one faq by id' })
     @ApiParam({ name: 'id', description: 'Faq id to search' })
     @ApiBody({ type: UpdateFaqDto })
-    @Patch(':id')
     @RequiredRoles(Roles.Admin)
     @UseGuards(RolesGuard)
+    @Patch(':id')
     public async update(@Param('id') id: string, @Body() updateFaqDto: UpdateFaqDto) {
         this.cacheManager.del('faqs');
         return await this.faqService.update(id, updateFaqDto);
@@ -65,9 +65,9 @@ export class FaqsController {
 
     @ApiOperation({ summary: 'Delete one faq by id' })
     @ApiParam({ name: 'id', description: 'Faq id to search' })
-    @Delete(':id')
     @RequiredRoles(Roles.Admin)
     @UseGuards(RolesGuard)
+    @Delete(':id')
     public async remove(@Param('id') id: string) {
         this.cacheManager.del('faqs');
         return this.faqService.remove(id);
