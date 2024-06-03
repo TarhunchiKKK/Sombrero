@@ -4,9 +4,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Question {
-    @ApiProperty({ example: '1', description: 'Help question id' })
-    @PrimaryGeneratedColumn()
-    id: number;
+    @ApiProperty({ example: 'dba8cd51-8c6b-4f16-a710-64d0957c4812', description: 'Help question id' })
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @ApiProperty({ example: 'Как сделать ...', description: 'Help question title' })
     @Column({ nullable: false })

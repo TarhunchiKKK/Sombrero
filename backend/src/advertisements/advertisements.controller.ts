@@ -12,6 +12,7 @@ import {
     UseInterceptors,
     UploadedFile,
     Inject,
+    UseGuards,
 } from '@nestjs/common';
 import { AdvertisementsService } from './advertisements.service';
 import { CreateAdvertisementDto } from './dto/create-advertisement.dto';
@@ -24,6 +25,8 @@ import { Advertisement } from './entities/advertisement.entity';
 import { ChangeAdvertisementCategoryDto } from './dto/change-advertisement-category.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { AdvertisementOwnerGuard } from './middleware/advertisement-owner.guard';
+import { JwtAuthGuard } from 'src/auth/middleware/jwt-auth.guard';
 
 @ApiTags('Advertisements')
 @Controller('advertisements')
@@ -55,7 +58,7 @@ export class AdvertisementsController {
     public async findAll(
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 100,
-        @Query('category') categoryId: number = undefined,
+        @Query('category') categoryId: string = undefined,
     ) {
         const cachedAdvertisements: Advertisement[] = await this.cacheManager.get(
             `advertisements:${page}:${limit}:${categoryId}`,
@@ -77,7 +80,7 @@ export class AdvertisementsController {
     public async findOne(@Param('id') id: string) {
         const cachedAdvertisement: Advertisement = await this.cacheManager.get(`advertisement:${id}`);
         if (!cachedAdvertisement) {
-            const advertisement: Advertisement = await this.advertisementsService.findOne(+id);
+            const advertisement: Advertisement = await this.advertisementsService.findOne(id);
             this.cacheManager.set(`advertisement:${id}`, advertisement, 20000);
             return advertisement;
         }
@@ -88,29 +91,32 @@ export class AdvertisementsController {
     @ApiParam({ name: 'id', description: 'Advertisement id for search' })
     @ApiParam({ name: 'image', description: 'Advertisement image to update' })
     @ApiBody({ type: UpdateAdvertisementDto })
-    @Patch(':id')
     @UsePipes(ValidationPipe)
     @UseInterceptors(FileInterceptor('image'))
+    @UseGuards(AdvertisementOwnerGuard)
+    @Patch(':id')
     update(
         @Param('id') id: string,
         @Body() updateAdvertisementDto: UpdateAdvertisementDto,
         @UploadedFile() image: Express.Multer.File,
     ) {
         this.cacheManager.del(`advertisement:${id}`);
-        return this.advertisementsService.update(+id, updateAdvertisementDto, image);
+        return this.advertisementsService.update(id, updateAdvertisementDto, image);
     }
 
     @ApiOperation({ summary: 'Remove one advertisement by id' })
     @ApiParam({ name: 'id', description: 'Advertisement id for search' })
+    @UseGuards(AdvertisementOwnerGuard)
     @Delete(':id')
     remove(@Param('id') id: string) {
         this.cacheManager.del(`advertisement:${id}`);
-        return this.advertisementsService.remove(+id);
+        return this.advertisementsService.remove(id);
     }
 
     @ApiOperation({ summary: 'Like one advertisement' })
     @ApiBody({ type: LikeAdvertisementDto })
     @ApiResponse({ status: 200 })
+    @UseGuards(JwtAuthGuard)
     @Post('like')
     likeAdvertisement(@Body() likeDto: LikeAdvertisementDto) {
         this.cacheManager.del(`advertisement:${likeDto.advertisement.id}`);
@@ -120,6 +126,7 @@ export class AdvertisementsController {
     @ApiOperation({ summary: 'Buy one advertisement' })
     @ApiBody({ type: BuyAdvertisementDto })
     @ApiResponse({ status: 200 })
+    @UseGuards(JwtAuthGuard)
     @Post('buy')
     buyAdvertisement(@Body() buyAdvertisementDto: BuyAdvertisementDto) {
         this.cacheManager.del(`advertisement:${buyAdvertisementDto.advertisement.id}`);
@@ -129,6 +136,7 @@ export class AdvertisementsController {
     @ApiOperation({ summary: 'Change advertisement category' })
     @ApiBody({ type: ChangeAdvertisementCategoryDto })
     @ApiResponse({ status: 200, type: Advertisement })
+    @UseGuards(AdvertisementOwnerGuard)
     @Post('category')
     changeAdvertisementCategory(@Body() dto: ChangeAdvertisementCategoryDto) {
         this.cacheManager.del(`advertisement:${dto.advertisement.id}`);

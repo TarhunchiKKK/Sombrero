@@ -24,7 +24,7 @@ export class CategoriesService {
         });
     }
 
-    public async findOne(id: number): Promise<Category> {
+    public async findOne(id: string): Promise<Category> {
         return await this.categoriesRepository.findOne({
             where: {
                 id: id,
@@ -32,7 +32,7 @@ export class CategoriesService {
         });
     }
 
-    public async updtate(id: number, dto: UpdateCategoryDto): Promise<void> {
+    public async updtate(id: string, dto: UpdateCategoryDto): Promise<void> {
         const category: Category = await this.categoriesRepository.findOne({
             where: {
                 id: id,
@@ -46,7 +46,7 @@ export class CategoriesService {
         await this.categoriesRepository.update(id, { ...dto });
     }
 
-    public async remove(id: number) {
+    public async remove(id: string) {
         await this.categoriesRepository.delete(id);
     }
 }

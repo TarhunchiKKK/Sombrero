@@ -10,6 +10,7 @@ import {
     ValidationPipe,
     UseInterceptors,
     UploadedFile,
+    UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,6 +18,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
+import { ChangeRoleDto } from './dto/change-role-dto';
+import { AccountOwnerGuard } from './middleware/account-owner.guard';
+import { Roles } from 'src/roles/enums/roles.enum';
+import { RolesGuard } from 'src/roles/middleware/roles.guard';
+import { RequiredRoles } from 'src/roles/decorators/roles.decorator';
 
 @ApiTags('Users')
 @Controller('users')
@@ -44,7 +50,7 @@ export class UsersController {
     @ApiResponse({ status: 200, type: User })
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.usersService.findOne(+id);
+        return this.usersService.findOne(id);
     }
 
     @ApiOperation({ summary: 'Update one user by id' })
@@ -52,18 +58,40 @@ export class UsersController {
     @ApiParam({ name: 'image', description: 'User avatar to update' })
     @ApiBody({ type: UpdateUserDto })
     @ApiResponse({ status: 200 })
-    @Patch(':id')
     @UsePipes(ValidationPipe)
+    @UseGuards(AccountOwnerGuard)
     @UseInterceptors(FileInterceptor('image'))
+    @Patch(':id')
     update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @UploadedFile() image: Express.Multer.File) {
-        return this.usersService.update(+id, updateUserDto, image);
+        return this.usersService.update(id, updateUserDto, image);
     }
 
     @ApiOperation({ summary: 'Delete one user by id' })
     @ApiParam({ name: 'id', description: 'User id for search' })
     @ApiResponse({ status: 200 })
+    @UseGuards(AccountOwnerGuard)
     @Delete(':id')
     remove(@Param('id') id: string) {
-        this.usersService.remove(+id);
+        this.usersService.remove(id);
+    }
+
+    @ApiOperation({ summary: 'Add role for user' })
+    @ApiBody({ type: ChangeRoleDto })
+    @ApiResponse({ type: User })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
+    @Post('/roles/add')
+    public async addRole(@Body() dto: ChangeRoleDto) {
+        return await this.usersService.addRole(dto);
+    }
+
+    @ApiOperation({ summary: 'Remove role from user' })
+    @ApiBody({ type: ChangeRoleDto })
+    @ApiResponse({ type: User })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
+    @Post('/roles/remove')
+    public async removeRole(@Body() dto: ChangeRoleDto) {
+        return await this.usersService.removeRole(dto);
     }
 }

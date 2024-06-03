@@ -38,7 +38,7 @@ export class HelpService {
     public async createQuestion(questionDto: CreateQuestionDto): Promise<Question> {
         const category: QuestionsCategory = await this.categoriesRepository.findOne({
             where: {
-                id: +questionDto.category.id,
+                id: questionDto.category.id,
             },
         });
 
@@ -58,7 +58,7 @@ export class HelpService {
         return this.categoriesRepository.save({ ...categoryDto });
     }
 
-    public async findOneQuestion(id: number): Promise<Question> {
+    public async findOneQuestion(id: string): Promise<Question> {
         const question: Question = await this.questionsRepository.findOne({
             where: {
                 id: id,
@@ -72,7 +72,7 @@ export class HelpService {
         return question;
     }
 
-    public async findOneQuestionsCategory(id: number): Promise<QuestionsCategory> {
+    public async findOneQuestionsCategory(id: string): Promise<QuestionsCategory> {
         const category: QuestionsCategory = await this.categoriesRepository.findOne({
             where: {
                 id: id,
@@ -86,7 +86,7 @@ export class HelpService {
         return category;
     }
 
-    public async updateQuestion(id: number, questionDto: UpdateQuestionDto): Promise<void> {
+    public async updateQuestion(id: string, questionDto: UpdateQuestionDto): Promise<void> {
         const question: Question = await this.questionsRepository.findOne({
             where: {
                 id: id,
@@ -103,7 +103,7 @@ export class HelpService {
         });
     }
 
-    public async updateQuestionsCategory(id: number, categoryDto: UpdateQuestionsCategoryDto): Promise<void> {
+    public async updateQuestionsCategory(id: string, categoryDto: UpdateQuestionsCategoryDto): Promise<void> {
         const category: QuestionsCategory = await this.categoriesRepository.findOne({
             where: {
                 id: id,
@@ -119,11 +119,11 @@ export class HelpService {
         });
     }
 
-    public async removeQuestion(id: number): Promise<void> {
+    public async removeQuestion(id: string): Promise<void> {
         await this.questionsRepository.delete(id);
     }
 
-    public async removeQuestionsCategory(id: number): Promise<void> {
+    public async removeQuestionsCategory(id: string): Promise<void> {
         await this.categoriesRepository.delete(id);
     }
 

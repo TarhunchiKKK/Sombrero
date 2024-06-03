@@ -7,6 +7,10 @@ import { Repository } from 'typeorm';
 import { Address } from './entities/address.entity';
 import * as argon2 from 'argon2';
 import { FilesService } from 'src/files/services/files.service';
+import { RolesService } from 'src/roles/roles.service';
+import { Role } from 'src/roles/entities/role.entity';
+import { Roles } from 'src/roles/enums/roles.enum';
+import { ChangeRoleDto } from './dto/change-role-dto';
 
 @Injectable()
 export class UsersService {
@@ -16,6 +20,8 @@ export class UsersService {
 
         @InjectRepository(Address)
         private readonly addressesRepository: Repository<Address>,
+
+        private readonly rolesService: RolesService,
 
         private readonly filesServide: FilesService,
     ) {}
@@ -38,9 +44,12 @@ export class UsersService {
             createUserDto.address = address;
         }
 
+        const userRole: Role = await this.rolesService.findOneByValue(Roles.User);
+
         return await this.usersRepository.save({
             ...createUserDto,
             password: await argon2.hash(createUserDto.password),
+            roles: [userRole],
             // address: address,
         });
     }
@@ -56,7 +65,7 @@ export class UsersService {
         });
     }
 
-    public async findOne(id: number): Promise<User> {
+    public async findOne(id: string): Promise<User> {
         return await this.usersRepository.findOne({
             where: {
                 id: id,
@@ -75,10 +84,13 @@ export class UsersService {
             where: {
                 email: email,
             },
+            relations: {
+                roles: true,
+            },
         });
     }
 
-    public async update(id: number, updateUserDto: UpdateUserDto, image: Express.Multer.File): Promise<void> {
+    public async update(id: string, updateUserDto: UpdateUserDto, image: Express.Multer.File): Promise<void> {
         const user: User = await this.usersRepository.findOne({
             where: {
                 id: id,
@@ -123,7 +135,7 @@ export class UsersService {
         });
     }
 
-    public async remove(id: number): Promise<void> {
+    public async remove(id: string): Promise<void> {
         const user: User = await this.usersRepository.findOne({
             where: {
                 id: id,
@@ -141,5 +153,47 @@ export class UsersService {
 
         // await this.addressesRepository.delete(user.address.id);
         await this.usersRepository.delete(id);
+    }
+
+    public async addRole(dto: ChangeRoleDto) {
+        const role: Role = await this.rolesService.findOne(dto.role.id);
+
+        if (!role) {
+            throw new NotFoundException(`Such role not found`);
+        }
+
+        const user: User = await this.usersRepository.findOne({
+            where: {
+                id: dto.user.id,
+            },
+            relations: {
+                roles: true,
+            },
+        });
+
+        if (!user) {
+            throw new NotFoundException(`Such user not found`);
+        }
+
+        user.roles.push(role);
+        return await this.usersRepository.save(user);
+    }
+
+    public async removeRole(dto: ChangeRoleDto) {
+        const user: User = await this.usersRepository.findOne({
+            where: {
+                id: dto.user.id,
+            },
+            relations: {
+                roles: true,
+            },
+        });
+
+        if (!user) {
+            throw new NotFoundException(`Such user not found`);
+        }
+
+        user.roles = user.roles.filter((role) => role.id !== dto.role.id);
+        return await this.usersRepository.save(user);
     }
 }

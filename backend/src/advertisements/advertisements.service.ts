@@ -30,10 +30,10 @@ export class AdvertisementsService {
             ...createAdvertisementDto,
             photo: undefined,
             category: {
-                id: +createAdvertisementDto.category.id,
+                id: createAdvertisementDto.category.id,
             },
             vendor: {
-                id: +createAdvertisementDto.vendor.id,
+                id: createAdvertisementDto.vendor.id,
             },
         };
 
@@ -45,7 +45,7 @@ export class AdvertisementsService {
         return await this.advertisementsRepository.save(advertisement);
     }
 
-    public async findAll(page: number, limit: number, categoryId: number | undefined): Promise<Advertisement[]> {
+    public async findAll(page: number, limit: number, categoryId: string | undefined): Promise<Advertisement[]> {
         return await this.advertisementsRepository.find({
             relations: {
                 vendor: false,
@@ -55,7 +55,7 @@ export class AdvertisementsService {
             },
             where: {
                 category: {
-                    id: categoryId ? +categoryId : undefined,
+                    id: categoryId ? categoryId : undefined,
                 },
             },
             skip: (page - 1) * limit,
@@ -63,7 +63,7 @@ export class AdvertisementsService {
         });
     }
 
-    public async findOne(id: number): Promise<Advertisement> {
+    public async findOne(id: string): Promise<Advertisement> {
         return await this.advertisementsRepository.findOne({
             where: {
                 id: id,
@@ -80,7 +80,7 @@ export class AdvertisementsService {
     }
 
     public async update(
-        id: number,
+        id: string,
         updateAdvertisementDto: UpdateAdvertisementDto,
         image: Express.Multer.File,
     ): Promise<void> {
@@ -114,7 +114,7 @@ export class AdvertisementsService {
         });
     }
 
-    public async remove(id: number): Promise<void> {
+    public async remove(id: string): Promise<void> {
         const advertisement: Advertisement = await this.advertisementsRepository.findOne({
             where: {
                 id: id,
@@ -133,7 +133,7 @@ export class AdvertisementsService {
     public async likeAdvertisement(likeDto: LikeAdvertisementDto) {
         const advertisement: Advertisement = await this.advertisementsRepository.findOne({
             where: {
-                id: +likeDto.advertisement.id,
+                id: likeDto.advertisement.id,
             },
             relations: {
                 wishedUsers: true,
@@ -144,10 +144,10 @@ export class AdvertisementsService {
             throw new BadRequestException('No such  advertisement');
         }
 
-        if (advertisement.wishedUsers.findIndex((u) => u.id === +likeDto.user.id) === -1) {
+        if (advertisement.wishedUsers.findIndex((u) => u.id === likeDto.user.id) === -1) {
             advertisement.wishedUsers.push(likeDto.user);
         } else {
-            advertisement.wishedUsers = advertisement.wishedUsers.filter((u) => u.id !== +likeDto.user.id);
+            advertisement.wishedUsers = advertisement.wishedUsers.filter((u) => u.id !== likeDto.user.id);
         }
 
         return await this.advertisementsRepository.save(advertisement);
@@ -156,7 +156,7 @@ export class AdvertisementsService {
     public async buyAdvertisement(buyAdvertisementDto: BuyAdvertisementDto) {
         const advertisement: Advertisement = await this.advertisementsRepository.findOne({
             where: {
-                id: +buyAdvertisementDto.advertisement.id,
+                id: buyAdvertisementDto.advertisement.id,
             },
             relations: {
                 buyer: true,
@@ -178,7 +178,7 @@ export class AdvertisementsService {
     async changeAdvertisementCategory(dto: ChangeAdvertisementCategoryDto) {
         const advertisement: Advertisement = await this.advertisementsRepository.findOne({
             where: {
-                id: +dto.advertisement.id,
+                id: dto.advertisement.id,
             },
         });
 

@@ -25,7 +25,7 @@ export class ContactsService {
         return this.contactsRepository.find();
     }
 
-    public async findOne(id: number): Promise<Contact> {
+    public async findOne(id: string): Promise<Contact> {
         const contact: Contact = await this.contactsRepository.findOne({
             where: {
                 id: id,
@@ -39,7 +39,7 @@ export class ContactsService {
         return contact;
     }
 
-    public async update(id: number, updateContactDto: UpdateContactDto, image: Express.Multer.File): Promise<void> {
+    public async update(id: string, updateContactDto: UpdateContactDto, image: Express.Multer.File): Promise<void> {
         const contact: Contact = await this.contactsRepository.findOne({
             where: {
                 id: id,
@@ -62,7 +62,7 @@ export class ContactsService {
         });
     }
 
-    public async remove(id: number): Promise<void> {
+    public async remove(id: string): Promise<void> {
         const contact: Contact = await this.contactsRepository.findOne({
             where: {
                 id: id,

@@ -11,7 +11,9 @@ import { ContactsModule } from './contacts/contacts.module';
 import { FaqsModule } from './faqs/faqs.module';
 import { HelpModule } from './help/help.module';
 import { MailsModule } from './mails/mails.module';
-import { ConfigModuleConfigOptions, PostgresConfigOptions } from './config';
+import { ConfigModuleConfigOptions, JwtConfigOptions, PostgresConfigOptions } from './config';
+import { RolesModule } from './roles/roles.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [
@@ -26,6 +28,8 @@ import { ConfigModuleConfigOptions, PostgresConfigOptions } from './config';
         MailsModule,
         ConfigModule.forRoot(ConfigModuleConfigOptions),
         TypeOrmModule.forRoot(PostgresConfigOptions),
+        JwtModule.register(JwtConfigOptions),
+        RolesModule,
     ],
 })
 export class AppModule {}

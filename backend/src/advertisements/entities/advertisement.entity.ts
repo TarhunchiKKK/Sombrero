@@ -5,9 +5,9 @@ import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 't
 
 @Entity()
 export class Advertisement {
-    @ApiProperty({ example: '1', description: 'Advertisement id' })
-    @PrimaryGeneratedColumn()
-    id: number;
+    @ApiProperty({ example: 'dba8cd51-8c6b-4f16-a710-64d0957c4812', description: 'Advertisement id' })
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @ApiProperty({ example: 'Велосипед', description: 'Advertisement title' })
     @Column()

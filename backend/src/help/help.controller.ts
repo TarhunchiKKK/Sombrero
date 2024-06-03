@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Inject } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Inject, UseGuards } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { HelpService } from './help.service';
@@ -10,6 +10,9 @@ import { QuestionsCategory } from './entities/questions-category.entity';
 import { Question } from './entities/question.entity';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { RequiredRoles } from 'src/roles/decorators/roles.decorator';
+import { Roles } from 'src/roles/enums/roles.enum';
+import { RolesGuard } from 'src/roles/middleware/roles.guard';
 
 @ApiTags('Help')
 @Controller('help')
@@ -77,7 +80,7 @@ export class HelpController {
     @ApiResponse({ status: 200, type: Question })
     @Get('questions/:id')
     findOneQuestion(@Param('id') id: string) {
-        return this.questionsService.findOneQuestion(+id);
+        return this.questionsService.findOneQuestion(id);
     }
 
     @ApiOperation({ summary: 'Get one help questions category by id' })
@@ -85,12 +88,14 @@ export class HelpController {
     @ApiResponse({ status: 200, type: QuestionsCategory })
     @Get('categories/:id')
     findOneQuestionsCategory(@Param('id') id: string) {
-        return this.questionsService.findOneQuestionsCategory(+id);
+        return this.questionsService.findOneQuestionsCategory(id);
     }
 
     @ApiOperation({ summary: 'Create new help question' })
     @ApiResponse({ status: 201, type: Question })
     @ApiBody({ type: CreateQuestionDto })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Post('questions')
     createQuestion(@Body() createQuestionDto: CreateQuestionDto) {
         this.resetCache(...Object.values(this.cacheKeys));
@@ -100,6 +105,8 @@ export class HelpController {
     @ApiOperation({ summary: 'Create new help questions category' })
     @ApiResponse({ status: 201, type: QuestionsCategory })
     @ApiBody({ type: CreateQuestionsCategoryDto })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Post('categories')
     createQuestionsCategory(@Body() createQuestionsCategoryDto: CreateQuestionsCategoryDto) {
         this.resetCache(this.cacheKeys.help, this.cacheKeys.categories);
@@ -109,6 +116,8 @@ export class HelpController {
     @ApiOperation({ summary: 'Add help question to questions category' })
     @ApiBody({ type: AddQuestionToCategryDto })
     @ApiResponse({ status: 200, type: QuestionsCategory })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Patch('questions/add-to-category')
     addQuestionToCategory(@Body() addQuestionToCategoryDto: AddQuestionToCategryDto) {
         this.resetCache(this.cacheKeys.help, this.cacheKeys.categories);
@@ -118,34 +127,42 @@ export class HelpController {
     @ApiOperation({ summary: 'Update help question' })
     @ApiParam({ name: 'id', description: 'Help question id to search' })
     @ApiBody({ type: UpdateQuestionDto })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Patch('questions/:id')
     updateQuestion(@Param('id') id: string, @Body() updateQuestionDto: UpdateQuestionDto) {
         this.resetCache(...Object.values(this.cacheKeys));
-        return this.questionsService.updateQuestion(+id, updateQuestionDto);
+        return this.questionsService.updateQuestion(id, updateQuestionDto);
     }
 
     @ApiOperation({ summary: 'Update help questions category' })
     @ApiParam({ name: 'id', description: 'Help question category id to search' })
     @ApiBody({ type: UpdateQuestionsCategoryDto })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Patch('categories/:id')
     updateQuestionsCategory(@Param('id') id: string, @Body() updateQuestionsCategoryDto: UpdateQuestionsCategoryDto) {
         this.resetCache(this.cacheKeys.help, this.cacheKeys.categories);
-        return this.questionsService.updateQuestionsCategory(+id, updateQuestionsCategoryDto);
+        return this.questionsService.updateQuestionsCategory(id, updateQuestionsCategoryDto);
     }
 
     @ApiOperation({ summary: 'Remove help question by id' })
     @ApiParam({ name: 'id', description: 'Help question id to search' })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Delete('questions/:id')
     removeQuestion(@Param('id') id: string) {
         this.resetCache(...Object.values(this.cacheKeys));
-        return this.questionsService.removeQuestion(+id);
+        return this.questionsService.removeQuestion(id);
     }
 
     @ApiOperation({ summary: 'Remove help questions category by id' })
     @ApiParam({ name: 'id', description: 'Help questions category id to search' })
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @Delete('categories/:id')
     removeQuestionsCategory(@Param('id') id: string) {
         this.resetCache(this.cacheKeys.help, this.cacheKeys.categories);
-        return this.questionsService.removeQuestionsCategory(+id);
+        return this.questionsService.removeQuestionsCategory(id);
     }
 }

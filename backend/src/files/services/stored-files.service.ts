@@ -19,7 +19,7 @@ export class StoredFilesService {
         throw new BadRequestException('File not found');
     }
 
-    public async remove(id: number) {
+    public async remove(id: string) {
         const file: StoredFile = await this.storedFilesRepository.findOne({
             where: {
                 id: id,
