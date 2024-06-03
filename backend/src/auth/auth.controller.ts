@@ -13,7 +13,7 @@ export class AuthController {
 
     @ApiOperation({ summary: 'Login' })
     @Post('login')
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     public async login(@Body() loginDto: LoginDto) {
         return this.authService.login(loginDto);
     }
