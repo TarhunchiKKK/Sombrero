@@ -71,6 +71,8 @@ export class ContactsController {
     @ApiResponse({ status: 200 })
     @Patch(':id')
     @UseInterceptors(FileInterceptor('image'))
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     update(
         @Param('id') id: string,
         @Body() updateContactDto: UpdateContactDto,
@@ -83,6 +85,8 @@ export class ContactsController {
     @ApiOperation({ summary: 'Delete one contact by id. Only admin can do this' })
     @ApiParam({ name: 'id', description: 'Conact id for remove' })
     @Delete(':id')
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     remove(@Param('id') id: string) {
         this.cacheManager.del('contacts');
         return this.contactsService.remove(id);
