@@ -1,10 +1,10 @@
 import { Controller, Request, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './guards/local-auth.guard';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtAuthGuard } from './middleware/jwt-auth.guard';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { ConfirmVerificationDto } from './dto/confirm-verification.dto';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoginDto } from './dto/login.dto';
 
 @ApiTags('Authorization')
 @Controller('auth')
@@ -13,9 +13,9 @@ export class AuthController {
 
     @ApiOperation({ summary: 'Login' })
     @Post('login')
-    @UseGuards(LocalAuthGuard)
-    public async login(@Request() req) {
-        return this.authService.login(req.user);
+    // @UseGuards(JwtAuthGuard)
+    public async login(@Body() loginDto: LoginDto) {
+        return this.authService.login(loginDto);
     }
 
     @Get('profile')

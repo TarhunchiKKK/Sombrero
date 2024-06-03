@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Role } from './entities/role.entity';
+import { RequiredRoles } from './decorators/roles.decorator';
+import { Roles } from './enums/roles.enum';
+import { RolesGuard } from './middleware/roles.guard';
 
 @ApiTags('Roles')
 @Controller('roles')
@@ -14,6 +17,8 @@ export class RolesController {
     @ApiBody({ type: CreateRoleDto })
     @ApiResponse({ status: 201, type: Role })
     @Post()
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     create(@Body() createRoleDto: CreateRoleDto) {
         return this.rolesService.create(createRoleDto);
     }

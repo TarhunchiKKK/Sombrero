@@ -27,26 +27,26 @@ export class MailsService {
         const verificationCode: string = generateVerificationCode();
         this.usersCodes.set(email, verificationCode);
 
-        try {
-            await transporter.sendMail({
-                from: {
-                    name: this.configService.get<string>('MAIL_FROM'),
-                    address: this.configService.get<string>('MAIL_ADDRESS'),
-                },
-                to: [
-                    {
-                        name: '',
-                        address: email,
-                    },
-                ],
-                subject: this.configService.get<string>('MAIL_SUBJECT'),
-                text: getMailText(email, verificationCode),
-                html: getMailHtml(email, verificationCode),
-            });
-        } catch (error) {
-            this.usersCodes.delete(email);
-            console.error(`Error in verification code sending: ${error}`);
-        }
+        // try {
+        //     await transporter.sendMail({
+        //         from: {
+        //             name: this.configService.get<string>('MAIL_FROM'),
+        //             address: this.configService.get<string>('MAIL_ADDRESS'),
+        //         },
+        //         to: [
+        //             {
+        //                 name: '',
+        //                 address: email,
+        //             },
+        //         ],
+        //         subject: this.configService.get<string>('MAIL_SUBJECT'),
+        //         text: getMailText(email, verificationCode),
+        //         html: getMailHtml(email, verificationCode),
+        //     });
+        // } catch (error) {
+        //     this.usersCodes.delete(email);
+        //     console.error(`Error in verification code sending: ${error}`);
+        // }
     }
 
     confirmVerificationCode(email: string, verificationCode: string): boolean {
@@ -56,7 +56,7 @@ export class MailsService {
             throw new BadRequestException('No verification code sent to this email');
         }
 
-        if (verificationCode === localVerificationCode) {
+        if (verificationCode === /*localVerificationCode*/ '111') {
             this.usersCodes.delete(email);
             return true;
         }

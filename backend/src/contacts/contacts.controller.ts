@@ -9,6 +9,7 @@ import {
     UseInterceptors,
     UploadedFile,
     Inject,
+    UseGuards,
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactDto } from './dto/create-contact.dto';
@@ -18,6 +19,9 @@ import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/s
 import { Contact } from './entities/contact.entity';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { RequiredRoles } from 'src/roles/decorators/roles.decorator';
+import { Roles } from 'src/roles/enums/roles.enum';
+import { RolesGuard } from 'src/roles/middleware/roles.guard';
 
 @ApiTags('Contacts')
 @Controller('contacts')
@@ -33,6 +37,8 @@ export class ContactsController {
     @ApiBody({ type: CreateContactDto })
     @ApiResponse({ status: 201, type: Contact })
     @Post()
+    @RequiredRoles(Roles.Admin)
+    @UseGuards(RolesGuard)
     @UseInterceptors(FileInterceptor('image'))
     public async create(@Body() createContactDto: CreateContactDto, @UploadedFile() image: Express.Multer.File) {
         this.cacheManager.del('contacts');

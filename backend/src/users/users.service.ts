@@ -84,6 +84,9 @@ export class UsersService {
             where: {
                 email: email,
             },
+            relations: {
+                roles: true,
+            },
         });
     }
 
