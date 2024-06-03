@@ -1,4 +1,3 @@
-import { Advertisement } from 'src/advertisements/entities/advertisement.entity';
 import { Address } from './address.entity';
 import {
     Column,
@@ -13,6 +12,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from 'src/roles/entities/role.entity';
+import { Advertisement } from 'src/advertisements/entities/advertisement.entity';
 
 @Entity()
 export class User {

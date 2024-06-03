@@ -11,6 +11,10 @@ export class StoredFilesService {
         private filesService: FilesService,
     ) {}
 
+    public async findAll(): Promise<StoredFile[]> {
+        return await this.storedFilesRepository.find();
+    }
+
     public async create(file: Express.Multer.File): Promise<StoredFile> {
         if (file) {
             const filename = this.filesService.createFile(file);

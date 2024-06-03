@@ -56,7 +56,7 @@ See the backend Rest APi documentation <a href="https://tarhunchikkk.github.io/S
 
 The backend folder has the following structure:
 
-<img src="./docs/project/backend_folder.png" />
+<img src="./docs/readme/project/backend_folder.png" />
 
 Nest JS framework is based on a modular architecture where the application is broken down into modules, controllers, services and middleware. In src folder you can see all modules, used in application. 
 
@@ -68,7 +68,7 @@ The **data** folder is necessary for storing product photos and user avatars. It
 
 The frontend folder has the following structure:
 
-<img src="./docs/project/frontend_folder.png" />
+<img src="./docs/readme/project/frontend_folder.png" />
 
 The client application was created using the FSD (Feature Sliced Desigh) architecture. In the src folder you can see the following folders:
 * **app** - folder with global project settings. This is where the Redux storage, React Router and TailwindCSS styles are configured;
@@ -84,7 +84,7 @@ The client application was created using the FSD (Feature Sliced Desigh) archite
 
 To run the application, you need to define a file backend/.env with the following content:
 
-<img src="./docs/project/env.png" alt="Env file" />
+<img src="./docs/readme/project/env.png" alt="Env file" />
 
 Then in the backend and frontend folders you need to run this command to install the necessary packages:
 ```
@@ -113,7 +113,7 @@ npm run dev
 
 On the home page you will see this slider:
 
-<img src="./docs/pages/slider.png" alt="Home page" />
+<img src="./docs/readme/pages/slider.png" alt="Home page" />
 
 
 
@@ -121,11 +121,11 @@ On the home page you will see this slider:
 
 This page displays all products that are for sale:
 
-<img src="./docs/catalog/catalog.png" alt="Catalog" />
+<img src="./docs/readme/catalog/catalog.png" alt="Catalog" />
 
 Here you can search by product name and category. This is what searching for products by category looks like:
 
-<img src="./docs/catalog/search_by_category.png" alt="Search" />
+<img src="./docs/readme/catalog/search_by_category.png" alt="Search" />
 
 
 
@@ -133,7 +133,7 @@ Here you can search by product name and category. This is what searching for pro
 
 The application has the ability to change the color theme. In the example of the product page, the dark theme looks like this:
 
-<img src="./docs/catalog/dark_theme.png" />
+<img src="./docs/readme/catalog/dark_theme.png" />
 
 
 
@@ -141,11 +141,11 @@ The application has the ability to change the color theme. In the example of the
 
 The application limits the capabilities of an unauthorized user. For example, if an unauthorized user tries to like a product, the following modal window will appear:
 
-<img src="./docs/account/auth_in_catalog.png" alt="Auth window" />
+<img src="./docs/readme/account/auth_in_catalog.png" alt="Auth window" />
 
 After registration, a letter with a confirmation code will be sent to the entered email. This verification code must be pasted into the following window:
 
-<img src="./docs/account/confirm_password.png" alt="Confirm" />
+<img src="./docs/readme/account/confirm_password.png" alt="Confirm" />
 
 Messages are sent using the **Outlook** service.
 
@@ -155,13 +155,13 @@ Messages are sent using the **Outlook** service.
 
 The user page looks like this:
 
-<img src="./docs/account/account.png" alt="Account" />
+<img src="./docs/readme/account/account.png" alt="Account" />
 
 This page contains products that the user has liked, purchased and put up for sale.
 
 User data editing page:
 
-<img src="./docs/account/edit_account.png" alt="Edit" />
+<img src="./docs/readme/account/edit_account.png" alt="Edit" />
 
 
 
@@ -169,8 +169,8 @@ User data editing page:
 
 If you click on the product image, you will be taken to a page similar to this one:
 
-<img src="./docs/advertisements/advertisement_page1.png" alt="Product" />
-<img src="./docs/advertisements/advertisement_page2.png" alt="Product" />
+<img src="./docs/readme/advertisements/advertisement_page1.png" alt="Product" />
+<img src="./docs/readme/advertisements/advertisement_page2.png" alt="Product" />
 
 
 
@@ -180,7 +180,7 @@ If you click on the product image, you will be taken to a page similar to this o
 
 The FAQ page looks like this:
 
-<img src="./docs/pages/faqs.png" alt="FAQs page" />
+<img src="./docs/readme/pages/faqs.png" alt="FAQs page" />
 
 On this page you can see an accordion with answers to frequently asked questions. The accordion works as follows: only one question can be “opened” at a time.
 
@@ -188,7 +188,7 @@ On this page you can see an accordion with answers to frequently asked questions
 
 The help page looks like this:
 
-<img src="./docs/pages/help.png" alt="Help page" />
+<img src="./docs/readme/pages/help.png" alt="Help page" />
 
 This page contains questions grouped by category. Each question has a link to its answer. You can search by question (if you change the contents of the input field, the displayed links will be filtered).
 
@@ -198,4 +198,4 @@ This page contains questions grouped by category. Each question has a link to it
 
 The contact page looks like this:
 
-<img src="./docs/pages/contacts.png" />
+<img src="./docs/readme/pages/contacts.png" />

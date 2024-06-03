@@ -44,6 +44,7 @@ export class AdvertisementsController {
     @ApiResponse({ status: 201, type: Advertisement })
     @Post()
     @UsePipes(ValidationPipe)
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(FileInterceptor('image'))
     create(@Body() createAdvertisementDto: CreateAdvertisementDto, @UploadedFile() image: Express.Multer.File) {
         return this.advertisementsService.create(createAdvertisementDto, image);

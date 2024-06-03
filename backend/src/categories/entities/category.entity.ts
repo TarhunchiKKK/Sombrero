@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Advertisement } from 'src/advertisements/entities/advertisement.entity';
-import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Category {

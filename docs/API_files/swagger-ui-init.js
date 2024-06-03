@@ -11,149 +11,6 @@ window.onload = function() {
   "swaggerDoc": {
     "openapi": "3.0.0",
     "paths": {
-      "/categories": {
-        "post": {
-          "operationId": "CategoriesController_create",
-          "summary": "Create new category",
-          "parameters": [],
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateCategoryDto"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Category"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "Categories"
-          ]
-        },
-        "get": {
-          "operationId": "CategoriesController_findAll",
-          "summary": "Get all categories",
-          "parameters": [],
-          "responses": {
-            "200": {
-              "description": "",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Category"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "Categories"
-          ]
-        }
-      },
-      "/categories/{id}": {
-        "get": {
-          "operationId": "CategoriesController_findOne",
-          "summary": "Get one category by id",
-          "parameters": [
-            {
-              "name": "id",
-              "required": true,
-              "in": "path",
-              "description": "Category id to search",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Category"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "Categories"
-          ]
-        },
-        "patch": {
-          "operationId": "CategoriesController_update",
-          "summary": "Update one category by id",
-          "parameters": [
-            {
-              "name": "id",
-              "required": true,
-              "in": "path",
-              "description": "Category id to search",
-              "schema": {
-                "type": "number"
-              }
-            }
-          ],
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateCategoryDto"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": ""
-            }
-          },
-          "tags": [
-            "Categories"
-          ]
-        },
-        "delete": {
-          "operationId": "CategoriesController_remove",
-          "summary": "Delete one category by id",
-          "parameters": [
-            {
-              "name": "id",
-              "required": true,
-              "in": "path",
-              "description": "Category id to search",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": ""
-            }
-          },
-          "tags": [
-            "Categories"
-          ]
-        }
-      },
       "/users": {
         "post": {
           "operationId": "UsersController_create",
@@ -305,6 +162,213 @@ window.onload = function() {
           ]
         }
       },
+      "/users/roles/add": {
+        "post": {
+          "operationId": "UsersController_addRole",
+          "summary": "Add role for user",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeRoleDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "default": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Users"
+          ]
+        }
+      },
+      "/users/roles/remove": {
+        "post": {
+          "operationId": "UsersController_removeRole",
+          "summary": "Remove role from user",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeRoleDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "default": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Users"
+          ]
+        }
+      },
+      "/roles": {
+        "post": {
+          "operationId": "RolesController_create",
+          "summary": "Create new role",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateRoleDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Role"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Roles"
+          ]
+        },
+        "get": {
+          "operationId": "RolesController_findAll",
+          "summary": "Return all roles",
+          "parameters": [],
+          "responses": {
+            "default": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Role"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Roles"
+          ]
+        }
+      },
+      "/roles/{id}": {
+        "get": {
+          "operationId": "RolesController_findOne",
+          "summary": "Find one role by id",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "description": "Role id for search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Role"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Roles"
+          ]
+        },
+        "patch": {
+          "operationId": "RolesController_update",
+          "summary": "Update role by id",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "description": "Role id for search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateRoleDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "Roles"
+          ]
+        },
+        "delete": {
+          "operationId": "RolesController_remove",
+          "summary": "Remove role by id",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "description": "Role id for search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "Roles"
+          ]
+        }
+      },
       "/files/{filename}": {
         "get": {
           "operationId": "FilesController_downloadFile",
@@ -337,10 +401,10 @@ window.onload = function() {
           ]
         }
       },
-      "/files/home/count": {
+      "/files/home": {
         "get": {
-          "operationId": "FilesController_getHomeFilesCount",
-          "summary": "Get home images count",
+          "operationId": "FilesController_getHomeFiles",
+          "summary": "Get home images",
           "parameters": [],
           "responses": {
             "200": {
@@ -348,7 +412,10 @@ window.onload = function() {
               "content": {
                 "application/json": {
                   "schema": {
-                    "type": "number"
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/StoredFile"
+                    }
                   }
                 }
               }
@@ -357,9 +424,7 @@ window.onload = function() {
           "tags": [
             "Static files"
           ]
-        }
-      },
-      "/files/home": {
+        },
         "post": {
           "operationId": "FilesController_createHomeImage",
           "summary": "Create slider image",
@@ -389,6 +454,28 @@ window.onload = function() {
           ]
         }
       },
+      "/files/home/count": {
+        "get": {
+          "operationId": "FilesController_getHomeFilesCount",
+          "summary": "Get home images count",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Static files"
+          ]
+        }
+      },
       "/files/home/{id}": {
         "delete": {
           "operationId": "FilesController_removeHomeImage",
@@ -400,7 +487,7 @@ window.onload = function() {
               "in": "path",
               "description": "Slider image id for search",
               "schema": {
-                "type": "number"
+                "type": "string"
               }
             }
           ],
@@ -480,7 +567,7 @@ window.onload = function() {
               "required": true,
               "in": "query",
               "schema": {
-                "type": "number"
+                "type": "string"
               }
             },
             {
@@ -688,11 +775,164 @@ window.onload = function() {
           ]
         }
       },
+      "/categories": {
+        "post": {
+          "operationId": "CategoriesController_create",
+          "summary": "Create new category",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCategoryDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Categories"
+          ]
+        },
+        "get": {
+          "operationId": "CategoriesController_findAll",
+          "summary": "Get all categories",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Categories"
+          ]
+        }
+      },
+      "/categories/{id}": {
+        "get": {
+          "operationId": "CategoriesController_findOne",
+          "summary": "Get one category by id",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "description": "Category id to search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Categories"
+          ]
+        },
+        "patch": {
+          "operationId": "CategoriesController_update",
+          "summary": "Update one category by id",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "description": "Category id to search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateCategoryDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "Categories"
+          ]
+        },
+        "delete": {
+          "operationId": "CategoriesController_remove",
+          "summary": "Delete one category by id",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "description": "Category id to search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "Categories"
+          ]
+        }
+      },
       "/auth/login": {
         "post": {
           "operationId": "AuthController_login",
           "summary": "Login",
           "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginDto"
+                }
+              }
+            }
+          },
           "responses": {
             "201": {
               "description": ""
@@ -1407,52 +1647,31 @@ window.onload = function() {
     "servers": [],
     "components": {
       "schemas": {
-        "CreateCategoryDto": {
+        "CreateUserDto": {
           "type": "object",
           "properties": {
-            "title": {
+            "email": {
               "type": "string",
-              "example": "Книги",
-              "description": "Category title"
+              "example": "victorbarinov@gmail.com",
+              "description": "User email"
+            },
+            "password": {
+              "type": "string",
+              "example": "123456789",
+              "description": "User password"
             }
           },
           "required": [
-            "title"
-          ]
-        },
-        "Category": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number",
-              "example": "1",
-              "description": "Category id"
-            },
-            "title": {
-              "type": "string",
-              "example": "Книги",
-              "description": "Category title"
-            },
-            "advertisements": {
-              "description": "This category's advertisements",
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/Advertisement"
-              }
-            }
-          },
-          "required": [
-            "id",
-            "title",
-            "advertisements"
+            "email",
+            "password"
           ]
         },
         "Address": {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "example": "1",
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
               "description": "User address id"
             },
             "country": {
@@ -1496,12 +1715,71 @@ window.onload = function() {
             "flatNumber"
           ]
         },
+        "Category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
+              "description": "Category id"
+            },
+            "title": {
+              "type": "string",
+              "example": "Книги",
+              "description": "Category title"
+            },
+            "advertisements": {
+              "description": "This category's advertisements",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Advertisement"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "advertisements"
+          ]
+        },
+        "Role": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
+              "description": "Role id"
+            },
+            "value": {
+              "type": "string",
+              "enum": [
+                "Admin",
+                "User",
+                "Guest",
+                "Other"
+              ],
+              "description": "Role value"
+            },
+            "users": {
+              "description": "Users with such role",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "value",
+            "users"
+          ]
+        },
         "User": {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "example": "1",
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
               "description": "User id"
             },
             "name": {
@@ -1568,6 +1846,13 @@ window.onload = function() {
               "items": {
                 "$ref": "#/components/schemas/Advertisement"
               }
+            },
+            "roles": {
+              "description": "Roles this user has",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Role"
+              }
             }
           },
           "required": [
@@ -1582,15 +1867,16 @@ window.onload = function() {
             "address",
             "salesList",
             "wishList",
-            "purchasesList"
+            "purchasesList",
+            "roles"
           ]
         },
         "Advertisement": {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "example": "1",
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
               "description": "Advertisement id"
             },
             "title": {
@@ -1663,19 +1949,6 @@ window.onload = function() {
             "buyer"
           ]
         },
-        "UpdateCategoryDto": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string",
-              "example": "Книги",
-              "description": "Category title"
-            }
-          },
-          "required": [
-            "title"
-          ]
-        },
         "CreateAddressDto": {
           "type": "object",
           "properties": {
@@ -1717,52 +1990,6 @@ window.onload = function() {
             "street",
             "houseNumber",
             "flatNumber"
-          ]
-        },
-        "CreateUserDto": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "Victor",
-              "description": "User name"
-            },
-            "surname": {
-              "type": "string",
-              "example": "Barinov",
-              "description": "User surname"
-            },
-            "phoneNumber": {
-              "type": "string",
-              "example": "+375298672635",
-              "description": "User phone number"
-            },
-            "email": {
-              "type": "string",
-              "example": "victorbarinov@gmail.com",
-              "description": "User email"
-            },
-            "password": {
-              "type": "string",
-              "example": "123456789",
-              "description": "User password"
-            },
-            "address": {
-              "description": "User address",
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/CreateAddressDto"
-                }
-              ]
-            }
-          },
-          "required": [
-            "name",
-            "surname",
-            "phoneNumber",
-            "email",
-            "password",
-            "address"
           ]
         },
         "UpdateUserDto": {
@@ -1811,6 +2038,67 @@ window.onload = function() {
             "address"
           ]
         },
+        "ChangeRoleDto": {
+          "type": "object",
+          "properties": {
+            "user": {
+              "description": "User changing roles for who (need to extract user id)",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/User"
+                }
+              ]
+            },
+            "role": {
+              "description": "Role which should be added/removed (need to extract role id)",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Role"
+                }
+              ]
+            }
+          },
+          "required": [
+            "user",
+            "role"
+          ]
+        },
+        "CreateRoleDto": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "enum": [
+                "Admin",
+                "User",
+                "Guest",
+                "Other"
+              ],
+              "description": "Role value"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        },
+        "UpdateRoleDto": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "enum": [
+                "Admin",
+                "User",
+                "Guest",
+                "Other"
+              ],
+              "description": "Role value"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        },
         "StreamableFile": {
           "type": "object",
           "properties": {}
@@ -1819,8 +2107,8 @@ window.onload = function() {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "example": "1",
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
               "description": "Special file id"
             },
             "filename": {
@@ -2001,6 +2289,36 @@ window.onload = function() {
             "category"
           ]
         },
+        "CreateCategoryDto": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Книги",
+              "description": "Category title"
+            }
+          },
+          "required": [
+            "title"
+          ]
+        },
+        "UpdateCategoryDto": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Книги",
+              "description": "Category title"
+            }
+          },
+          "required": [
+            "title"
+          ]
+        },
+        "LoginDto": {
+          "type": "object",
+          "properties": {}
+        },
         "ConfirmVerificationDto": {
           "type": "object",
           "properties": {
@@ -2049,8 +2367,8 @@ window.onload = function() {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "example": "1",
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
               "description": "Person id"
             },
             "name": {
@@ -2130,8 +2448,8 @@ window.onload = function() {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "example": "1",
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
               "description": "Faq id"
             },
             "question": {
@@ -2174,8 +2492,8 @@ window.onload = function() {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "example": "1",
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
               "description": "Help questions category id"
             },
             "title": {
@@ -2201,8 +2519,8 @@ window.onload = function() {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "example": "1",
+              "type": "string",
+              "example": "dba8cd51-8c6b-4f16-a710-64d0957c4812",
               "description": "Help question id"
             },
             "title": {

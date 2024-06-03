@@ -37,20 +37,12 @@ export class UsersService {
             throw new BadRequestException('User with such email already exists');
         }
 
-        if (createUserDto.address) {
-            const address: Address = await this.addressesRepository.save({
-                ...createUserDto.address,
-            });
-            createUserDto.address = address;
-        }
-
         const userRole: Role = await this.rolesService.findOneByValue(Roles.User);
 
         return await this.usersRepository.save({
             ...createUserDto,
             password: await argon2.hash(createUserDto.password),
             roles: [userRole],
-            // address: address,
         });
     }
 
@@ -118,8 +110,6 @@ export class UsersService {
             address.flatNumber = updateUserDto.address.flatNumber || null;
 
             await this.addressesRepository.save(address);
-
-            // await this.addressesRepository.update(user.address.id, updateUserDto.address);
         }
 
         if (image) {

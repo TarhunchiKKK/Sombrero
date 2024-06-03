@@ -34,6 +34,13 @@ export class FilesController {
         return this.filesService.downloadFile(filename);
     }
 
+    @ApiOperation({ summary: 'Get home images' })
+    @ApiResponse({ status: 200, type: [StoredFile] })
+    @Get('home')
+    public getHomeFiles(): Promise<StoredFile[]> {
+        return this.storedFilesService.findAll();
+    }
+
     @ApiOperation({ summary: 'Get home images count' })
     @ApiResponse({ status: 200, type: Number })
     @RequiredRoles(Roles.Admin)

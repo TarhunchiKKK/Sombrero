@@ -35,7 +35,6 @@ export class AuthService {
             this.createUserDtos = this.createUserDtos.filter((dto) => dto.email !== createUserDto.email);
 
             const user: User = await this.usersService.create(createUserDto);
-            console.log(`Auth service: ${user}`);
             return {
                 user: user,
                 token: await this.jwtService.sign({ id: user.id, email: user.email }),
