@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ScreenSizes } from '../enums/screen-size.enum';
 
 @Entity()
 export class StoredFile {
@@ -10,4 +11,8 @@ export class StoredFile {
     @ApiProperty({ example: 'BLg4CPSHJ3WPvXbY1vDfQOPQ8HYxajge.jpeg', description: 'Special file name' })
     @Column({ nullable: false })
     filename: string;
+
+    @ApiProperty({ enum: ScreenSizes, description: 'Screen size for this file' })
+    @Column({ nullable: true })
+    screenSize: ScreenSizes;
 }

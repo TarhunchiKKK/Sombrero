@@ -71,4 +71,3 @@ INSERT INTO public.user_roles_role ("userId", "roleId") VALUES (6, 2);
 
 INSERT INTO public.user_wish_list_advertisement ("userId", "advertisementId") VALUES (1, 7);
 INSERT INTO public.user_wish_list_advertisement ("userId", "advertisementId") VALUES (2, 19);
-

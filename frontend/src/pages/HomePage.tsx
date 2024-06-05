@@ -1,9 +1,10 @@
 import { useGetHomeImagesQuery } from '../../entities/home';
-import { SERVER_URL } from '../../shared';
+import { ScreenSizes, SERVER_URL, useScreenSize } from '../../shared';
 import { Slider } from '../../widgets/slider/Slider';
 
 export function HomePage() {
-    const { data: images } = useGetHomeImagesQuery();
+    const screenSize: ScreenSizes = useScreenSize();
+    const { data: images } = useGetHomeImagesQuery(screenSize);
 
     return (
         <section id='home'>

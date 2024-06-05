@@ -1,4 +1,5 @@
 import {
+    Body,
     Controller,
     Delete,
     Get,
@@ -9,7 +10,7 @@ import {
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { StoredFilesService } from './services/stored-files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { StoredFile } from './entities/stored-file.entiry';
@@ -17,6 +18,8 @@ import { FilesService } from './services/files.service';
 import { RequiredRoles } from 'src/roles/decorators/roles.decorator';
 import { RolesGuard } from 'src/roles/middleware/roles.guard';
 import { Roles } from 'src/roles/enums/roles.enum';
+import { ScreenSizes } from './enums/screen-size.enum';
+import { CreateStoredFileDto } from './dto/create-stored-file.dto';
 
 @ApiTags('Static files')
 @Controller('files')
@@ -25,13 +28,6 @@ export class FilesController {
         private readonly storedFilesService: StoredFilesService,
         private readonly filesService: FilesService,
     ) {}
-
-    @ApiOperation({ summary: 'Get home images' })
-    @ApiResponse({ status: 200, type: [StoredFile] })
-    @Get('home')
-    public async getHomeFiles(): Promise<StoredFile[]> {
-        return await this.storedFilesService.findAll();
-    }
 
     @ApiOperation({ summary: 'Get home images count' })
     @ApiResponse({ status: 200, type: Number })
@@ -42,15 +38,27 @@ export class FilesController {
         return this.storedFilesService.getCount();
     }
 
+    @ApiOperation({ summary: 'Get home images' })
+    @ApiParam({ name: 'screen', enum: ScreenSizes, description: 'Screen size for searched image' })
+    @ApiResponse({ status: 200, type: [StoredFile] })
+    @Get('home/:screen')
+    public async getHomeFiles(@Param('screen') screenSize: ScreenSizes): Promise<StoredFile[]> {
+        return await this.storedFilesService.findAll(screenSize);
+    }
+
     @ApiOperation({ summary: 'Create slider image' })
+    @ApiBody({ type: CreateStoredFileDto })
     @ApiParam({ name: 'image', description: 'Slider image file' })
     @ApiResponse({ status: 200, type: StoredFile })
     @RequiredRoles(Roles.Admin)
     @UseGuards(RolesGuard)
     @UseInterceptors(FileInterceptor('image'))
     @Post('/home')
-    public createHomeImage(@UploadedFile() file: Express.Multer.File): Promise<StoredFile> {
-        return this.storedFilesService.create(file);
+    public createHomeImage(
+        @Body() dto: CreateStoredFileDto,
+        @UploadedFile() file: Express.Multer.File,
+    ): Promise<StoredFile> {
+        return this.storedFilesService.create(dto, file);
     }
 
     @ApiOperation({ summary: 'Remove slider image' })

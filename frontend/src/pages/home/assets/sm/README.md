@@ -1,1 +1,0 @@
-# Here will be slider images for small screens
