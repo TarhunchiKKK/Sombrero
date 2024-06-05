@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getFaqs, IFaq } from '../../entities/help';
-import { Accordeon } from '../../widgets/accordeon';
-import { useGetFaqsQuery } from '../../entities/faqs';
+import { Accordeon } from '../widgets/accordeon';
+import { useGetFaqsQuery } from '../entities/faqs';
 
-export function FaqPage() {
+export function FaqsPage() {
     const { data: faqs } = useGetFaqsQuery();
 
     return (

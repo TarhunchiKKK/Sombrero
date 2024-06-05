@@ -1,4 +1,4 @@
 export { HomePage } from './HomePage';
 export { HelpPage } from './help/HelpPage';
-export { FaqPage } from './faq/FaqPage';
-export { ContactsPage } from './contacts/ContactsPage';
+export { FaqsPage } from './FaqsPage';
+export { ContactsPage } from './ContactsPage';

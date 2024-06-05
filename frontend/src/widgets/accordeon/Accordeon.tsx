@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { AccordeonItem } from './AccordeonItem';
-import { IFaq } from '../../../entities/faqs';
+import { AccordeonItem } from './components/AccordeonItem';
+import { IFaq } from '../../entities/faqs';
 
 interface Props {
     items: IFaq[];
@@ -24,7 +24,7 @@ export function Accordeon({ items }: Props) {
                     item={item}
                     isOpen={currentItem === idx}
                     onClick={() => itemClickHandler(idx)}
-                    key={idx}></AccordeonItem>
+                    key={item.id}></AccordeonItem>
             ))}
         </div>
     );

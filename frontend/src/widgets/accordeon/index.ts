@@ -1,1 +1,1 @@
-export { Accordeon } from './components/Accordeon'
+export { Accordeon } from './Accordeon';

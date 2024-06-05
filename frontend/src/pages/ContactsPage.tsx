@@ -1,6 +1,6 @@
-import { useGetContactsQuery } from '../../entities/contact';
-import { SERVER_URL } from '../../shared';
-import { Contact } from '../../widgets/contact';
+import { useGetContactsQuery } from '../entities/contact';
+import { SERVER_URL } from '../shared';
+import { Contact } from '../widgets/contact';
 
 export function ContactsPage() {
     const { data: contacts } = useGetContactsQuery();
