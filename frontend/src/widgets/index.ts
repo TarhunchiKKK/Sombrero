@@ -5,5 +5,4 @@ export { Contact } from './contact';
 export { Footer } from './footer';
 export { Header } from './header';
 export { HelpQuestions } from './help-questions';
-export { Loader } from './loader';
 export { Slider } from './slider';
