@@ -1,6 +1,6 @@
-import { useGetHomeImagesQuery } from '../../entities/home';
-import { ScreenSizes, SERVER_URL, useScreenSize } from '../../shared';
-import { Slider } from '../../widgets/slider/Slider';
+import { useGetHomeImagesQuery } from '../entities/home';
+import { ScreenSizes, SERVER_URL, useScreenSize } from '../shared';
+import { Slider } from '../widgets';
 
 export function HomePage() {
     const screenSize: ScreenSizes = useScreenSize();
