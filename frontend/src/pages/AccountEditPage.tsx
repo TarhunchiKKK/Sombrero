@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IUpdateUserDto, IUserInfo, updateUser } from '../../entities/user';
+import { IUpdateUserDto, IUserInfo, updateUser } from '../entities/user';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store/store';
+import { RootState } from '../app/store/store';
 
 const inputStyle: string = 'w-full h-10 px-4 bg-gray-300 border-none outline-none outline rounded-lg';
 
 export function AccountEditPage() {
-    const user: IUserInfo = useSelector((state: RootState) => state.user.currentUser);
+    const user: IUserInfo = useSelector((state: RootState) => state.user.currentUser!);
     const navigate = useNavigate();
     const formRef = useRef<HTMLFormElement>(null);
 
