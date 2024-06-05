@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app';
 import { AdvertisementsContainer, CategoriesContainer } from '../widgets';
-import { Search } from '../shared';
+import { PageTitle, Search } from '../shared';
 import { resetSearchCategory } from '../entities';
 
 export function AdvertisementsPage() {
@@ -15,7 +15,7 @@ export function AdvertisementsPage() {
     return (
         <main className='py-6 px-2 sm:px-0 relative'>
             <div className='container mx-auto'>
-                <h2 className='section-title'>Каталог</h2>
+                <PageTitle title='Каталог' />
 
                 <Search
                     className='mx-auto mb-6 sm:mb-14 lg:mb-18'

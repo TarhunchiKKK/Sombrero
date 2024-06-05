@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetHelpQuery } from '../entities';
-import { Search } from '../shared';
+import { PageTitle, Search } from '../shared';
 import { HelpQuestions } from '../widgets';
 
 export function HelpPage() {
@@ -10,7 +10,7 @@ export function HelpPage() {
     return (
         <section className='pt-[100px] pb-[94px]'>
             <div className='container mx-auto'>
-                <h2 className='section-title'>Поиск по вопросам</h2>
+                <PageTitle title='Поиск по вопросам' />
 
                 {/* Search form */}
                 <Search
