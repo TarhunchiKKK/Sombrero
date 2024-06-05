@@ -5,11 +5,11 @@ import {
     getOneAdvertisement,
     IAdvertisement,
     likeAdvertisement,
-} from '../../entities/advertisement';
-import { SERVER_URL } from '../../shared';
+} from '../entities/advertisement';
+import { SERVER_URL } from '../shared';
 import { useParams } from 'react-router-dom';
-import { AuthModalContext } from '../../widgets/authModal/context/AuthModalContext';
-import { useAuth } from '../../shared/hooks/useAuth';
+import { AuthModalContext } from '../widgets/authModal/context/AuthModalContext';
+import { useAuth } from '../shared/hooks/useAuth';
 
 const userId: number = 1;
 

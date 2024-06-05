@@ -1,10 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { AdvertisementPage } from '../../pages/advertisement/AdvertisementPage';
-import { AccountPage } from '../../pages/account/AccountPage';
-import { AccountEditPage } from '../../pages/account/AccountEditPage';
+import { AccountPage } from '../../pages/AccountPage';
+import { AccountEditPage } from '../../pages/AccountEditPage';
 import { Layout } from '../layout/Layout';
-import { ContactsPage, FaqPage, HelpPage, HomePage } from '../../pages';
-import { AdvertisementsPage } from '../../pages/advertisements/AdvertisementsPage';
+import { AdvertisementPage, AdvertisementsPage, ContactsPage, FaqsPage, HelpPage, HomePage } from '../../pages';
 
 export const router = createBrowserRouter([
     {
@@ -39,7 +37,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'faqs',
-                element: <FaqPage />,
+                element: <FaqsPage />,
             },
             {
                 path: 'contacts',

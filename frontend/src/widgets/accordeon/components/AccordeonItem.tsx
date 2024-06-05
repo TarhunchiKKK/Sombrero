@@ -1,4 +1,5 @@
 import { IFaq } from '../../../entities/faqs';
+import { FaAngleLeft } from 'react-icons/fa6';
 
 export interface AccordeonItemProps {
     item: IFaq;
@@ -7,24 +8,30 @@ export interface AccordeonItemProps {
 }
 
 export function AccordeonItem({ item, isOpen, onClick }: AccordeonItemProps) {
-    const questionStyle: string = isOpen
+    const questionClass: string = isOpen
         ? 'cursor-pointer h-14 px-4 py-1 flex justify-between items-center border-[#BEC2C6] border-2 main-gradient'
         : 'cursor-pointer h-14 px-4 py-1 flex justify-between items-center border-[#BEC2C6] border-2';
 
-    const answerStyle: string = isOpen
-        ? 'bg-gray-200 border-[#BEC2C6] border-2 border-t-0 px-4 py-1 block '
-        : 'bg-gray-200 border-[#BEC2C6] border-2 border-t-0 px-4 py-1 hidden ';
+    const answerClass: string = isOpen ? 'border-[#BEC2C6] border-2 border-t-0 px-4 py-1' : '';
 
-    const angleStyle: string = isOpen ? 'rotate-180 fa-solid fa-angle-up' : '-rotate-90 fa-solid fa-angle-up';
+    const answerStyle = {
+        backgroundColor: 'rgb(229 231 235)',
+        overflow: 'hidden',
+        transition: 'max-height 0.2s ease-out',
+        maxHeight: isOpen ? undefined : '0px',
+    };
 
     return (
         <div className='-mt-[2px] first:mt-0'>
-            <div onClick={onClick} className={questionStyle}>
+            <div onClick={onClick} className={questionClass}>
                 <span className='text-3xl'>{item.question}</span>
-                <i className={angleStyle}></i>
+                <FaAngleLeft
+                    style={{ width: '24px', height: '24px', transitionDuration: '600ms' }}
+                    className={isOpen ? '-rotate-90' : ''}
+                />
             </div>
 
-            <div className={answerStyle}>
+            <div style={answerStyle} className={answerClass}>
                 <p className='text-xl'>{item.answer}</p>
             </div>
         </div>

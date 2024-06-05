@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { Search } from '../../shared';
-import { AdvertisementsContainer, CategoriesContainer } from '../../widgets';
 import { useState } from 'react';
-import { resetSearchCategory } from '../../entities/advertisement';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store/store';
+import { RootState } from '../app';
+import { AdvertisementsContainer, CategoriesContainer } from '../widgets';
+import { Search } from '../shared';
+import { resetSearchCategory } from '../entities';
 
 export function AdvertisementsPage() {
     const dispatch = useDispatch();
