@@ -1,21 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Search } from '../../shared';
-import { HelpQuestions } from '../../widgets/help-questions';
-import { getHelpQuestions, IHelpQuestionsCategory, useGetHelpQuery } from '../../entities/help';
+import { useGetHelpQuery } from '../entities';
+import { Search } from '../shared';
+import { HelpQuestions } from '../widgets';
 
 export function HelpPage() {
     const [searchedQuestion, setSearchedQuestion] = useState<string>('');
-    // const [questionsGroups, setQustionsGroups] = useState<IHelpQuestionsCategory[]>([]);
-
-    // useEffect(() => {
-    //     async function fetchHelpQuestions() {
-    //         const data: IHelpQuestionsCategory[] = await getHelpQuestions();
-    //         setQustionsGroups(data);
-    //     }
-
-    //     fetchHelpQuestions();
-    // }, []);
-
     const { data: questionsGroups } = useGetHelpQuery();
 
     return (
