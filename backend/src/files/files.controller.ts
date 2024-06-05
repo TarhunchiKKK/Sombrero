@@ -26,19 +26,11 @@ export class FilesController {
         private readonly filesService: FilesService,
     ) {}
 
-    @ApiOperation({ summary: 'Send requested file' })
-    @ApiParam({ name: 'filename', description: 'Downloaded file name' })
-    @ApiResponse({ status: 200, type: StreamableFile })
-    @Get(':filename')
-    public downloadFile(@Param('filename') filename: string): StreamableFile {
-        return this.filesService.downloadFile(filename);
-    }
-
     @ApiOperation({ summary: 'Get home images' })
     @ApiResponse({ status: 200, type: [StoredFile] })
     @Get('home')
-    public getHomeFiles(): Promise<StoredFile[]> {
-        return this.storedFilesService.findAll();
+    public async getHomeFiles(): Promise<StoredFile[]> {
+        return await this.storedFilesService.findAll();
     }
 
     @ApiOperation({ summary: 'Get home images count' })
@@ -68,5 +60,13 @@ export class FilesController {
     @Delete('/home/:id')
     public removeHomeImage(@Param('id') id: string) {
         this.storedFilesService.remove(id);
+    }
+
+    @ApiOperation({ summary: 'Send requested file' })
+    @ApiParam({ name: 'filename', description: 'Downloaded file name' })
+    @ApiResponse({ status: 200, type: StreamableFile })
+    @Get(':filename')
+    public downloadFile(@Param('filename') filename: string): StreamableFile {
+        return this.filesService.downloadFile(filename);
     }
 }

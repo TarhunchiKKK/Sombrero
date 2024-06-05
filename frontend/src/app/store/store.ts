@@ -8,6 +8,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { faqsApi } from '../../entities/faqs';
 import { helpApi } from '../../entities/help';
+import { storedFilesApi } from '../../entities/home';
 
 export const store = configureStore({
     reducer: {
@@ -19,10 +20,15 @@ export const store = configureStore({
         [contactsApi.reducerPath]: contactsApi.reducer,
         [faqsApi.reducerPath]: faqsApi.reducer,
         [helpApi.reducerPath]: helpApi.reducer,
+        [storedFilesApi.reducerPath]: storedFilesApi.reducer,
     },
 
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(contactsApi.middleware).concat(faqsApi.middleware).concat(helpApi.middleware),
+        getDefaultMiddleware()
+            .concat(contactsApi.middleware)
+            .concat(faqsApi.middleware)
+            .concat(helpApi.middleware)
+            .concat(storedFilesApi.middleware),
 });
 
 setupListeners(store.dispatch);

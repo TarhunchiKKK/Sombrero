@@ -1,14 +1,13 @@
-import { getWindowSize } from '../../shared';
-import { Slider } from '../../widgets/slider/components/Slider';
-import { sliderImages } from './consts/SliderImages';
+import { useGetHomeImagesQuery } from '../../entities/home';
+import { Slider } from '../../widgets/slider/Slider';
 
 export function HomePage() {
-    const windowSize: string = getWindowSize();
+    const { data: images } = useGetHomeImagesQuery();
 
     return (
         <section id='home'>
             {/* Slider */}
-            <Slider getImages={() => sliderImages[windowSize]} />
+            {images && <Slider images={images.map((image) => image.filename)} />}
         </section>
     );
 }

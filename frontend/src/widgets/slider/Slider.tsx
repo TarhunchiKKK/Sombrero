@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // styles for slides
 const visibleSlideStyle: string = 'w-full h-full';
@@ -8,13 +8,12 @@ const hiddenSlideStyle: string = 'w-full h-full hidden';
 const filledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black bg-[#3E3E3E]';
 const unfilledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black';
 
-interface SliderProps {
-    getImages: () => any[];
+interface ISliderProps {
+    images: string[];
 }
 
-export function Slider({ getImages }: SliderProps) {
+export function Slider({ images }: ISliderProps) {
     // slides count is immutable
-    const images: any[] = useMemo(() => getImages(), []);
     const slidesCount: number = images.length;
     const [currentSlide, setCurrentSlide] = useState<number>(0);
 

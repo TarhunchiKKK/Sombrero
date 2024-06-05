@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import { AuthModalLayout } from './widgets/authModal/context/AuthModalContext.tsx';
 import { App } from './App.tsx';
-import { ContactsPage, FaqPage, HelpPage } from './pages/index.ts';
+import { ContactsPage, FaqPage, HelpPage, HomePage } from './pages/index.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             {/* <AuthModalLayout>
                 <App />
             </AuthModalLayout> */}
-            <HelpPage />
+            <HomePage />
         </Provider>
     </React.StrictMode>,
 );
