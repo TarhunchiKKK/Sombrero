@@ -1,4 +1,5 @@
 import { useGetContactsQuery } from '../../entities/contact';
+import { SERVER_URL } from '../../shared';
 import { Contact } from '../../widgets/contact';
 
 export function ContactsPage() {
@@ -11,7 +12,12 @@ export function ContactsPage() {
 
                 {/* Contacts */}
                 <div className='flex flex-col'>
-                    {contacts?.map((contact, idx) => <Contact contact={contact} key={idx} />)}
+                    {contacts?.map((contact) => (
+                        <Contact
+                            key={contact.id}
+                            contact={{ ...contact, photo: `${SERVER_URL}/files/${contact.photo}` }}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
