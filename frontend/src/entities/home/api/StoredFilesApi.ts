@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { SERVER_URL } from '../../../shared';
+import { ScreenSizes, SERVER_URL } from '../../../shared';
 import { IStoredFile } from '../models/StoredFile';
 
 export const storedFilesApi = createApi({
@@ -8,9 +8,9 @@ export const storedFilesApi = createApi({
         baseUrl: `${SERVER_URL}/files`,
     }),
     endpoints: (build) => ({
-        getHomeImages: build.query<IStoredFile[], void>({
-            query: () => ({
-                url: '/home',
+        getHomeImages: build.query<IStoredFile[], ScreenSizes>({
+            query: (screenSize: ScreenSizes) => ({
+                url: `/home/${screenSize}`,
             }),
         }),
         getHomeImagesCount: build.query<number, void>({

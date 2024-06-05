@@ -5,7 +5,7 @@ const visibleSlideStyle: string = 'w-full h-full';
 const hiddenSlideStyle: string = 'w-full h-full hidden';
 
 // slides for dots
-const filledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black bg-[#3E3E3E]';
+const filledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black bg-black';
 const unfilledDotStyle: string = 'w-4 h-4 border-2 rounded-full border-black';
 
 interface ISliderProps {
@@ -36,7 +36,7 @@ export function Slider({ images }: ISliderProps) {
             {/* Slider images */}
             <div className='fixed top-0 left-0 z-20 w-screen h-screen'>
                 {images.map((image, index) => (
-                    <div className={index === currentSlide ? visibleSlideStyle : hiddenSlideStyle} key={index}>
+                    <div className={index === currentSlide ? visibleSlideStyle : hiddenSlideStyle} key={image}>
                         <img className='w-full h-full object-cover object-center' src={image} alt={`Slide${index}`} />
                     </div>
                 ))}
@@ -45,7 +45,7 @@ export function Slider({ images }: ISliderProps) {
             {/* Dots for slides  */}
             <ul
                 id='slider-dots'
-                className='absolute bottom-9 left-1/2 -translate-x-1/2 flex justify-between items-center w-52 md:w-1/3'>
+                className='absolute bottom-9 left-1/2 -translate-x-1/2 flex justify-between items-center w-48 md:w-1/3 z-30'>
                 {images.map((_, index) => (
                     <li
                         onClick={() => setCurrentSlide(index)}

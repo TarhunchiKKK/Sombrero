@@ -369,28 +369,18 @@ window.onload = function() {
           ]
         }
       },
-      "/files/{filename}": {
+      "/files/home/count": {
         "get": {
-          "operationId": "FilesController_downloadFile",
-          "summary": "Send requested file",
-          "parameters": [
-            {
-              "name": "filename",
-              "required": true,
-              "in": "path",
-              "description": "Downloaded file name",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
+          "operationId": "FilesController_getHomeFilesCount",
+          "summary": "Get home images count",
+          "parameters": [],
           "responses": {
             "200": {
               "description": "",
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/StreamableFile"
+                    "type": "number"
                   }
                 }
               }
@@ -401,11 +391,30 @@ window.onload = function() {
           ]
         }
       },
-      "/files/home": {
+      "/files/home/{screen}": {
         "get": {
           "operationId": "FilesController_getHomeFiles",
           "summary": "Get home images",
-          "parameters": [],
+          "parameters": [
+            {
+              "name": "screen",
+              "required": true,
+              "in": "path",
+              "description": "Screen size for searched image",
+              "schema": {
+                "enum": [
+                  "xs",
+                  "sm",
+                  "md",
+                  "lg",
+                  "xl",
+                  "xxl",
+                  "other"
+                ],
+                "type": "string"
+              }
+            }
+          ],
           "responses": {
             "200": {
               "description": "",
@@ -424,7 +433,9 @@ window.onload = function() {
           "tags": [
             "Static files"
           ]
-        },
+        }
+      },
+      "/files/home": {
         "post": {
           "operationId": "FilesController_createHomeImage",
           "summary": "Create slider image",
@@ -437,6 +448,16 @@ window.onload = function() {
               "schema": {}
             }
           ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateStoredFileDto"
+                }
+              }
+            }
+          },
           "responses": {
             "200": {
               "description": "",
@@ -444,28 +465,6 @@ window.onload = function() {
                 "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/StoredFile"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "Static files"
-          ]
-        }
-      },
-      "/files/home/count": {
-        "get": {
-          "operationId": "FilesController_getHomeFilesCount",
-          "summary": "Get home images count",
-          "parameters": [],
-          "responses": {
-            "200": {
-              "description": "",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "number"
                   }
                 }
               }
@@ -494,6 +493,38 @@ window.onload = function() {
           "responses": {
             "200": {
               "description": ""
+            }
+          },
+          "tags": [
+            "Static files"
+          ]
+        }
+      },
+      "/files/{filename}": {
+        "get": {
+          "operationId": "FilesController_downloadFile",
+          "summary": "Send requested file",
+          "parameters": [
+            {
+              "name": "filename",
+              "required": true,
+              "in": "path",
+              "description": "Downloaded file name",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/StreamableFile"
+                  }
+                }
+              }
             }
           },
           "tags": [
@@ -2099,10 +2130,6 @@ window.onload = function() {
             "value"
           ]
         },
-        "StreamableFile": {
-          "type": "object",
-          "properties": {}
-        },
         "StoredFile": {
           "type": "object",
           "properties": {
@@ -2115,12 +2142,51 @@ window.onload = function() {
               "type": "string",
               "example": "BLg4CPSHJ3WPvXbY1vDfQOPQ8HYxajge.jpeg",
               "description": "Special file name"
+            },
+            "screenSize": {
+              "type": "string",
+              "enum": [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+                "xxl",
+                "other"
+              ],
+              "description": "Screen size for this file"
             }
           },
           "required": [
             "id",
-            "filename"
+            "filename",
+            "screenSize"
           ]
+        },
+        "CreateStoredFileDto": {
+          "type": "object",
+          "properties": {
+            "screenSize": {
+              "type": "string",
+              "enum": [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+                "xxl",
+                "other"
+              ],
+              "description": "Screen size for this image"
+            }
+          },
+          "required": [
+            "screenSize"
+          ]
+        },
+        "StreamableFile": {
+          "type": "object",
+          "properties": {}
         },
         "CreateAdvertisementDto": {
           "type": "object",

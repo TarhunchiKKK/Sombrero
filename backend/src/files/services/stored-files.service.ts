@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { StoredFile } from '../entities/stored-file.entiry';
 import { Repository } from 'typeorm';
 import { FilesService } from './files.service';
+import { ScreenSizes } from '../enums/screen-size.enum';
+import { CreateStoredFileDto } from '../dto/create-stored-file.dto';
 
 @Injectable()
 export class StoredFilesService {
@@ -11,14 +13,18 @@ export class StoredFilesService {
         private filesService: FilesService,
     ) {}
 
-    public async findAll(): Promise<StoredFile[]> {
-        return await this.storedFilesRepository.find();
+    public async findAll(screenSize: ScreenSizes): Promise<StoredFile[]> {
+        return await this.storedFilesRepository.find({
+            where: {
+                screenSize: screenSize,
+            },
+        });
     }
 
-    public async create(file: Express.Multer.File): Promise<StoredFile> {
+    public async create(dto: CreateStoredFileDto, file: Express.Multer.File): Promise<StoredFile> {
         if (file) {
             const filename = this.filesService.createFile(file);
-            return await this.storedFilesRepository.save({ filename });
+            return await this.storedFilesRepository.save({ filename, screenSize: dto.screenSize });
         }
         throw new BadRequestException('File not found');
     }
